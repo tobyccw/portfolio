@@ -7,6 +7,7 @@ import {
   useLocation
 } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import { Analytics } from '@vercel/analytics/react';
 
 import Header from './components/Header';
 import projects from './data/projects';
@@ -239,6 +240,7 @@ function App() {
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </Suspense>
+      <Analytics />
     </BrowserRouter>
   );
 }
