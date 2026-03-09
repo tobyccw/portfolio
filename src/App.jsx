@@ -91,6 +91,11 @@ function HomePage() {
                         <span>{project.title}</span>
                       </div>
                     )}
+                    {!project.available && (
+                      <div className="work-coming-soon">
+                        <span>Coming Soon</span>
+                      </div>
+                    )}
                   </div>
                   <h4 className="work-title">{project.title}</h4>
                   <p className="work-subtitle">{project.subtitle}</p>
