@@ -1,0 +1,82 @@
+{
+  "slug": "livi-app-revamp",
+  "title": "livi App Revamp",
+  "subtitle": "Transforming livi Bank's design operations",
+  "hero_image": "/images/case-studies/livi-app-revamp/hero.jpg",
+  "disciplines": [
+    "UXUI Design",
+    "Interaction Design",
+    "Product Strategy",
+    "Research",
+    "Art Direction"
+  ],
+  "role": "UXUI Lead, Design Ops",
+  "year": "2021",
+  "problem_statement": [
+    "A year into operations, we were stuck. Engineers burned 30% of sprint time tracking down specs scattered across PDFs. Fixing a typo meant waiting two weeks for an app release. Design patterns? Hong Kong had one approach, our overseas team another.",
+    "Five new financial products sat on the roadmap. Over 200,000 users depended on our platform. The infrastructure couldn't support either reality.",
+    "I brought together 15 people from design, engineering, product, legal, and marketing to diagnose the failures. What we needed wasn't just new tools. The workflows had to change. The systems had to change. How we collaborated as an organization had to change."
+  ],
+  "transformations_heading": "Key Transformations",
+  "transformations": [
+    {
+      "id": "design-system",
+      "title": "Design System 2.0",
+      "content": [
+        "Engineers kept building from scratch. Not because they wanted to, but because no shared blueprint existed. Each feature became a negotiation about which PDF had the right spacing or which Slack thread contained the approved color.",
+        "My solution focused on language, not just libraries. The team built 100+ components that can accommodate most of the use cases. But the real work was creating documentation engineers could actually understand. Storybook examples they could use right away. Interaction guidelines that answered questions before they were asked. A complete style guide that designers and developers could reference without translation.",
+        "Features now assemble from existing pieces rather than requiring new invention. Design time dropped 60%. Handoff cycles shortened from two days to four hours. More telling: engineers stopped pinging Slack asking how things should behave. The system spoke for itself."
+      ],
+      "images": {
+        "type": "full",
+        "src": "/images/case-studies/livi-app-revamp/design-system.jpg",
+        "border": true
+      }
+    },
+    {
+      "id": "copy-management",
+      "title": "Copy Management Revolution",
+      "content": [
+        "Marketing needed three words changed for a campaign launch. Legal had to review the copy. Engineering quoted two weeks because everything was hardcoded. That's when I realized we'd optimized ourselves into paralysis.",
+        "The architecture was wrong. Copy and code sat too close together. Separating them required more than swapping tools. Lokalise gave us OTA updates and approval workflows, which solved the technical problem. But I also had to redesign how teams worked together. Designer drafts, PM reviews clarity, Legal checks compliance, then publish. Four hours instead of two weeks, with SLAs that reflected business needs instead of technical constraints.",
+        "Translation errors fell 90% because context finally traveled alongside content instead of living in someone's head. Update speed increased 96%. But what mattered more was watching marketing move faster and legal maintain real oversight. Engineers stopped being copy gatekeepers."
+      ],
+      "images": {
+        "type": "full",
+        "src": "/images/case-studies/livi-app-revamp/lokalise.jpg",
+        "border": false
+      }
+    },
+    {
+      "id": "information-architecture",
+      "title": "Scalable Information Architecture",
+      "content": [
+        "User testing revealed a pattern. Someone would start a loan application, need to check their balance, and lose everything they'd entered. Page-based navigation made people choose between tasks when they actually needed to manage several things at once.",
+        "I designed the app to feel more like physical space than a website. Bottom sheets let users stack tasks the way you'd arrange papers on a desk. The foundation stays visible. You can always get back to where you started.",
+        "Task completion jumped from 62% to 85%. Support tickets asking where applications went dropped to almost nothing. Five new products launched using the same structure without requiring additional IA work."
+      ],
+      "images": {
+        "type": "dual",
+        "src": [
+          "/images/case-studies/livi-app-revamp/ia-mobile.jpg",
+          "/images/case-studies/livi-app-revamp/ia-comparison.jpg"
+        ]
+      }
+    }
+  ],
+  "results_heading": "What difference did we make?",
+  "metrics": [
+    {
+      "number": "40%",
+      "label": "Dev time reduction"
+    },
+    {
+      "number": "90%",
+      "label": "Fewer copy errors"
+    },
+    {
+      "number": "4.5",
+      "label": "App store rating"
+    }
+  ]
+}

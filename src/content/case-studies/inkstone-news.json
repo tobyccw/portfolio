@@ -1,0 +1,48 @@
+{
+  "slug": "inkstone-news",
+  "title": "Inkstone News",
+  "subtitle": "Improving editorial storytelling for mobile-first readers",
+  "hero_image": "/images/inkstone.jpg",
+  "disciplines": ["Product Design", "UX", "Content Strategy"],
+  "role": "Product Designer",
+  "year": "2019",
+  "problem_statement": [
+    "The legacy reading experience prioritized dense layouts over scannability, creating friction for users who mainly consumed stories on mobile.",
+    "The product needed clearer hierarchy for breaking news, richer article modules for explainers, and faster editorial publishing workflows."
+  ],
+  "transformations_heading": "Key Transformations",
+  "transformations": [
+    {
+      "id": "reading-flow",
+      "title": "Reading Flow Redesign",
+      "content": [
+        "Introduced a modular article structure with clearer visual hierarchy and section breaks to improve readability.",
+        "Reworked typography rhythm and spacing rules so long-form content remained comfortable across devices."
+      ],
+      "images": {
+        "type": "full",
+        "src": "/images/inkstone.jpg",
+        "border": false
+      }
+    },
+    {
+      "id": "editorial-system",
+      "title": "Editorial Component System",
+      "content": [
+        "Defined reusable components for pull quotes, timelines, key facts, and inline related stories.",
+        "This reduced one-off design effort and helped editorial teams publish richer story formats consistently."
+      ],
+      "images": {
+        "type": "full",
+        "src": "/images/scmp-cooking.jpg",
+        "border": false
+      }
+    }
+  ],
+  "results_heading": "What changed?",
+  "metrics": [
+    { "number": "+32%", "label": "Article completion" },
+    { "number": "-21%", "label": "Bounce rate" },
+    { "number": "2x", "label": "Reusable story modules" }
+  ]
+}

@@ -1,0 +1,170 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+:root {
+  /* ─── Font Family ──────────────────────────────────────── */
+  --font-family-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
+    Ubuntu, Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+
+  /* ─── Primitive: Weights ───────────────────────────────── */
+  --font-weight-regular:  400;
+  --font-weight-medium:   500;
+  --font-weight-semibold: 600;
+  --font-weight-bold:     700;
+
+  /* ─── Primitive: Sizes ─────────────────────────────────── */
+  --type-size-14: 14px;
+  --type-size-15: 15px;
+  --type-size-16: 16px;
+  --type-size-20: 20px;
+  --type-size-24: 24px;
+  --type-size-32: 32px;
+  --type-size-48: 48px;
+  --type-size-64: 64px;
+
+  /* ─── Primitive: Line Heights ──────────────────────────── */
+  --type-line-20: 20px;
+  --type-line-24: 24px;
+  --type-line-26: 26px;
+  --type-line-28: 28px;
+  --type-line-36: 36px;
+  --type-line-40: 40px;
+  --type-line-56: 56px;
+  --type-line-64: 64px;
+
+  /* ─── Primitive: Tracking ──────────────────────────────── */
+  --type-track-body:     -0.32px;   /* Body             */
+  --type-track-label:    -0.64px;   /* Label/Bold       */
+  --type-track-subtitle: -0.80px;   /* Subtitle / H4    */
+  --type-track-h3:       -0.96px;   /* H3               */
+  --type-track-heading:  -1.28px;   /* H2               */
+  --type-track-h1:       -1.92px;   /* H1               */
+  --type-track-display:  -2.56px;   /* Display          */
+
+  /* ═══════════════════════════════════════════════════════
+     TEXT STYLE TOKENS
+     ═══════════════════════════════════════════════════════ */
+
+  /* Display — 64 / Bold / 64 / -2.56px */
+  --ts-display-size:        var(--type-size-64);
+  --ts-display-weight:      var(--font-weight-bold);
+  --ts-display-line-height: var(--type-line-64);
+  --ts-display-tracking:    var(--type-track-display);
+
+  /* H1 — 48 / Bold / 56 / -1.92px */
+  --ts-h1-size:             var(--type-size-48);
+  --ts-h1-weight:           var(--font-weight-bold);
+  --ts-h1-line-height:      var(--type-line-56);
+  --ts-h1-tracking:         var(--type-track-h1);
+
+  /* H2 — 32 / Bold / 36 / -1.28px */
+  --ts-h2-size:             var(--type-size-32);
+  --ts-h2-weight:           var(--font-weight-bold);
+  --ts-h2-line-height:      var(--type-line-36);
+  --ts-h2-tracking:         var(--type-track-heading);
+
+  /* H3 — 24 / SemiBold / 26 / -0.96px */
+  --ts-h3-size:             var(--type-size-24);
+  --ts-h3-weight:           var(--font-weight-semibold);
+  --ts-h3-line-height:      var(--type-line-26);
+  --ts-h3-tracking:         var(--type-track-h3);
+
+  /* H4 — 20 / SemiBold / 28 / -0.80px */
+  --ts-h4-size:             var(--type-size-20);
+  --ts-h4-weight:           var(--font-weight-semibold);
+  --ts-h4-line-height:      var(--type-line-28);
+  --ts-h4-tracking:         var(--type-track-subtitle);   /* -0.80px = -4% at 20px */
+
+  /* Subtitle — 20 / Regular / 28 / -0.80px */
+  --ts-subtitle-size:        var(--type-size-20);
+  --ts-subtitle-weight:      var(--font-weight-regular);
+  --ts-subtitle-line-height: var(--type-line-28);
+  --ts-subtitle-tracking:    var(--type-track-subtitle);
+
+  /* Label — 16 / Bold / 24 / -0.64px */
+  --ts-label-size:           var(--type-size-16);
+  --ts-label-weight:         var(--font-weight-bold);
+  --ts-label-line-height:    var(--type-line-24);
+  --ts-label-tracking:       var(--type-track-label);
+
+  /* Body — 16 / Regular / 24 / -0.32px */
+  --ts-body-size:            var(--type-size-16);
+  --ts-body-weight:          var(--font-weight-regular);
+  --ts-body-line-height:     var(--type-line-24);
+  --ts-body-tracking:        var(--type-track-body);
+}
+
+/* ─── Breakpoints ───────────────────────────────────────────
+   Note: CSS custom properties cannot be used inside @media
+   conditions. Use these pixel values directly in media queries.
+
+   Tablet   ≤ 1024px   Grid wraps, 2-col layouts
+   Mobile   ≤  768px   Single column, mobile nav, token step-down
+
+   Desktop → Mobile token scale:
+   Display  →  Display   (no change)
+   H1       →  H2
+   H2       →  H3
+   H3       →  H4
+   H4       →  H4        (no change)
+   Subtitle →  Body
+   Label    →  Label     (no change)
+   Body     →  Body      (no change)
+   ─────────────────────────────────────────────────────────── */
+
+/* ─── Text Style Utility Classes ───────────────────────── */
+
+.t-display {
+  font-size:      var(--ts-display-size);
+  font-weight:    var(--ts-display-weight);
+  line-height:    var(--ts-display-line-height);
+  letter-spacing: var(--ts-display-tracking);
+}
+
+.t-h1 {
+  font-size:      var(--ts-h1-size);
+  font-weight:    var(--ts-h1-weight);
+  line-height:    var(--ts-h1-line-height);
+  letter-spacing: var(--ts-h1-tracking);
+}
+
+.t-h2 {
+  font-size:      var(--ts-h2-size);
+  font-weight:    var(--ts-h2-weight);
+  line-height:    var(--ts-h2-line-height);
+  letter-spacing: var(--ts-h2-tracking);
+}
+
+.t-h3 {
+  font-size:      var(--ts-h3-size);
+  font-weight:    var(--ts-h3-weight);
+  line-height:    var(--ts-h3-line-height);
+  letter-spacing: var(--ts-h3-tracking);
+}
+
+.t-h4 {
+  font-size:      var(--ts-h4-size);
+  font-weight:    var(--ts-h4-weight);
+  line-height:    var(--ts-h4-line-height);
+  letter-spacing: var(--ts-h4-tracking);
+}
+
+.t-subtitle {
+  font-size:      var(--ts-subtitle-size);
+  font-weight:    var(--ts-subtitle-weight);
+  line-height:    var(--ts-subtitle-line-height);
+  letter-spacing: var(--ts-subtitle-tracking);
+}
+
+.t-label {
+  font-size:      var(--ts-label-size);
+  font-weight:    var(--ts-label-weight);
+  line-height:    var(--ts-label-line-height);
+  letter-spacing: var(--ts-label-tracking);
+}
+
+.t-body {
+  font-size:      var(--ts-body-size);
+  font-weight:    var(--ts-body-weight);
+  line-height:    var(--ts-body-line-height);
+  letter-spacing: var(--ts-body-tracking);
+}

@@ -1,0 +1,681 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --white: #FFFFFF;
+  --black: #000000;
+  --gray-light: #CCCCCC;
+  --gray-medium: #999999;
+  --glass-bg: rgba(255, 255, 255, 0.6);
+  --shadow: rgba(0, 0, 0, 0.1);
+}
+
+body {
+  font-family: var(--font-family-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: var(--white);
+  color: var(--black);
+}
+
+.App {
+  min-height: 100vh;
+}
+
+.container {
+  width: 100%;
+  padding: 0 24px;
+}
+
+/* Header - Glass Effect */
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  overflow: hidden;
+  border-radius: 0 0 0 0;
+  transition: border-radius 0.28s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+/* When menu is open: round the bottom of the unified glass body */
+.header-open {
+  border-radius: 0 0 24px 24px;
+}
+
+.header-content {
+  position: relative;
+  display: flex;
+  width: 100%;
+  padding: 24px 0 8px 0;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header-left {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  justify-content: flex-start;
+}
+
+.logo {
+  font-size: var(--ts-h3-size);
+  font-weight: var(--ts-h3-weight);
+  line-height: var(--ts-h3-line-height);
+  letter-spacing: var(--ts-h3-tracking);
+  color: var(--black);
+}
+
+.location {
+  font-size: var(--ts-body-size);
+  font-weight: var(--ts-body-weight);
+  line-height: var(--ts-body-line-height);
+  letter-spacing: var(--ts-body-tracking);
+  color: #A7A7A7;
+}
+
+.nav-desktop {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+}
+
+.nav-desktop a:not(.btn-connect) {
+  color: #A7A7A7;
+  text-decoration: none;
+  font-size: var(--ts-body-size);
+  font-weight: var(--ts-body-weight);
+  letter-spacing: var(--ts-body-tracking);
+  transition: color 0.3s;
+}
+
+.nav-desktop a:not(.btn-connect):hover {
+  color: var(--black);
+}
+
+.btn-connect {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--black);
+  color: var(--white);
+  height: 42px;
+  padding: 0 24px;
+  border-radius: 999px;
+  border: 1px solid var(--black);
+  font-size: var(--ts-label-size);
+  font-weight: var(--ts-label-weight);
+  line-height: var(--ts-label-line-height);
+  letter-spacing: var(--ts-label-tracking);
+  cursor: pointer;
+  transition: background 0.3s, color 0.3s, border-color 0.3s;
+}
+
+.btn-connect,
+.btn-connect:visited {
+  color: var(--white);
+  text-decoration: none;
+}
+
+.btn-connect:hover {
+  background: var(--white);
+  color: var(--black);
+  border: 1px solid #000000;
+}
+
+.mobile-menu-btn {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  position: relative;
+  z-index: 101;
+  width: 40px;
+  height: 34px;
+  padding: 0;
+}
+
+/* Hamburger bars */
+.icn-bar {
+  position: absolute;
+  background: #868686;
+  height: 2px;
+  width: 24px;
+  border-radius: 2px;
+  left: 8px;
+  transition: transform 0.3s cubic-bezier(0.23, 1, 0.32, 1),
+              opacity   0.2s ease;
+  transform-origin: center;
+}
+
+/* Bar positions — centers at 9px, 17px, 25px vertically */
+.icn-bar-top    { top: 8px; }
+.icn-bar-middle { top: 16px; }
+.icn-bar-bottom { top: 24px; }
+
+/* Animate to X: top/bottom bars translate to the middle row, then rotate ±45° */
+.mobile-menu-btn.open .icn-bar-top    { transform: translateY(8px)  rotate(45deg); }
+.mobile-menu-btn.open .icn-bar-middle { opacity: 0; transform: scaleX(0); }
+.mobile-menu-btn.open .icn-bar-bottom { transform: translateY(-8px) rotate(-45deg); }
+
+/* Mobile nav — transparent, lives inside the header's glass body */
+.nav-mobile {
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
+  padding: 32px 8px 16px;
+  /* No background, blur, or radius here — the header owns all of that */
+}
+
+/* Links group: Home / Work / About */
+.nav-mobile-links {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  width: 100%;
+}
+
+.nav-mobile a:not(.btn-connect) {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+  color: #a7a7a7;
+  text-decoration: none;
+  font-size: var(--ts-subtitle-size);
+  font-weight: var(--ts-subtitle-weight);
+  line-height: var(--ts-subtitle-line-height);
+  letter-spacing: var(--ts-subtitle-tracking);
+  width: 100%;
+}
+
+/* Full-width Connect button in mobile menu */
+.btn-connect-full {
+  width: 100%;
+  height: 42px;
+  padding: 0 24px;
+  border-radius: 999px;
+  font-size: var(--ts-body-size);
+  font-weight: var(--ts-body-weight);
+  line-height: var(--ts-body-line-height);
+  letter-spacing: var(--ts-body-tracking);
+}
+
+/* Hero Section */
+.hero {
+  padding: 120px 0;
+}
+
+.hero-title {
+  font-size: var(--ts-h2-size);
+  font-weight: var(--ts-h2-weight);
+  line-height: var(--ts-h2-line-height);
+  letter-spacing: var(--ts-h2-tracking);
+  max-width: 54%;
+}
+
+.text-light {
+  color: #C6C6C6;
+  font-weight: 700;
+}
+
+.text-bold {
+  color: #000000;
+  font-weight: 700;
+}
+
+/* Selected Works */
+.works {
+  padding: 240px 0;
+}
+
+.section-title {
+  font-size: var(--ts-h2-size);
+  font-weight: var(--ts-h2-weight);
+  line-height: var(--ts-h2-line-height);
+  letter-spacing: var(--ts-h2-tracking);
+  margin-bottom: 60px;
+  color: var(--black);
+}
+
+.works-grid {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 60px;
+}
+
+.work-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  flex: 1;
+  align-self: stretch;
+}
+
+.work-image {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1/1;
+  border-radius: 24px;
+  overflow: hidden;
+  background: var(--glass-bg);
+  backdrop-filter: blur(20px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s, box-shadow 0.3s;
+  margin-bottom: 16px;
+}
+
+.work-card:hover .work-image {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 48px rgba(0, 0, 0, 0.15);
+}
+
+.work-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.work-coming-soon {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.work-coming-soon span {
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.work-image-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #f5f5f5 0%, #e0e0e0 100%);
+  color: var(--gray-medium);
+  font-size: 14px;
+  text-align: center;
+  padding: 20px;
+}
+
+.work-title {
+  font-size: var(--ts-label-size);
+  font-weight: var(--ts-label-weight);
+  line-height: var(--ts-label-line-height);
+  letter-spacing: var(--ts-label-tracking);
+  color: #000000;
+}
+
+.work-subtitle {
+  font-size: var(--ts-body-size);
+  font-weight: var(--ts-body-weight);
+  line-height: var(--ts-body-line-height);
+  letter-spacing: var(--ts-body-tracking);
+  color: #C6C6C6;
+}
+
+.see-more {
+  display: none; /* hidden for now */
+  align-items: center;
+  gap: 8px;
+  font-size: var(--ts-h3-size);
+  font-weight: var(--ts-h3-weight);
+  line-height: var(--ts-h3-line-height);
+  letter-spacing: var(--ts-h3-tracking);
+  color: var(--black);
+  text-decoration: none;
+}
+
+.see-more-arrow {
+  display: inline-flex;
+  align-items: center;
+  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.see-more-arrow svg {
+  width: 24px;
+  height: 24px;
+}
+
+.see-more:hover .see-more-arrow {
+  transform: translateX(4px);
+}
+
+/* Companies Section */
+.companies {
+  padding: 80px 0;
+  /* Removed background color */
+}
+
+/* 7 of 12 cols = 58.333% − 10px (accounts for 6 vs 11 column-gaps of 24px) */
+.companies-intro {
+  font-size: var(--ts-h2-size);
+  font-weight: var(--ts-h2-weight);
+  line-height: var(--ts-h2-line-height);
+  letter-spacing: var(--ts-h2-tracking);
+  margin-bottom: 24px;
+  max-width: calc(58.333% - 10px);
+}
+
+.companies-logos {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40px;
+  align-items: center;
+}
+
+.company-logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.company-logo-repeat {
+  display: none;
+}
+
+/* On desktop, track is a transparent wrapper — children join the parent flex directly */
+.companies-logos-track {
+  display: contents;
+}
+
+.company-logo-img {
+  height: 32px;
+  width: auto;
+  object-fit: contain;
+}
+
+.company-name {
+  font-size: var(--ts-label-size);
+  font-weight: var(--ts-label-weight);
+  line-height: var(--ts-label-line-height);
+  letter-spacing: var(--ts-label-tracking);
+  color: var(--black);
+}
+
+.logo-placeholder {
+  height: 100%;
+  padding: 0 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  color: var(--gray-medium);
+  /* Fallback text if image fails to load */
+}
+
+/* Connect Section */
+.connect {
+  padding: 80px 0;
+}
+
+.connect .section-title {
+  font-size: var(--ts-h2-size);
+  font-weight: var(--ts-h2-weight);
+  line-height: var(--ts-h2-line-height);
+  letter-spacing: var(--ts-h2-tracking);
+  color: var(--black);
+  margin-bottom: 24px;
+}
+
+.social-links {
+  display: flex;
+  gap: 60px;
+}
+
+.social-link {
+  font-size: var(--ts-h3-size);
+  font-weight: var(--ts-h3-weight);
+  line-height: var(--ts-h3-line-height);
+  letter-spacing: var(--ts-h3-tracking);
+  color: #C6C6C6;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.social-link:hover {
+  color: var(--black);
+}
+
+/* About Section */
+.about {
+  display: none; /* hidden for now */
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+}
+
+.about .container {
+  padding: 0;
+  max-width: 100%;
+}
+
+.about-content {
+  position: relative;
+  height: 600px;
+  overflow: hidden;
+}
+
+.about-title {
+  position: absolute;
+  top: 60px;
+  left: 24px;
+  font-size: var(--ts-h2-size);
+  font-weight: var(--ts-h2-weight);
+  line-height: var(--ts-h2-line-height);
+  letter-spacing: var(--ts-h2-tracking);
+  color: #FFFFFF;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.about-arrow {
+  display: inline-flex;
+  align-items: center;
+  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.about-arrow svg {
+  width: 24px;
+  height: 24px;
+}
+
+.about-arrow svg path {
+  fill: #FFFFFF;
+}
+
+.about-title:hover .about-arrow {
+  transform: translateX(4px);
+}
+
+.about-image {
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+}
+
+/* Responsive Design */
+
+/* ── Tablet ≤ 1024px — layout only, no font changes ──────── */
+@media (max-width: 1024px) {
+  .works-grid {
+    flex-wrap: wrap;
+    gap: 30px;
+  }
+
+  .work-card {
+    flex: 1 1 calc(50% - 15px);
+    min-width: 250px;
+  }
+
+  .hero-title {
+    max-width: 70%;
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 0 16px;
+  }
+
+  .nav-desktop {
+    display: none;
+  }
+
+  .mobile-menu-btn {
+    display: block;
+  }
+
+  .hero {
+    padding: 60px 0;
+  }
+
+  .hero-title {
+    font-size: var(--ts-h3-size);         /* H2 → H3 step-down */
+    font-weight: var(--ts-h3-weight);
+    line-height: var(--ts-h3-line-height);
+    letter-spacing: var(--ts-h3-tracking);
+    max-width: 100%;
+  }
+
+  .works {
+    padding: 80px 0;
+  }
+
+  .works-grid {
+    flex-direction: column;
+    gap: 40px;
+  }
+
+  .work-card {
+    flex: 1 1 100%;
+  }
+
+  .companies-intro {
+    font-size: var(--ts-h3-size);         /* H2 → H3 step-down */
+    font-weight: var(--ts-h3-weight);
+    line-height: var(--ts-h3-line-height);
+    letter-spacing: var(--ts-h3-tracking);
+    max-width: 100%;
+  }
+
+  .companies {
+    overflow: hidden;
+  }
+
+  /* Clip the animated track */
+  .companies-logos {
+    overflow: hidden;
+  }
+
+  /* Animate the inner track — GPU-accelerated, works regardless of document.hidden */
+  .companies-logos-track {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 20px;
+    align-items: center;
+    flex-shrink: 0;
+    animation: marquee-logos 28s linear infinite;
+  }
+
+  @keyframes marquee-logos {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+  }
+
+  .company-logo {
+    flex-shrink: 0;
+  }
+
+  .company-logo-repeat {
+    display: flex;
+    flex-shrink: 0;
+  }
+
+  .social-links {
+    flex-direction: column;
+    gap: 30px;
+  }
+
+  /* Pause marquee on hover (desktop-like pointer on mobile with mouse) */
+  .companies-logos:hover .companies-logos-track {
+    animation-play-state: paused;
+  }
+
+  .about-content {
+    height: 400px;
+  }
+
+  .about-title {
+    top: 40px;
+    left: 40px;
+    font-size: var(--ts-h3-size);         /* H2 → H3 step-down */
+    font-weight: var(--ts-h3-weight);
+    line-height: var(--ts-h3-line-height);
+    letter-spacing: var(--ts-h3-tracking);
+  }
+
+  .section-title {
+    font-size: var(--ts-h3-size);         /* H2 → H3 step-down */
+    font-weight: var(--ts-h3-weight);
+    line-height: var(--ts-h3-line-height);
+    letter-spacing: var(--ts-h3-tracking);
+    margin-bottom: 40px;
+  }
+
+  /* Header — compact Figma mobile spec: 16px/bold/20lh/-0.64px */
+  .header-content {
+    padding-top: 8px;
+  }
+
+  .logo {
+    font-size: var(--ts-label-size);       /* 16px — Figma mobile header */
+    font-weight: var(--ts-label-weight);   /* bold */
+    line-height: 20px;                     /* compact line-height per Figma */
+    letter-spacing: var(--ts-label-tracking);
+  }
+
+  .location {
+    line-height: 20px;                     /* compact line-height per Figma */
+  }
+
+  .see-more {
+    font-size: var(--ts-h4-size);         /* H3 → H4 step-down */
+    font-weight: var(--ts-h4-weight);
+    line-height: var(--ts-h4-line-height);
+    letter-spacing: var(--ts-h4-tracking);
+  }
+
+  .social-link {
+    font-size: var(--ts-h4-size);         /* H3 → H4 step-down */
+    font-weight: var(--ts-h4-weight);
+    line-height: var(--ts-h4-line-height);
+    letter-spacing: var(--ts-h4-tracking);
+  }
+
+}
+
+/* Respect reduced-motion preference for the logo marquee */
+@media (max-width: 768px) and (prefers-reduced-motion: reduce) {
+  .companies-logos-track {
+    animation: none;
+  }
+}

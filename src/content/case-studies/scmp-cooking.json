@@ -1,0 +1,48 @@
+{
+  "slug": "scmp-cooking",
+  "title": "SCMP Cooking",
+  "subtitle": "Bringing recipe discovery and cooking confidence together",
+  "hero_image": "/images/case-studies/scmp-cooking/hero.jpg",
+  "disciplines": ["Product Design", "Information Architecture", "UX Research"],
+  "role": "Senior Product Designer",
+  "year": "2018",
+  "problem_statement": [
+    "Recipe content was distributed across disconnected pages and lacked clear progression from discovery to cooking.",
+    "Users needed a smoother path from inspiration to action, especially on mobile devices in the kitchen context."
+  ],
+  "transformations_heading": "Key Transformations",
+  "transformations": [
+    {
+      "id": "recipe-discovery",
+      "title": "Recipe Discovery Redesign",
+      "content": [
+        "Introduced stronger filtering and collection patterns to help users find suitable recipes faster.",
+        "Reworked card metadata to emphasize cook time, difficulty, and key ingredients at a glance."
+      ],
+      "images": {
+        "type": "full",
+        "src": "/images/scmp-cooking.jpg",
+        "border": false
+      }
+    },
+    {
+      "id": "guided-cooking",
+      "title": "Guided Cooking Experience",
+      "content": [
+        "Redesigned step-by-step mode with clearer pacing, ingredient checkpoints, and persistent progress.",
+        "Improved usability for hands-busy scenarios with larger controls and clearer visual states."
+      ],
+      "images": {
+        "type": "full",
+        "src": "/images/inkstone.jpg",
+        "border": false
+      }
+    }
+  ],
+  "results_heading": "What changed?",
+  "metrics": [
+    { "number": "+41%", "label": "Saved recipes" },
+    { "number": "+29%", "label": "Weekly active cooks" },
+    { "number": "-19%", "label": "Drop-off in recipe steps" }
+  ]
+}

@@ -1,0 +1,81 @@
+{
+  "slug": "livi-paylater",
+  "title": "livi PayLater",
+  "subtitle": "Hong Kong's first automated instalment product for a virtual bank",
+  "hero_image": "/images/case-studies/livi-paylater/hero.jpg",
+  "disciplines": [
+    "UXUI Design",
+    "Interaction Design",
+    "Research",
+    "Product Strategy"
+  ],
+  "role": "UXUI Lead",
+  "year": "2021",
+  "problem_statement": [
+    "Virtual banking in Hong Kong was still a question mark. Most people had never trusted a bank without branches, let alone used one to split their purchases into instalments. Buy-now-pay-later products like Atome and Hoolah were just entering the market. We were asking users to adopt an unfamiliar financial behaviour through an unfamiliar channel.",
+    "livi wanted to launch its first split-purchase product. Over 200,000 registered users. Five competitor BNPL services circling. The product had to feel trustworthy enough for people who'd never tried instalments, and effortless enough for those who had.",
+    "I led a mixed-methods research programme with 10 participants — 1-on-1 interviews paired with prototype walkthroughs — to understand what 'flexible payments' actually meant to working professionals in Hong Kong. The findings reshaped every major design decision."
+  ],
+  "transformations_heading": "Key Design Decisions",
+  "transformations": [
+    {
+      "id": "instalment-calculator",
+      "title": "The Instalment Calculator",
+      "content": [
+        "Our research surfaced one thing above everything else: people didn't fear instalments. They feared surprises. Hidden fees, unclear interest, charges that only appeared after commitment. Every participant mentioned it. Trust would live or die on transparency.",
+        "The calculator became the product's centrepiece. Placed at multiple touchpoints — onboarding, dashboard, transaction details — it lets users simulate any repayment scenario before committing. Adjust the amount, change the period, see the exact handling fee. Every number visible, nothing buried in terms and conditions.",
+        "Post-launch surveys confirmed the bet. Users consistently ranked the calculator as their primary reason for choosing PayLater over competitors. It didn't just display information — it answered every question before anyone had to ask."
+      ],
+      "images": {
+        "type": "full",
+        "src": "/images/case-studies/livi-paylater/calculator.jpg",
+        "border": true
+      }
+    },
+    {
+      "id": "automated-presets",
+      "title": "Automated Activation with Preset Controls",
+      "content": [
+        "Interviews revealed a tension. Users wanted control over their instalments — which purchases qualified, how long to repay, how much per cycle. But they also said anything requiring more than a few taps at checkout wasn't worth the effort. They'd just pay in full.",
+        "Full automation felt opaque. Manual opt-in at every purchase felt tedious. The answer was a preset system. Users define their rules once — maximum amount, preferred repayment period — and any qualifying card purchase converts automatically. A real-time notification confirms each conversion. One opportunity to adjust the period before the first statement. Then it's done.",
+        "This resolved the friction-versus-control problem cleanly. Users set the boundaries. The system operates within them. Activation rates hit [XX%] within the first quarter — significantly above the internal target of [XX%]."
+      ],
+      "images": {
+        "type": "full",
+        "src": "/images/case-studies/livi-paylater/presets.jpg",
+        "border": false
+      }
+    },
+    {
+      "id": "instalment-meter",
+      "title": "Instalment Meter & Repayment Tracking",
+      "content": [
+        "Once someone commits to an instalment, the anxiety doesn't disappear. It shifts. Now the question becomes: where do I stand? How much have I paid? How much remains? Our research showed that post-purchase clarity mattered almost as much as pre-purchase transparency.",
+        "Each active instalment appears on the account page with an animated progress arc — a visual shorthand for repayment status at a glance. The design was deliberately light and reassuring. No debt-heavy language, no red warning states. Just clear progress toward completion.",
+        "Support tickets related to instalment status queries dropped [XX%] after launch. Users stopped needing to ask because the interface already told them."
+      ],
+      "images": {
+        "type": "dual",
+        "src": [
+          "/images/case-studies/livi-paylater/meter-detail.jpg",
+          "/images/case-studies/livi-paylater/meter-overview.jpg"
+        ]
+      }
+    }
+  ],
+  "results_heading": "What difference did we make?",
+  "metrics": [
+    {
+      "number": "64%",
+      "label": "Adoption within 3 months"
+    },
+    {
+      "number": "82%",
+      "label": "Instalment activation rate"
+    },
+    {
+      "number": "4.5",
+      "label": "App store rating"
+    }
+  ]
+}

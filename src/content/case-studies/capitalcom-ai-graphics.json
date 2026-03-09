@@ -1,0 +1,79 @@
+{
+  "slug": "capitalcom-ai-graphics",
+  "title": "Customising GPT to Scale Design Ops",
+  "subtitle": "Small AI, Big Impact: Cutting Banner Production by 88%",
+  "hero_image": "/images/case-studies/capitalcom-ai-graphics/hero.jpg",
+  "disciplines": [
+    "Product Strategy",
+    "Design Operations",
+    "AI Integration"
+  ],
+  "role": "Senior Product Designer",
+  "year": "2025",
+  "problem_statement": [
+  "Creating product banners at Capital.com had become expensive and slow. Designers spent on average 1.5 days per banner searching stock platforms for graphics that matched our visual style. Finding something close was never enough. Hours went into forcing stock imagery into a brand aesthetic it wasn't made for.",
+    "Regulatory requirements raised the bar further. FCA, CySEC, MAS, and ASIC each maintained different standards for financial marketing imagery. FCA, for example, prohibits gambling imagery in investment promotions. Designers had to verify every asset against each jurisdiction's guidelines before purchase, adding hours to an already slow process.",
+    "But I noticed our banner graphics shared a consistent visual style, and compliance rules across jurisdictions were systematic. Both were teachable. I started exploring whether a custom GPT could encode these rules and handle production, freeing designers to focus on creative direction."
+  ],
+  "transformations_heading": "How I Built It",
+  "transformations": [
+    {
+      "id": "guardrails-not-templates",
+      "title": "Guardrails, Not Templates",
+      "content": [
+        "The instinct was to catalogue every visual pattern we used and teach the GPT to replicate them. That would have been fast to build but wrong in principle. Prescribing a fixed set of motifs would strip designers of creative ownership and turn the tool into a bottleneck rather than an accelerator.",
+        "Instead, I focused on defining the boundaries. The GPT needed to understand three things: what our brand looks like, what regulators forbid, and what the technical output requires. Everything inside those guardrails would remain the designer's call.",
+        "Brand guardrails captured the specific 3D style: gold metallic surfaces, soft directional lighting, floating composition on transparent backgrounds, no human faces. Compliance guardrails translated each regulator's visual restrictions into concrete rules the GPT could enforce like FCA's ban on gambling imagery and inducements or CySEC's requirements for equal prominence of risk and benefit. Technical guardrails locked down the output format: transparent PNG at banner dimensions, with the key object positioned within a defined zone on the right side of the canvas."
+      ],
+      "images": {
+        "type": "dual",
+        "src": [
+          "/images/case-studies/capitalcom-ai-graphics/guardrails.jpg",
+          "/images/case-studies/capitalcom-ai-graphics/workflows.jpg"
+        ]
+      }
+    },
+    {
+      "id": "building-tool",
+      "title": "Structuring the System",
+      "content": [
+        "I spent a weekend building the custom GPT. The entire system runs on prompt engineering and reference material rather than code.",
+        "**The first layer defines the brand style.** I gave the GPT 30+ examples from our banner library and described the visual language: brushed gold metallic materials, frosted white accents, soft top-left lighting, and stylised 3D rendering. Each banner has three layers — background colour, 3D object, and text. The GPT generates only the 3D layer as a transparent PNG, which designers place into the final banner.",
+        "**The second layer standardises the intake process.** Before generating anything, the GPT asks five questions: banner purpose, target jurisdiction, product category, creative direction, and confirmed copy. The jurisdiction determines which compliance rules apply.",
+        "**The third layer is a flag-and-confirm system.** If a concept raises a compliance concern, the GPT explains the issue, cites the relevant rule, and asks the designer to proceed, adjust the concept, or check with compliance. Generation happens only after confirmation. The system acts as an early warning, not a gatekeeper — designers keep creative control while compliance retains final authority."
+      ],
+      "images": {
+        "type": "dual",
+        "src": [
+          "/images/case-studies/capitalcom-ai-graphics/layers.jpg",
+          "/images/case-studies/capitalcom-ai-graphics/flag.jpg"
+        ]
+      }
+    },
+    {
+      "id": "adoption-reality",
+      "title": "Adoption and Reality Checks",
+      "content": [
+        "I rolled it out with clear boundaries. The tool handles the 3D graphic layer for routine banner production: abstract financial concepts, market symbols, product iconography. About 70% of our banner graphics fell into this category. Complex branded moments or campaign-specific concepts still need manual design from the marketing team.",
+        "The team adopted it immediately. Any designer could now write a creative brief in natural language, answer the intake questions, and receive an on-brand, compliance-checked 3D graphic in minutes. The standardised workflow meant consistent quality regardless of who used it.",
+        "The biggest shift was where designers spent their energy. Instead of burning hours on stock library searches and compliance verification, they could focus on problems that actually needed creative thinking: product strategy, conversion optimisation, feature design. The mundane production work that used to fill calendars became something handled in minutes.",
+        "The GPT flags potential regulatory issues early, but it doesn't replace human judgment. Compliance still makes final calls on interpretation. The benefit is they review fewer obvious violations, which means faster approvals and smoother launches across all four jurisdictions."
+      ],
+      "images": {
+        "type": "full",
+        "src": "/images/case-studies/capitalcom-ai-graphics/banners.jpg"
+      }
+    }
+  ],
+  "results_heading": "What changed?",
+  "metrics": [
+    {
+      "number": "88%",
+      "label": "Time reduction"
+    },
+    {
+      "number": "85%",
+      "label": "First-pass approval rate"
+    }
+  ]
+}

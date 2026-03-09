@@ -1,0 +1,97 @@
+{
+  "slug": "capitalcom-app-evolution",
+  "title": "Capital.com App: Visual Design Evolution",
+  "subtitle": "Iterating toward modern fintech UX across changing organizational priorities",
+  "hero_image": "/images/case-studies/capitalcom-app-evolution/hero.jpg",
+  "disciplines": [
+    "Visual Design",
+    "Stakeholder Management",
+    "Design Systems"
+  ],
+  "role": "Senior Product Designer",
+  "year": "2024–2025",
+
+  "problem_statement": [
+    "Capital.com's mobile trading platform served 5M+ users but hadn't seen a major visual update since launch in 2016. Multiple design directions existed from previous efforts. An external agency had created visionary concepts targeting a \"neo-broker of the future,\" while internal teams needed something technically feasible within development constraints.",
+    "Voice of clients data and user interviews had already surfaced the core pain points: confusion around withdrawal timelines, difficulty understanding the app's structure, unclear margin call behaviour, and limited options for personalising watchlists. Business metrics reinforced the urgency with NPS, App Store ratings, and support contact rates all requiring improvement. The problems were well-documented. The team lacked a visual and structural direction that could scale.",
+    "I joined the project to synthesize these directions, collaborating with senior management, product leadership and agency partners to refine the visual language. The challenge went beyond typical redesign work: no finalized brand guidelines existed, stakeholder vision evolved throughout the project, and regulatory requirements across multiple jurisdictions added complexity to every design decision.",
+    "Over six months, I led visual design iteration across two major versions, balancing modern fintech aesthetics with regulatory requirements and development feasibility. Each version responded to evolving stakeholder feedback while pushing the visual language forward. The final direction received strong CEO endorsement and was approved for launch. Although the work didn't ship due to a subsequent leadership transition, the design thinking, research and visual explorations informed later iterations of the product."
+  ],
+
+  "transformations_heading": "Visual Evolution",
+  "transformations": [
+    {
+      "id": "original",
+      "title": "Pre-2024: Original App",
+      "content": [
+        "The existing platform had accumulated years of design debt. Inconsistent visual patterns across features created a fragmented experience, and an unclear information hierarchy made it difficult for users to locate key trading actions at a glance. Users struggled to navigate the app, and support volumes stayed high for questions the interface should have answered.",
+        "Color usage lacked system. States, data, and navigation competed for attention without hierarchy. Typography was arbitrary rather than intentional, with no clear scale distinguishing primary data from secondary labels. The interface felt cluttered even when showing the same information density as competitors."
+      ],
+      "images": {
+        "type": "full",
+        "src": "/images/case-studies/capitalcom-app-evolution/original.jpg"
+      }
+    },
+    {
+      "id": "december-2024",
+      "title": "December 2024",
+     "content": [
+  "The first major iteration addressed the core user complaints head-on. Typography was systematized, spacing moved to an 8-point grid, and a refined color palette introduced clear hierarchy between trading data, navigation, and system states. The cluttered interface gave way to a cleaner structure where primary information could breathe.",
+  "I introduced four quick-action buttons to the main widget, giving users immediate access to their most frequent tasks without navigating deeper into the app. This directly responded to VOC feedback around users struggling to understand how the application worked. Fewer taps to core actions, less confusion.",
+  "Senior management feedback was positive. The design helped them visualise the direction and validated that the visual language worked well with the current branding and the needs of a CFD-focused product. But for the longer-term vision of becoming a neo-brokerage, it didn't go far enough. The next iteration needed to reflect a broader product ambition."
+],
+      "images": {
+        "type": "full",
+        "src": "/images/case-studies/capitalcom-app-evolution/2024.jpg"
+      }
+    },
+    {
+      "id": "april-2025",
+      "title": "April 2025: Final Direction",
+      "content": [
+  "The shift from December to April wasn't just visual refinement. It was a product vision change. The app would no longer serve CFD trading alone. The final direction introduced a unified account experience, bringing CFD, options trading, and 1x investing into a single interface. This fundamentally changed the information architecture, requiring a home screen that could accommodate multiple account types without fragmenting the experience.",
+  "AI-powered search became the primary discovery mechanism, replacing static category navigation with contextual, intent-based results. Users could find instruments, features, and account actions through a single entry point. Combined with progressive disclosure and card-based grouping, the interface scaled across product types while reducing cognitive load during high-pressure trading moments.",
+  "The direction received strong CEO endorsement and was approved for launch."
+],
+      "images": {
+        "type": "full",
+        "src": "/images/case-studies/capitalcom-app-evolution/2025.jpg"
+      }
+    }
+  ],
+
+  "showcase_heading": "Zooming into the Details",
+  "showcase_screens": [
+    {
+      "id": "home-screen",
+      "title": "Home Screen Reimagined",
+      "image": "/images/case-studies/capitalcom-app-evolution/home-screen.jpg",
+      "caption": "Users consistently reported difficulty understanding how the app worked. The redesigned home screen addresses this directly with a simplified information hierarchy that prioritises account performance and quick actions. Card-based layout provides scalability across different user types and account states. Typography hierarchy guides the eye through balance, performance, and available actions without overwhelming."
+    },
+    {
+      "id": "portfolio",
+      "title": "Portfolio Overview",
+      "image": "/images/case-studies/capitalcom-app-evolution/portfolio.jpg",
+      "caption": "The home screen widget expands to reveal margin status, available balance, and equity without leaving the page. Users no longer need to navigate into their portfolio to check position health. The margin level gauge provides an immediate visual read on account safety, directly addressing the top VOC pain point where users were caught off guard by margin calls. Collapsed, the same widget keeps the interface clean with just account balance and quick actions."
+    },
+    {
+      "id": "search",
+      "title": "AI-Powered Search",
+      "image": "/images/case-studies/capitalcom-app-evolution/search.jpg",
+      "caption": "AI-powered search introduces intent-based discovery alongside existing category navigation. Users can find instruments, account actions, and educational content through a single entry point using natural language. The system surfaces contextual results across all account types, reducing the friction that VOC data consistently flagged around instrument discovery."
+    },
+    {
+      "id": "watchlist",
+      "title": "Watchlist & Market Data",
+      "image": "/images/case-studies/capitalcom-app-evolution/watchlist.jpg",
+      "caption": "Custom sorting and filtering was one of the most requested features in VOC feedback. The redesigned watchlist introduces compact and detailed view options to accommodate different trading styles, with refined data visualisation that makes price movements scannable at a glance. The color system differentiates instrument types while maintaining accessibility standards."
+    },
+    {
+      "id": "trade-ticket",
+      "title": "Trade Execution",
+      "image": "/images/case-studies/capitalcom-app-evolution/trade-ticket.jpg",
+      "caption": "Streamlined trade ticket reduces cognitive load during high-pressure moments. Clear buy/sell distinction, prominent margin requirements, and accessible price information support confident decision-making. Interactive elements sized for precision on mobile devices."
+    }
+
+  ]
+}
