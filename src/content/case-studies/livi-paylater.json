@@ -38,7 +38,7 @@
       "content": [
         "Interviews revealed a tension. Users wanted control over their instalments — which purchases qualified, how long to repay, how much per cycle. But they also said anything requiring more than a few taps at checkout wasn't worth the effort. They'd just pay in full.",
         "Full automation felt opaque. Manual opt-in at every purchase felt tedious. The answer was a preset system. Users define their rules once — maximum amount, preferred repayment period — and any qualifying card purchase converts automatically. A real-time notification confirms each conversion. One opportunity to adjust the period before the first statement. Then it's done.",
-        "This resolved the friction-versus-control problem cleanly. Users set the boundaries. The system operates within them. Activation rates hit [XX%] within the first quarter — significantly above the internal target of [XX%]."
+        "This resolved the friction-versus-control problem cleanly. Users set the boundaries. The system operates within them. Activation rates reached 82% within the first quarter, surpassing the initial internal target."
       ],
       "images": {
         "type": "full",
@@ -52,7 +52,7 @@
       "content": [
         "Once someone commits to an instalment, the anxiety doesn't disappear. It shifts. Now the question becomes: where do I stand? How much have I paid? How much remains? Our research showed that post-purchase clarity mattered almost as much as pre-purchase transparency.",
         "Each active instalment appears on the account page with an animated progress arc — a visual shorthand for repayment status at a glance. The design was deliberately light and reassuring. No debt-heavy language, no red warning states. Just clear progress toward completion.",
-        "Support tickets related to instalment status queries dropped [XX%] after launch. Users stopped needing to ask because the interface already told them."
+        "Support tickets related to instalment status queries dropped significantly after launch. Users stopped needing to ask because the interface already told them."
       ],
       "images": {
         "type": "dual",
