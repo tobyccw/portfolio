@@ -55,11 +55,9 @@
         "Support tickets related to instalment status queries dropped significantly after launch. Users stopped needing to ask because the interface already told them."
       ],
       "images": {
-        "type": "dual",
-        "src": [
-          "/images/case-studies/livi-paylater/meter-detail.jpg",
-          "/images/case-studies/livi-paylater/meter-overview.jpg"
-        ]
+        "type": "full",
+        "src": "/images/case-studies/livi-paylater/meter.jpg",
+        "border": false
       }
     }
   ],
