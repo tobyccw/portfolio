@@ -319,6 +319,7 @@ body {
   line-height: var(--ts-label-line-height);
   letter-spacing: var(--ts-label-tracking);
   color: #000000;
+  padding: 0 12px;
 }
 
 .work-subtitle {
@@ -327,6 +328,7 @@ body {
   line-height: var(--ts-body-line-height);
   letter-spacing: var(--ts-body-tracking);
   color: #C6C6C6;
+  padding: 0 12px;
 }
 
 .see-more {

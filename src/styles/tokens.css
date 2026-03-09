@@ -62,9 +62,9 @@
   --ts-h2-line-height:      var(--type-line-36);
   --ts-h2-tracking:         var(--type-track-heading);
 
-  /* H3 — 24 / SemiBold / 26 / -0.96px */
+  /* H3 — 24 / Bold / 26 / -0.96px */
   --ts-h3-size:             var(--type-size-24);
-  --ts-h3-weight:           var(--font-weight-semibold);
+  --ts-h3-weight:           var(--font-weight-bold);
   --ts-h3-line-height:      var(--type-line-26);
   --ts-h3-tracking:         var(--type-track-h3);
 
