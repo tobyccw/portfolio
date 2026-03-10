@@ -419,6 +419,119 @@
   }
 }
 
+/* ── Password Gate ──────────────────────────────────────── */
+/* Fixed full-page overlay (z-95) — sits behind the main header (z-100)
+   so the header stays accessible while the gate is active.             */
+.cs-password-gate {
+  position: fixed;
+  inset: 0;
+  z-index: 95;
+  background: rgba(0, 0, 0, 0.60);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* Push the panel into the hero area, below the header (~80px) */
+  padding-top: 80px;
+}
+
+/* Content column: lock icon + message + input row */
+.cs-password-panel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  width: 463px;
+  max-width: calc(100vw - 48px);
+}
+
+/* 48 × 48 lock icon */
+.cs-password-lock-icon {
+  width: 48px;
+  height: 48px;
+  color: #ffffff;
+  flex-shrink: 0;
+}
+
+/* "This project contains confidential work. / Enter password to unlock." */
+.cs-password-message {
+  font-size: var(--ts-label-size);
+  font-weight: var(--ts-label-weight);
+  line-height: var(--ts-label-line-height);
+  letter-spacing: var(--ts-label-tracking);
+  color: #ffffff;
+  text-align: center;
+  margin: 0;
+  white-space: pre-line;
+}
+
+/* Pill-shaped row: text input (left) + submit button (right) */
+.cs-password-input-row {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  background: rgba(255, 255, 255, 0.50);
+  border: 1px solid rgba(255, 255, 255, 0.70);
+  border-radius: 999px;
+  padding: 2px 2px 2px 32px;
+  width: 100%;
+}
+
+.cs-password-input {
+  flex: 1;
+  min-width: 0;
+  background: none;
+  border: none;
+  outline: none;
+  font-size: var(--ts-label-size);
+  font-weight: var(--ts-label-weight);
+  line-height: var(--ts-label-line-height);
+  color: #ffffff;
+  padding: 6px 0;
+}
+
+.cs-password-input::placeholder {
+  color: rgba(255, 255, 255, 0.40);
+  font-weight: 400;
+  letter-spacing: normal;
+}
+
+/* White circular submit button — dim until there's input */
+.cs-password-submit {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #ffffff;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: #000000;
+  opacity: 0.25;
+  transition: opacity 0.2s ease;
+}
+
+.cs-password-submit--active {
+  opacity: 1;
+}
+
+.cs-password-submit--active:hover {
+  opacity: 0.80;
+}
+
+/* Error message shown on wrong password */
+.cs-password-error {
+  font-size: var(--ts-body-size);
+  font-weight: var(--ts-body-weight);
+  line-height: var(--ts-body-line-height);
+  color: rgba(255, 120, 120, 1);
+  margin: -12px 0 0;
+  text-align: center;
+}
+
 /* ── Lightbox ────────────────────────────────────────────── */
 .cs-lightbox {
   position: fixed;

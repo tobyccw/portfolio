@@ -8,6 +8,7 @@ const projects = [
     title: 'Capital.com App: Visual Design Evolution',
     subtitle: 'Visual Design, Design Systems',
     image: '/images/thumb-capital-revamp.jpg',
+    password: 'portfolio',   // ← change to your preferred password
     available: true
   },
   {
@@ -15,6 +16,7 @@ const projects = [
     title: 'Customising GPT to Scale Design Ops',
     subtitle: 'Product Lead, Web App',
     image: '/images/thumb-custom-gpt.jpg',
+    password: 'portfolio',   // ← change to your preferred password
     available: true
   },
   {

@@ -315,6 +315,69 @@ function Lightbox({ src, onClose }) {
   );
 }
 
+/* ── Password Gate ────────────────────────────────────────
+   Overlays the full page (position:fixed, z-95) so the header
+   (z-100) remains visible above it. On correct password the
+   unlocked state is persisted in sessionStorage so the user
+   doesn't need to re-enter within the same browser session.   */
+function PasswordGate({ slug, password, onUnlock }) {
+  const [value, setValue] = useState('');
+  const [error, setError] = useState(false);
+
+  const handleSubmit = (e) => {
+    e?.preventDefault();
+    if (value === password) {
+      try { sessionStorage.setItem(`unlocked_${slug}`, '1'); } catch (_) {}
+      onUnlock();
+    } else {
+      setError(true);
+      setValue('');
+    }
+  };
+
+  return (
+    <div className="cs-password-gate">
+      <div className="cs-password-panel">
+        {/* mingcute:lock-line */}
+        <svg className="cs-password-lock-icon" viewBox="0 0 48 48" fill="none" aria-hidden="true">
+          <path d="M16 22v-6a8 8 0 1 1 16 0v6" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+          <rect x="10" y="22" width="28" height="21" rx="4" stroke="currentColor" strokeWidth="2.5" />
+          <circle cx="24" cy="33" r="2.5" fill="currentColor" />
+          <path d="M24 35.5v3" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" />
+        </svg>
+
+        <p className="cs-password-message">
+          This project contains confidential work.{'\n'}
+          Enter password to unlock.
+        </p>
+
+        <form className="cs-password-input-row" onSubmit={handleSubmit} noValidate>
+          <input
+            className="cs-password-input"
+            type="password"
+            value={value}
+            onChange={(e) => { setValue(e.target.value); setError(false); }}
+            autoComplete="current-password"
+            aria-label="Password"
+          />
+          <button
+            type="submit"
+            className={`cs-password-submit${value ? ' cs-password-submit--active' : ''}`}
+            aria-label="Unlock"
+          >
+            {/* clarity:arrow-line */}
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M5 12h14M13 7l5 5-5 5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </button>
+        </form>
+
+        {error && <p className="cs-password-error">Incorrect password. Try again.</p>}
+      </div>
+    </div>
+  );
+}
+
 /* ── Main CaseStudy page ─────────────────────────────────*/
 
 function CaseStudy() {
@@ -322,6 +385,13 @@ function CaseStudy() {
   const data    = caseStudies[slug];
   // Thumbnail used for the mobile hero (same image as the Selected Works card)
   const project  = projects.find(p => p.slug === slug);
+
+  // Password gate — stays locked until correct password is entered.
+  // Uses sessionStorage so the user doesn't need to re-enter within the session.
+  const [isLocked, setIsLocked] = useState(() => {
+    if (!project?.password) return false;
+    try { return !sessionStorage.getItem(`unlocked_${slug}`); } catch (_) { return true; }
+  });
 
   // Always start at the top when the page loads or slug changes
   useEffect(() => {
@@ -436,6 +506,15 @@ function CaseStudy() {
   return (
     <div className="App">
       <Header navActive="work" />
+
+      {/* Password gate — renders on top of everything (z-95, below header z-100) */}
+      {isLocked && project?.password && (
+        <PasswordGate
+          slug={slug}
+          password={project.password}
+          onUnlock={() => setIsLocked(false)}
+        />
+      )}
 
       {/* ── Hero ─────────────────────────────────────── */}
       {/* Desktop: full hero_image. Mobile: project thumbnail (square full-bleed). */}
