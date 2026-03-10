@@ -4,7 +4,17 @@
       "Bash(echo $HOME)",
       "mcp__Claude_Preview__preview_start",
       "Bash(lsof -ti :3000)",
-      "Bash(xargs kill -9)"
+      "Bash(xargs kill -9)",
+      "Bash(git -C /Users/tbc/Desktop/portfolio_2026/portfolio status)",
+      "Bash(git -C /Users/tbc/Desktop/portfolio_2026/portfolio diff --stat HEAD -- src/App.jsx src/App.css src/components/Header.jsx src/pages/CaseStudy.jsx src/css/case-study.css src/components/ShowcaseCarousel.jsx)",
+      "Bash(git -C /Users/tbc/Desktop/portfolio_2026/portfolio diff HEAD -- src/content/case-studies/livi-paylater.json)",
+      "Bash(git add src/content/case-studies/livi-paylater.json public/images/case-studies/capitalcom-app-evolution/search.jpg public/images/case-studies/livi-paylater/meter-detail.jpg public/images/case-studies/livi-paylater/meter-overview.jpg public/images/case-studies/livi-paylater/presets.jpg)",
+      "Bash(git commit:*)",
+      "Bash(git push origin main)",
+      "Bash(git pull --rebase origin main)",
+      "Bash(git stash)",
+      "Bash(git stash pop)",
+      "Bash(xargs ls)"
     ]
   }
 }
