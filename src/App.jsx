@@ -230,6 +230,15 @@ function NotFoundPage() {
 }
 
 function App() {
+  // Prevent pinch-to-zoom site-wide.
+  // viewport user-scalable=no is silently ignored by Safari iOS 10+ —
+  // calling preventDefault() on touchmove is the only reliable block.
+  useEffect(() => {
+    const blockPinch = (e) => { if (e.touches.length > 1) e.preventDefault(); };
+    document.addEventListener('touchmove', blockPinch, { passive: false });
+    return () => document.removeEventListener('touchmove', blockPinch);
+  }, []);
+
   return (
     <BrowserRouter>
       <ScrollToHash />

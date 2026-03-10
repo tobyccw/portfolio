@@ -276,26 +276,30 @@ function Footer() {
 
 /** Fullscreen lightbox overlay */
 function Lightbox({ src, onClose }) {
+  const containerRef = useRef(null);
+
   useEffect(() => {
     const handleKey = (e) => { if (e.key === 'Escape') onClose(); };
     document.addEventListener('keydown', handleKey);
     document.body.style.overflow = 'hidden';
 
-    // Re-enable pinch-to-zoom inside the lightbox so users can inspect images
-    const viewport = document.querySelector('meta[name="viewport"]');
-    const savedContent = viewport?.content;
-    if (viewport) viewport.content = 'width=device-width, initial-scale=1';
+    // Re-enable pinch-to-zoom inside the lightbox so users can inspect images.
+    // Strategy: stop multi-touch touchmove events from bubbling to the
+    // document-level blockPinch handler in App.jsx. With no preventDefault()
+    // called, the browser allows its native pinch-zoom gesture.
+    const el = containerRef.current;
+    const allowPinch = (e) => { if (e.touches.length > 1) e.stopPropagation(); };
+    el?.addEventListener('touchmove', allowPinch, { passive: false });
 
     return () => {
       document.removeEventListener('keydown', handleKey);
       document.body.style.overflow = '';
-      // Restore page-level zoom lock when lightbox closes
-      if (viewport && savedContent) viewport.content = savedContent;
+      el?.removeEventListener('touchmove', allowPinch);
     };
   }, [onClose]);
 
   return (
-    <div className="cs-lightbox" onClick={onClose}>
+    <div ref={containerRef} className="cs-lightbox" onClick={onClose}>
       <button className="cs-lightbox-close" onClick={onClose} aria-label="Close lightbox">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
