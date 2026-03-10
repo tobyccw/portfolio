@@ -153,8 +153,9 @@ function ShowcaseCarousel({ screens, onImageClick }) {
                 onClick={() => onImageClick && onImageClick(slide.image)}
               >
                 <img src={slide.image} alt={slide.title} loading="lazy" />
-                <div className="cs-img-overlay" />
-                <img src="/images/icn_zoom.svg" alt="" className="cs-img-zoom-icon" aria-hidden="true" />
+                <div className="cs-img-zoom-badge">
+                  <img src="/images/icn_zoom.svg" alt="" className="cs-img-zoom-icon" aria-hidden="true" />
+                </div>
               </div>
             </div>
           ))}

@@ -383,38 +383,38 @@
   display: block;
 }
 
-/* Gradient overlay — fades in on hover (desktop) */
-.cs-img-overlay {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 72px;
-  background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(32, 32, 32, 0.5) 100%);
-  pointer-events: none;
-  opacity: 0;
-  transition: opacity 0.2s ease;
-}
-
-/* Zoom icon — bottom-left, 24px from each edge */
+/* Zoom icon — forced 24×24 size only (prevents descendant img rules inflating it).
+   Visual presentation is handled by the parent .cs-img-zoom-badge. */
 .cs-img-zoom-icon {
-  position: absolute;
-  bottom: 24px;
-  left: 24px;
-  /* Force 24×24 — overrides any descendant img rules (e.g. width/height: 100%) */
   width: 24px !important;
   height: 24px !important;
   object-fit: contain !important;
   display: block !important;
   pointer-events: none;
+}
+
+/* Zoom badge — frosted-glass circle, bottom-left, appears on hover (desktop) */
+.cs-img-zoom-badge {
+  position: absolute;
+  bottom: 24px;
+  left: 24px;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.20);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
   opacity: 0;
   transition: opacity 0.2s ease;
 }
 
-/* Show overlay and icon on hover (desktop) */
+/* Show badge on hover (desktop pointer devices only) */
 @media (hover: hover) {
-  .cs-img-zoomable:hover .cs-img-overlay,
-  .cs-img-zoomable:hover .cs-img-zoom-icon {
+  .cs-img-zoomable:hover .cs-img-zoom-badge {
     opacity: 1;
   }
 }

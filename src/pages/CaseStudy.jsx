@@ -73,8 +73,9 @@ function ZoomWrapper({ src, onImageClick, children }) {
       onClick={() => onImageClick && src && onImageClick(src)}
     >
       {children}
-      <div className="cs-img-overlay" />
-      <img src="/images/icn_zoom.svg" alt="" className="cs-img-zoom-icon" aria-hidden="true" />
+      <div className="cs-img-zoom-badge">
+        <img src="/images/icn_zoom.svg" alt="" className="cs-img-zoom-icon" aria-hidden="true" />
+      </div>
     </div>
   );
 }
