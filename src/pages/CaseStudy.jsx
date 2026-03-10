@@ -280,9 +280,17 @@ function Lightbox({ src, onClose }) {
     const handleKey = (e) => { if (e.key === 'Escape') onClose(); };
     document.addEventListener('keydown', handleKey);
     document.body.style.overflow = 'hidden';
+
+    // Re-enable pinch-to-zoom inside the lightbox so users can inspect images
+    const viewport = document.querySelector('meta[name="viewport"]');
+    const savedContent = viewport?.content;
+    if (viewport) viewport.content = 'width=device-width, initial-scale=1';
+
     return () => {
       document.removeEventListener('keydown', handleKey);
       document.body.style.overflow = '';
+      // Restore page-level zoom lock when lightbox closes
+      if (viewport && savedContent) viewport.content = savedContent;
     };
   }, [onClose]);
 
