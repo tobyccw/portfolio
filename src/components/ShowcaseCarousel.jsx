@@ -30,7 +30,7 @@ function IconChevronRight() {
  *   pos=1 → first real slide. After animating to pos=0 (clone of last),
  *   silently snap to pos=total. Vice-versa at the right end.
  */
-function ShowcaseCarousel({ screens }) {
+function ShowcaseCarousel({ screens, onImageClick }) {
   const total = screens.length;
 
   // Extended slides with head/tail clones for seamless infinite loop
@@ -148,7 +148,14 @@ function ShowcaseCarousel({ screens }) {
               className="cs-showcase-slide"
               style={slideW > 0 ? { width: slideW } : undefined}
             >
-              <img src={slide.image} alt={slide.title} loading="lazy" />
+              <div
+                className="cs-img-zoomable"
+                onClick={() => onImageClick && onImageClick(slide.image)}
+              >
+                <img src={slide.image} alt={slide.title} loading="lazy" />
+                <div className="cs-img-overlay" />
+                <img src="/images/icn_zoom.svg" alt="" className="cs-img-zoom-icon" aria-hidden="true" />
+              </div>
             </div>
           ))}
         </div>

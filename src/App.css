@@ -551,10 +551,6 @@ body {
   }
 
   .hero-title {
-    font-size: var(--ts-h3-size);         /* H2 → H3 step-down */
-    font-weight: var(--ts-h3-weight);
-    line-height: var(--ts-h3-line-height);
-    letter-spacing: var(--ts-h3-tracking);
     max-width: 100%;
   }
 
@@ -572,10 +568,6 @@ body {
   }
 
   .companies-intro {
-    font-size: var(--ts-h3-size);         /* H2 → H3 step-down */
-    font-weight: var(--ts-h3-weight);
-    line-height: var(--ts-h3-line-height);
-    letter-spacing: var(--ts-h3-tracking);
     max-width: 100%;
   }
 

@@ -371,6 +371,95 @@
   background: linear-gradient(135deg, #f5f5f5 0%, #e8e8e8 100%);
 }
 
+/* ── Zoomable image wrapper ─────────────────────────────── */
+/* Sits inside .cs-block-image-full / .cs-block-image-dual-item /
+   .cs-showcase-slide which already supply border-radius + overflow:hidden,
+   so the gradient and icon are automatically clipped to the parent corners. */
+.cs-img-zoomable {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  cursor: zoom-in;
+  display: block;
+}
+
+/* Gradient overlay — fades in on hover (desktop) */
+.cs-img-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 72px;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(32, 32, 32, 0.5) 100%);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+/* Zoom icon — bottom-right, 24px from each edge */
+.cs-img-zoom-icon {
+  position: absolute;
+  bottom: 24px;
+  right: 24px;
+  width: 24px;
+  height: 24px;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+/* Show overlay and icon on hover (desktop) */
+@media (hover: hover) {
+  .cs-img-zoomable:hover .cs-img-overlay,
+  .cs-img-zoomable:hover .cs-img-zoom-icon {
+    opacity: 1;
+  }
+}
+
+/* ── Lightbox ────────────────────────────────────────────── */
+.cs-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: rgba(0, 0, 0, 0.88);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  cursor: zoom-out;
+}
+
+.cs-lightbox-img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  border-radius: 12px;
+  cursor: default;
+}
+
+.cs-lightbox-close {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  transition: background 0.2s ease;
+}
+
+.cs-lightbox-close:hover {
+  background: rgba(255, 255, 255, 0.28);
+}
+
 /* ── Results / Metrics ──────────────────────────────────── */
 .cs-results {
   padding: 80px 0;

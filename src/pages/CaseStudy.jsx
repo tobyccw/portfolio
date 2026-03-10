@@ -65,8 +65,22 @@ function renderInlineMarkdown(text) {
 
 /* ── Sub-components ──────────────────────────────────────*/
 
+/** Hover overlay with zoom icon — wraps a single image */
+function ZoomWrapper({ src, onImageClick, children }) {
+  return (
+    <div
+      className="cs-img-zoomable"
+      onClick={() => onImageClick && src && onImageClick(src)}
+    >
+      {children}
+      <div className="cs-img-overlay" />
+      <img src="/images/icn_zoom.svg" alt="" className="cs-img-zoom-icon" aria-hidden="true" />
+    </div>
+  );
+}
+
 /** Single full-width or dual side-by-side images */
-function ImageBlock({ images }) {
+function ImageBlock({ images, onImageClick }) {
   if (!images) return null;
 
   if (images.type === 'full') {
@@ -74,7 +88,11 @@ function ImageBlock({ images }) {
     return (
       <div className={cls}>
         {images.src
-          ? <img src={images.src} alt="" loading="lazy" />
+          ? (
+            <ZoomWrapper src={images.src} onImageClick={onImageClick}>
+              <img src={images.src} alt="" loading="lazy" />
+            </ZoomWrapper>
+          )
           : <div className="cs-img-placeholder" />
         }
       </div>
@@ -87,7 +105,14 @@ function ImageBlock({ images }) {
     <div className="cs-block-images-dual">
       {srcs.map((src, i) => (
         <div key={i} className="cs-block-image-dual-item">
-          {src ? <img src={src} alt="" loading="lazy" /> : <div className="cs-img-placeholder" />}
+          {src
+            ? (
+              <ZoomWrapper src={src} onImageClick={onImageClick}>
+                <img src={src} alt="" loading="lazy" />
+              </ZoomWrapper>
+            )
+            : <div className="cs-img-placeholder" />
+          }
         </div>
       ))}
     </div>
@@ -95,7 +120,7 @@ function ImageBlock({ images }) {
 }
 
 /** One transformation block (text + image) */
-function TransformationBlock({ data }) {
+function TransformationBlock({ data, onImageClick }) {
   return (
     <motion.div id={data.id} className="cs-block" {...fadeUp}>
       <div className="cs-block-text">
@@ -106,7 +131,7 @@ function TransformationBlock({ data }) {
           ))}
         </div>
       </div>
-      <ImageBlock images={data.images} />
+      <ImageBlock images={data.images} onImageClick={onImageClick} />
     </motion.div>
   );
 }
@@ -248,6 +273,35 @@ function Footer() {
   );
 }
 
+/** Fullscreen lightbox overlay */
+function Lightbox({ src, onClose }) {
+  useEffect(() => {
+    const handleKey = (e) => { if (e.key === 'Escape') onClose(); };
+    document.addEventListener('keydown', handleKey);
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.removeEventListener('keydown', handleKey);
+      document.body.style.overflow = '';
+    };
+  }, [onClose]);
+
+  return (
+    <div className="cs-lightbox" onClick={onClose}>
+      <button className="cs-lightbox-close" onClick={onClose} aria-label="Close lightbox">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
+      </button>
+      <img
+        src={src}
+        alt=""
+        className="cs-lightbox-img"
+        onClick={e => e.stopPropagation()}
+      />
+    </div>
+  );
+}
+
 /* ── Main CaseStudy page ─────────────────────────────────*/
 
 function CaseStudy() {
@@ -265,6 +319,9 @@ function CaseStudy() {
   // scrolls past the header, and hidden again once the section exits.
   const [showMobileNav, setShowMobileNav] = useState(false);
   const [headerHeight, setHeaderHeight] = useState(60);
+
+  // Lightbox — null means closed; a src string means that image is open
+  const [lightboxSrc, setLightboxSrc] = useState(null);
   const transformationsSectionRef = useRef(null);
 
   useEffect(() => {
@@ -305,7 +362,20 @@ function CaseStudy() {
     () => data?.transformations?.map(t => t.id) || [],
     [data]
   );
-  const activeId = useActiveSection(transformationIds);
+
+  // On mobile, the sticky section nav sits below the header, so the effective
+  // "scroll-to" offset is headerHeight + navHeight + 24px buffer. We pass this
+  // as the trigger to useActiveSection so sections are marked active as soon as
+  // they are scrolled into view (not only after they reach the header bottom).
+  const [sectionTriggerY, setSectionTriggerY] = useState(80);
+  useEffect(() => {
+    const stickyNav = document.querySelector('.cs-mobile-transformations-nav');
+    const navH = (showMobileNav && stickyNav) ? stickyNav.offsetHeight : 0;
+    // Subtract 1 because useActiveSection adds 1 internally (triggerY = passed + 1)
+    setSectionTriggerY(headerHeight + navH + 24 - 1);
+  }, [showMobileNav, headerHeight]);
+
+  const activeId = useActiveSection(transformationIds, sectionTriggerY);
 
   // When the active section changes, scroll its anchor tab to the left
   // edge of the mobile sticky nav so it's always visible.
@@ -510,7 +580,7 @@ function CaseStudy() {
               {/* Right: transformation blocks */}
               <div className="cs-col-right cs-transformations-content">
                 {data.transformations.map(t => (
-                  <TransformationBlock key={t.id} data={t} />
+                  <TransformationBlock key={t.id} data={t} onImageClick={setLightboxSrc} />
                 ))}
               </div>
             </div>
@@ -561,7 +631,7 @@ function CaseStudy() {
                 viewport={{ once: true, amount: 0.12 }}
                 transition={{ duration: 0.6, ease: [0.25, 0.1, 0.25, 1], delay: 0.1 }}
               >
-                <ShowcaseCarousel screens={data.showcase_screens} />
+                <ShowcaseCarousel screens={data.showcase_screens} onImageClick={setLightboxSrc} />
               </motion.div>
             </div>
           </div>
@@ -573,6 +643,9 @@ function CaseStudy() {
 
       {/* ── Footer ───────────────────────────────────── */}
       <Footer />
+
+      {/* ── Lightbox ─────────────────────────────────── */}
+      {lightboxSrc && <Lightbox src={lightboxSrc} onClose={() => setLightboxSrc(null)} />}
     </div>
   );
 }
