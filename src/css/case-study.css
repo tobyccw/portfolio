@@ -1303,17 +1303,26 @@
     margin-bottom: 8px;                   /* tighter image-to-text gap */
   }
 
-  /* Card text — Figma: 16px/medium(500)/22px lh/-0.64px, px-[8px] */
-  .cs-other-works .work-title,
-  .cs-other-works .work-subtitle {
-    font-weight: 500;
-    line-height: 22px;
+  /* Card text — Label token for title, Body token for subtitle */
+  .cs-other-works .work-title {
+    font-size: var(--ts-label-size);
+    font-weight: var(--ts-label-weight);
+    line-height: var(--ts-label-line-height);
+    letter-spacing: var(--ts-label-tracking);
     padding-left: 8px;
     padding-right: 8px;
+    color: #000000;
   }
 
-  .cs-other-works .work-title  { color: #000000; }
-  .cs-other-works .work-subtitle { color: #c6c6c6; }
+  .cs-other-works .work-subtitle {
+    font-size: var(--ts-body-size);
+    font-weight: var(--ts-body-weight);
+    line-height: var(--ts-body-line-height);
+    letter-spacing: var(--ts-body-tracking);
+    padding-left: 8px;
+    padding-right: 8px;
+    color: #c6c6c6;
+  }
 
   /* Mobile sticky anchor nav — hidden on desktop */
   .cs-mobile-transformations-nav {
