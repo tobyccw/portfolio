@@ -85,7 +85,7 @@ body {
   display: inline-flex;
   align-items: center;
   gap: 4px;
-  vertical-align: middle;
+  vertical-align: -3px;
 }
 
 .nav-desktop {
@@ -583,9 +583,12 @@ body {
     overflow: hidden;
   }
 
-  /* Clip the animated track */
+  /* Clip the animated track — break out of container padding edge-to-edge */
   .companies-logos {
     overflow: hidden;
+    margin-left: -16px;
+    margin-right: -16px;
+    width: calc(100% + 32px);
   }
 
   /* Animate the inner track — GPU-accelerated, works regardless of document.hidden */

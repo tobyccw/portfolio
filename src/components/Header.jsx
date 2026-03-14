@@ -4,12 +4,12 @@ import { Link } from 'react-router-dom';
 
 const MotionLink = motion(Link);
 
-const WEATHER_CACHE_KEY = 'header-weather-v1';
+const WEATHER_CACHE_KEY = 'header-weather-v2';
 const WEATHER_TTL_MS = 10 * 60 * 1000;
 
 function mapWeatherCode(code) {
-  if (code === 0) return 'Clear';
-  if (code <= 3)  return 'Cloudy';
+  if (code <= 1)  return 'Clear';   // 0 = Clear sky, 1 = Mainly clear
+  if (code <= 3)  return 'Cloudy';  // 2 = Partly cloudy, 3 = Overcast
   if (code <= 48) return 'Cloudy';  // fog / overcast codes
   if (code <= 67) return 'Rainy';
   if (code <= 77) return 'Snowy';
@@ -178,8 +178,8 @@ function Header({ navActive }) {
               London (GMT+0) {time}
               {temperature !== '' && (
                 <>, {temperature}°C <span className="header-weather-condition">
-                  <WeatherIcon condition={weather} isDay={isDay} />
                   {weather}
+                  <WeatherIcon condition={weather} isDay={isDay} />
                 </span></>
               )}
             </p>

@@ -1,4 +1,4 @@
-import React, { lazy, Suspense, useEffect } from 'react';
+import React, { lazy, Suspense, useEffect, useRef } from 'react';
 import {
   BrowserRouter,
   Link,
@@ -55,6 +55,53 @@ function ScrollToHash() {
 }
 
 function HomePage() {
+  const trackRef = useRef(null);
+
+  useEffect(() => {
+    const track = trackRef.current;
+    if (!track) return;
+
+    const getTranslateX = (el) => new DOMMatrix(window.getComputedStyle(el).transform).m41;
+
+    let startX = 0;
+    let startTranslate = 0;
+    let dragging = false;
+
+    const onTouchStart = (e) => {
+      if (e.touches.length !== 1) return;
+      startX = e.touches[0].clientX;
+      startTranslate = getTranslateX(track);
+      track.style.animationPlayState = 'paused';
+      track.style.transform = `translateX(${startTranslate}px)`;
+      dragging = true;
+    };
+
+    const onTouchMove = (e) => {
+      if (!dragging || e.touches.length !== 1) return;
+      track.style.transform = `translateX(${startTranslate + e.touches[0].clientX - startX}px)`;
+    };
+
+    const onTouchEnd = () => {
+      if (!dragging) return;
+      dragging = false;
+      const halfWidth = track.scrollWidth / 2;
+      let pos = getTranslateX(track) % halfWidth;
+      if (pos > 0) pos -= halfWidth;
+      track.style.transform = '';
+      track.style.animationDelay = `${(pos / halfWidth) * 28}s`;
+      track.style.animationPlayState = 'running';
+    };
+
+    track.addEventListener('touchstart', onTouchStart, { passive: true });
+    track.addEventListener('touchmove', onTouchMove, { passive: true });
+    track.addEventListener('touchend', onTouchEnd);
+    return () => {
+      track.removeEventListener('touchstart', onTouchStart);
+      track.removeEventListener('touchmove', onTouchMove);
+      track.removeEventListener('touchend', onTouchEnd);
+    };
+  }, []);
+
   return (
     <div className="App">
       <Header navActive="home" />
@@ -148,7 +195,7 @@ function HomePage() {
           </h3>
 
           <div className="companies-logos">
-            <div className="companies-logos-track">
+            <div className="companies-logos-track" ref={trackRef}>
               {companies.map((company, index) => (
                 <div key={`a-${index}`} className="company-logo">
                   {company.logo && (
