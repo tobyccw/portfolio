@@ -80,12 +80,16 @@ body {
   color: #A7A7A7;
 }
 
-/* Inline icon + condition label — keeps icon vertically centred with text */
+/* Inline icon + condition label — plain inline keeps text on the natural baseline */
 .header-weather-condition {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  vertical-align: -3px;
+  display: inline;
+}
+
+/* Nudge just the SVG icon so it sits visually centred next to the text */
+.header-weather-condition svg {
+  display: inline;
+  vertical-align: -2px;
+  margin-left: 4px;
 }
 
 .nav-desktop {

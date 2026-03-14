@@ -71,7 +71,9 @@ function HomePage() {
       if (e.touches.length !== 1) return;
       startX = e.touches[0].clientX;
       startTranslate = getTranslateX(track);
-      track.style.animationPlayState = 'paused';
+      // Fully remove the CSS animation so the inline transform can take effect.
+      // (animationPlayState: paused still wins over inline style.transform)
+      track.style.animation = 'none';
       track.style.transform = `translateX(${startTranslate}px)`;
       dragging = true;
     };
@@ -84,12 +86,14 @@ function HomePage() {
     const onTouchEnd = () => {
       if (!dragging) return;
       dragging = false;
+      // Calculate where we are within one loop cycle
       const halfWidth = track.scrollWidth / 2;
       let pos = getTranslateX(track) % halfWidth;
-      if (pos > 0) pos -= halfWidth;
-      track.style.transform = '';
+      if (pos > 0) pos -= halfWidth; // keep negative
+      // Restore animation at the right offset via negative delay
       track.style.animationDelay = `${(pos / halfWidth) * 28}s`;
-      track.style.animationPlayState = 'running';
+      track.style.transform = '';
+      track.style.animation = ''; // let the stylesheet animation take over
     };
 
     track.addEventListener('touchstart', onTouchStart, { passive: true });
