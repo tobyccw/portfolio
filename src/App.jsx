@@ -90,10 +90,11 @@ function HomePage() {
       const halfWidth = track.scrollWidth / 2;
       let pos = getTranslateX(track) % halfWidth;
       if (pos > 0) pos -= halfWidth; // keep negative
-      // Restore animation at the right offset via negative delay
-      track.style.animationDelay = `${(pos / halfWidth) * 28}s`;
+      const delay = (pos / halfWidth) * 28; // negative seconds = start midway
+      // Set the FULL animation shorthand so delay is never overridden by a
+      // stale sub-property left behind from the earlier animation:none shorthand.
       track.style.transform = '';
-      track.style.animation = ''; // let the stylesheet animation take over
+      track.style.animation = `marquee-logos 28s linear ${delay}s infinite`;
     };
 
     track.addEventListener('touchstart', onTouchStart, { passive: true });
