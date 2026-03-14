@@ -80,6 +80,14 @@ body {
   color: #A7A7A7;
 }
 
+/* Inline icon + condition label — keeps icon vertically centred with text */
+.header-weather-condition {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  vertical-align: middle;
+}
+
 .nav-desktop {
   display: flex;
   align-items: center;

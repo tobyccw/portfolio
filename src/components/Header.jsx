@@ -7,12 +7,64 @@ const MotionLink = motion(Link);
 const WEATHER_CACHE_KEY = 'header-weather-v1';
 const WEATHER_TTL_MS = 10 * 60 * 1000;
 
-function mapWeatherCode(weatherCode) {
-  if (weatherCode === 0) return 'Clear';
-  if (weatherCode <= 3) return 'Cloudy';
-  if (weatherCode <= 67) return 'Rainy';
-  if (weatherCode <= 77) return 'Snowy';
+function mapWeatherCode(code) {
+  if (code === 0) return 'Clear';
+  if (code <= 3)  return 'Cloudy';
+  if (code <= 48) return 'Cloudy';  // fog / overcast codes
+  if (code <= 67) return 'Rainy';
+  if (code <= 77) return 'Snowy';
   return 'Stormy';
+}
+
+function WeatherIcon({ condition, isDay }) {
+  const shared = { width: 14, height: 14, viewBox: '0 0 14 14', fill: 'none', 'aria-hidden': true, style: { flexShrink: 0 } };
+  if (condition === 'Clear' && !isDay) {
+    return (
+      <svg {...shared}>
+        <path d="M11.5 8.5A5.5 5.5 0 1 1 5.5 2.5a4 4 0 1 0 6 6z" fill="currentColor" />
+      </svg>
+    );
+  }
+  if (condition === 'Clear') {
+    return (
+      <svg {...shared}>
+        <circle cx="7" cy="7" r="2.2" fill="currentColor" />
+        <path d="M7 1.5v1M7 11.5v1M1.5 7h1M11.5 7h1M3.4 3.4l.7.7M9.9 9.9l.7.7M10.6 3.4l-.7.7M4.1 9.9l-.7.7" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" />
+      </svg>
+    );
+  }
+  if (condition === 'Rainy') {
+    return (
+      <svg {...shared}>
+        <path d="M3.5 9a2.5 2.5 0 0 1 0-5 3.5 3.5 0 0 1 6.5 1H11a2 2 0 0 1 0 4H3.5z" fill="currentColor" />
+        <path d="M5 11l-.5 1.5M8 11l-.5 1.5M11 11l-.5 1.5" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" />
+      </svg>
+    );
+  }
+  if (condition === 'Snowy') {
+    return (
+      <svg {...shared}>
+        <path d="M3.5 8.5a2.5 2.5 0 0 1 0-5 3.5 3.5 0 0 1 6.5 1H11a2 2 0 0 1 0 4H3.5z" fill="currentColor" />
+        <circle cx="5" cy="11" r="0.8" fill="currentColor" />
+        <circle cx="7.5" cy="12" r="0.8" fill="currentColor" />
+        <circle cx="10" cy="11" r="0.8" fill="currentColor" />
+      </svg>
+    );
+  }
+  if (condition === 'Stormy') {
+    return (
+      <svg {...shared}>
+        <path d="M3.5 8a2.5 2.5 0 0 1 0-5 3.5 3.5 0 0 1 6.5 1H11a2 2 0 0 1 0 4H3.5z" fill="currentColor" />
+        <path d="M7 10l-1.5 3H8L6.5 14" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round" />
+      </svg>
+    );
+  }
+  // Cloudy (default)
+  return (
+    <svg {...shared}>
+      <path d="M3.5 10a2.5 2.5 0 0 1 0-5 3.5 3.5 0 0 1 6.5 1H11a2 2 0 0 1 0 4H3.5z" fill="currentColor" />
+    </svg>
+  );
 }
 
 function readWeatherCache() {
@@ -43,6 +95,7 @@ function writeWeatherCache(temperature, condition) {
 function Header({ navActive }) {
   const [time, setTime] = useState('');
   const [weather, setWeather] = useState('Cloudy');
+  const [isDay, setIsDay] = useState(true);
   const [temperature, setTemperature] = useState('');
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -72,9 +125,11 @@ function Header({ navActive }) {
 
         const temp = Math.round(data.current_weather.temperature);
         const condition = mapWeatherCode(data.current_weather.weathercode);
+        const day = data.current_weather.is_day !== 0;
 
         setTemperature(temp);
         setWeather(condition);
+        setIsDay(day);
         writeWeatherCache(temp, condition);
       } catch {
         if (!mounted) return;
@@ -121,7 +176,12 @@ function Header({ navActive }) {
             </Link>
             <p className="location">
               London (GMT+0) {time}
-              {temperature !== '' ? `, ${temperature}°C ${weather}` : ''}
+              {temperature !== '' && (
+                <>, {temperature}°C <span className="header-weather-condition">
+                  <WeatherIcon condition={weather} isDay={isDay} />
+                  {weather}
+                </span></>
+              )}
             </p>
           </div>
 
