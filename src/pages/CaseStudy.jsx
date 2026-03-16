@@ -703,6 +703,28 @@ function CaseStudy() {
         </section>
       )}
 
+      {/* ── Reflection ───────────────────────────────── */}
+      {data.reflection && (
+        <section className="cs-problem">
+          <div className="container">
+            <div className="cs-layout">
+              <motion.div className="cs-col-left" {...fadeUp}>
+                <h2 className="cs-section-heading">Reflection</h2>
+              </motion.div>
+              <motion.div
+                className="cs-col-right cs-body-text"
+                initial={{ opacity: 0, y: 28 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.1 }}
+                transition={{ duration: 0.6, ease: [0.25, 0.1, 0.25, 1], delay: 0.1 }}
+              >
+                <p>{renderInlineMarkdown(data.reflection)}</p>
+              </motion.div>
+            </div>
+          </div>
+        </section>
+      )}
+
       {/* ── Showcase Screens ─────────────────────────── */}
       {data.showcase_screens?.length > 0 && (
         <section className="cs-showcase-section">

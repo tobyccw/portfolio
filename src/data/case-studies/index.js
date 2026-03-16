@@ -2,6 +2,7 @@ import capitalcomAppEvolution from '../../content/case-studies/capitalcom-app-ev
 import CustomizingGPT from '../../content/case-studies/capitalcom-ai-graphics.json';
 import inkstoneNews from '../../content/case-studies/inkstone-news.json';
 import liviAppRevamp from '../../content/case-studies/livi-app-revamp.json';
+import liviInvest from '../../content/case-studies/livi-invest.json';
 import liviPaylater from '../../content/case-studies/livi-paylater.json';
 import scmpCooking from '../../content/case-studies/scmp-cooking.json';
 
@@ -9,6 +10,7 @@ import scmpCooking from '../../content/case-studies/scmp-cooking.json';
 const caseStudies = {
   'capitalcom-app-evolution': capitalcomAppEvolution,
   'livi-app-revamp': liviAppRevamp,
+  'livi-invest': liviInvest,
   'inkstone-news': inkstoneNews,
   'livi-paylater': liviPaylater,
   'scmp-cooking': scmpCooking,

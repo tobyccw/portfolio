@@ -31,7 +31,7 @@ const projects = [
     title: 'livi Invest',
     subtitle: 'Product Design, App',
     image: '/images/livi-invest.jpg',
-    available: false
+    available: true
   },
   {
     slug: 'livi-paylater',
