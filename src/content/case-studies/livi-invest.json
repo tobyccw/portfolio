@@ -1,0 +1,82 @@
+{
+  "slug": "livi-invest",
+  "title": "livi Invest",
+  "subtitle": "Fund investing, designed for beginners",
+  "hero_image": "/images/case-studies/livi-invest/hero.jpg",
+  "disciplines": [
+    "UXUI Design",
+    "Interaction Design",
+    "Research",
+    "Product Strategy"
+  ],
+  "role": "UXUI Lead",
+  "year": "2022",
+  "problem_statement": [
+    "Millions of people in Hong Kong wanted to start investing but didn't know how. Existing platforms were built for people who already understood markets. Nobody had designed an entry point approachable enough for beginners. livi Bank saw an opportunity to bring these people into wealth management through fund investment, where lower volatility and professional management made it a natural starting point.",
+    "We partnered with InSites Consulting Asia to conduct a qualitative usability study with 16 participants: 8 investment newbies (aged 18-44, investing under HK$100K) and 8 experienced investors (investing HK$500K+, with 5-10 years of experience). Each 90-minute session combined questions about investment behaviour with hands-on prototype walkthroughs. I observed the sessions firsthand.",
+    "Three findings shaped every design decision that followed.",
+    "**Fund selection paralysed beginners.** They couldn't evaluate what was inside each fund, and even experienced investors fell back on rankings because independent analysis felt out of reach. Without a clear way to compare options, choosing felt like guessing.",
+    "**Fees were unclear, and that killed trust early.** Users couldn't tell what they were being charged or why, and that confusion set in before they even made a purchase. Transparency wasn't a nice-to-have — it was the baseline for confidence.",
+    "**Users wanted to learn, but only in the moment.** Educational content was welcome when it appeared at the right point in the journey. Anything that felt like a course or a separate module, they'd skip entirely."
+  ],
+  "transformations_heading": "Key Design Decisions",
+  "transformations": [
+    {
+      "id": "from-research-to-direction",
+      "title": "From Research to Direction",
+      "content": [
+        "I organised a one-day cross-functional workshop with engineers, data analysts, business, marketing, and compliance teams. We mapped every research finding to potential design responses, sketched solutions, and reviewed feasibility in the same session. Including compliance from day one meant they understood our goals and could help find solutions within regulations, rather than simply rejecting designs after the fact.",
+        "The research surfaced a critical tension. Investment newbies needed hand-holding and reassurance. Experienced investors needed efficiency and familiar classification. Every decision from this point had to serve both without compromising either."
+      ],
+      "images": {
+        "type": "dual",
+        "src": [
+          "/images/case-studies/livi-invest/workshop.jpg",
+          "/images/case-studies/livi-invest/mapping.jpg"
+        ]
+      }
+    },
+    {
+      "id": "conversational-trading",
+      "title": "Conversational by Design",
+      "content": [
+        "Traditional investment platforms present everything at once: charts, order books, price history, risk ratings, fee breakdowns. For someone who has never bought a fund, that's not information. It's noise. Our research confirmed it. Newbies felt uncomfortable performing trade orders because the interface assumed knowledge they didn't have.",
+        "I designed the exploration and fund purchase flows as guided conversations. Instead of presenting all options simultaneously, the interface asks one question at a time, prompting users with only the information they need to make that specific decision. The usability study validated the approach, though it flagged that some chat-style elements felt gimmicky. We refined the tone to feel more like guided prompts than a simulated conversation, keeping the simplicity without the artificial personality."
+      ],
+      "images": {
+        "type": "full",
+        "src": "/images/case-studies/livi-invest/conversational-flow.jpg",
+        "border": true
+      }
+    },
+    {
+      "id": "contextual-education",
+      "title": "Education, Not Interruption",
+      "content": [
+        "Investment newbies in our study consistently said they wanted to learn more, but none of them wanted to be taught. Instead of building a separate education hub, I embedded bite-size content directly into the user's journey. When browsing a dividend fund, a short explainer on how dividends work appears in context. When viewing a risk rating, a brief note clarifies what the scale means. Each piece was designed for 2-3 minutes of reading, matching the attention threshold our research identified.",
+        "We recognised early that content would be a winning factor for this product. Down the roadmap, the content library was planned to expand with opinion leader commentary, video explainers, and market reviews to serve users as their confidence grew."
+      ],
+      "images": {
+        "type": "full",
+        "src": "/images/case-studies/livi-invest/education.jpg",
+        "border": false
+      }
+    }
+  ],
+  "results_heading": "What difference did we make?",
+  "metrics": [
+    {
+      "number": "8.3%",
+      "label": "Banking users adopted fund investment within 6 months"
+    },
+    {
+      "number": "35%",
+      "label": "First-purchase completion rate"
+    },
+    {
+      "number": "16%",
+      "label": "Monthly instalment adoption rate"
+    }
+  ],
+  "reflection": "In financial products, there's a fine line between simplicity and omission. Removing friction is good design. Removing information that users need before making a financial commitment is a **compliance risk**. Every screen had to feel approachable without hiding the details that protect users. Working with compliance doesn't mean handing over designs for approval. It means bringing them into the process early enough that they become partners in finding the right balance. Because they understood our business ambition from the workshop stage, compliance could evaluate our approach in context rather than reacting to finished designs. In several cases, they helped us find ways to meet disclosure requirements without adding friction. Simplicity isn't about showing less. It's about showing the right thing at the right moment, so users feel confident and informed, not overwhelmed and not misled."
+}
