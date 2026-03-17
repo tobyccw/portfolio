@@ -20,13 +20,6 @@ const projects = [
     available: true
   },
   {
-    slug: 'livi-app-revamp',
-    title: 'livi App Revamp',
-    subtitle: 'Product Design, App',
-    image: '/images/thumb-livi-revamp.jpg',
-    available: true
-  },
-  {
     slug: 'livi-invest',
     title: 'livi Invest',
     subtitle: 'Product Design, App',
@@ -38,6 +31,13 @@ const projects = [
     title: 'livi PayLater',
     subtitle: 'Product Design, App',
     image: '/images/livi-paylater.jpg',
+    available: true
+  },
+  {
+    slug: 'livi-app-revamp',
+    title: 'livi App Revamp',
+    subtitle: 'Product Design, App',
+    image: '/images/thumb-livi-revamp.jpg',
     available: true
   },
   {
