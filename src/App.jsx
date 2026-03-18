@@ -125,6 +125,42 @@ function HomePage() {
         </div>
       </section>
 
+      <section className="companies">
+        <div className="container">
+          <h3 className="companies-intro">
+            <span className="text-light">
+              Since 2011, I've designed digital products across finance, media,
+              transport and more, crafting experiences that feel both{' '}
+            </span>
+            <span className="text-bold">intuitive</span>
+            <span className="text-light"> and </span>
+            <span className="text-bold">true to the brand</span>
+            <span className="text-light">.</span>
+          </h3>
+
+          <div className="companies-logos">
+            <div className="companies-logos-track" ref={trackRef}>
+              {companies.map((company, index) => (
+                <div key={`a-${index}`} className="company-logo">
+                  {company.logo && (
+                    <img src={company.logo} alt={company.name} className="company-logo-img" loading="lazy" />
+                  )}
+                  <span className="company-name">{company.name}</span>
+                </div>
+              ))}
+              {companies.map((company, index) => (
+                <div key={`b-${index}`} className="company-logo company-logo-repeat" aria-hidden="true">
+                  {company.logo && (
+                    <img src={company.logo} alt="" className="company-logo-img" loading="lazy" />
+                  )}
+                  <span className="company-name">{company.name}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
       <section className="works" id="work">
         <div className="container">
           <h3 className="section-title">Selected Works</h3>
@@ -187,42 +223,6 @@ function HomePage() {
         </div>
       </section>
 
-      <section className="companies">
-        <div className="container">
-          <h3 className="companies-intro">
-            <span className="text-light">
-              Since 2011, I've designed digital products across finance, media,
-              transport and more, crafting experiences that feel both{' '}
-            </span>
-            <span className="text-bold">intuitive</span>
-            <span className="text-light"> and </span>
-            <span className="text-bold">true to the brand</span>
-            <span className="text-light">.</span>
-          </h3>
-
-          <div className="companies-logos">
-            <div className="companies-logos-track" ref={trackRef}>
-              {companies.map((company, index) => (
-                <div key={`a-${index}`} className="company-logo">
-                  {company.logo && (
-                    <img src={company.logo} alt={company.name} className="company-logo-img" loading="lazy" />
-                  )}
-                  <span className="company-name">{company.name}</span>
-                </div>
-              ))}
-              {companies.map((company, index) => (
-                <div key={`b-${index}`} className="company-logo company-logo-repeat" aria-hidden="true">
-                  {company.logo && (
-                    <img src={company.logo} alt="" className="company-logo-img" loading="lazy" />
-                  )}
-                  <span className="company-name">{company.name}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
       <section className="connect" id="connect">
         <div className="container">
           <h3 className="section-title">Let's connect!</h3>
@@ -250,17 +250,17 @@ function HomePage() {
       <section className="about" id="about">
         <div className="container">
           <div className="about-content">
-            <h3 className="about-title">
+            <Link to="/about" className="about-title" style={{ textDecoration: 'none' }}>
               About me
               <span className="about-arrow">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M16.2426 12.9393C16.8284 13.5251 16.8284 14.4748 16.2426 15.0606L9.87868 21.4246C9.2929 22.0104 8.34315 22.0104 7.75736 21.4246C7.17158 20.8388 7.17158 19.889 7.75736 19.3032L13.0607 13.9999L7.75736 8.69665C7.17158 8.11086 7.17158 7.16111 7.75736 6.57533C8.34315 5.98954 9.2929 5.98954 9.87868 6.57533L16.2426 12.9393Z" fill="currentColor" />
                 </svg>
               </span>
-            </h3>
+            </Link>
             <div
               className="about-image"
-              style={{ backgroundImage: `url(${process.env.PUBLIC_URL}/images/about_bg.jpg)` }}
+              style={{ backgroundImage: `url(${process.env.PUBLIC_URL}/images/profile.jpg)` }}
             />
           </div>
         </div>

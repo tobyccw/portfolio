@@ -221,7 +221,10 @@ body {
 
 /* Hero Section */
 .hero {
-  padding: 120px 0;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  padding: 0;
 }
 
 .hero-title {
@@ -244,7 +247,10 @@ body {
 
 /* Selected Works */
 .works {
-  padding: 240px 0;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  padding: 0;
 }
 
 .section-title {
@@ -372,8 +378,10 @@ body {
 
 /* Companies Section */
 .companies {
-  padding: 80px 0;
-  /* Removed background color */
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  padding: 0;
 }
 
 /* 7 of 12 cols = 58.333% − 10px (accounts for 6 vs 11 column-gaps of 24px) */
@@ -435,7 +443,10 @@ body {
 
 /* Connect Section */
 .connect {
-  padding: 80px 0;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  padding: 0;
 }
 
 .connect .section-title {
@@ -468,7 +479,7 @@ body {
 
 /* About Section */
 .about {
-  display: none; /* hidden for now */
+  display: block;
   padding: 0;
   margin: 0;
   overflow: hidden;
@@ -481,7 +492,7 @@ body {
 
 .about-content {
   position: relative;
-  height: 600px;
+  height: 100vh;
   overflow: hidden;
 }
 
@@ -560,6 +571,7 @@ body {
 
   .hero {
     padding: 60px 0;
+    min-height: auto;
   }
 
   .hero-title {
@@ -568,6 +580,7 @@ body {
 
   .works {
     padding: 80px 0;
+    min-height: auto;
   }
 
   .works-grid {
@@ -584,6 +597,8 @@ body {
   }
 
   .companies {
+    min-height: auto;
+    padding: 60px 0;
     overflow: hidden;
   }
 
@@ -629,8 +644,13 @@ body {
     animation-play-state: paused;
   }
 
+  .connect {
+    min-height: auto;
+    padding: 80px 0;
+  }
+
   .about-content {
-    height: 400px;
+    height: 100svh;
   }
 
   .about-title {
