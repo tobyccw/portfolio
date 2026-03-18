@@ -55,6 +55,14 @@ function ScrollToHash() {
   return null;
 }
 
+/* ── Animation preset ──────────────────────────────────── */
+const fadeUp = {
+  initial:     { opacity: 0, y: 40 },
+  whileInView: { opacity: 1, y: 0 },
+  viewport:    { once: true, amount: 0.12 },
+  transition:  { duration: 0.75, ease: [0.25, 0.1, 0.25, 1] },
+};
+
 function HomePage() {
   const trackRef = useRef(null);
 
@@ -114,20 +122,25 @@ function HomePage() {
 
       <section className="hero" id="home">
         <div className="container">
-          <h2 className="hero-title">
+          <motion.h2
+            className="hero-title"
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.75, ease: [0.25, 0.1, 0.25, 1] }}
+          >
             <span className="text-light">
               Product Designer. Connecting polished interfaces with meaningful
               experiences. Currently designing trading platforms at{' '}
             </span>
             <span className="text-bold">Capital.com</span>
             <span className="text-light">, serving 6M+ users globally.</span>
-          </h2>
+          </motion.h2>
         </div>
       </section>
 
       <section className="companies">
         <div className="container">
-          <h3 className="companies-intro">
+          <motion.h3 className="companies-intro" {...fadeUp}>
             <span className="text-light">
               Since 2011, I've designed digital products across finance, media,
               transport and more, crafting experiences that feel both{' '}
@@ -136,9 +149,11 @@ function HomePage() {
             <span className="text-light"> and </span>
             <span className="text-bold">true to the brand</span>
             <span className="text-light">.</span>
-          </h3>
+          </motion.h3>
 
-          <div className="companies-logos">
+          <motion.div className="companies-logos" {...fadeUp}
+            transition={{ duration: 0.75, ease: [0.25, 0.1, 0.25, 1], delay: 0.15 }}
+          >
             <div className="companies-logos-track" ref={trackRef}>
               {companies.map((company, index) => (
                 <div key={`a-${index}`} className="company-logo">
@@ -157,21 +172,24 @@ function HomePage() {
                 </div>
               ))}
             </div>
-          </div>
+          </motion.div>
         </div>
       </section>
 
       <section className="works" id="work">
         <div className="container">
-          <h3 className="section-title">Selected Works</h3>
+          <motion.h3 className="section-title" {...fadeUp}>Selected Works</motion.h3>
 
           <div className="works-grid">
-            {projects.slice(0, 4).map((project) => {
+            {projects.slice(0, 4).map((project, i) => {
               const card = (
                 <motion.div
                   className="work-card"
+                  initial={{ opacity: 0, y: 40 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, amount: 0.1 }}
                   whileHover={{ y: -4 }}
-                  transition={{ type: 'spring', stiffness: 200 }}
+                  transition={{ duration: 0.75, ease: [0.25, 0.1, 0.25, 1], delay: i * 0.08 }}
                 >
                   <div className="work-image">
                     {project.image ? (
@@ -212,6 +230,7 @@ function HomePage() {
             })}
           </div>
 
+          <motion.div {...fadeUp} transition={{ duration: 0.75, ease: [0.25, 0.1, 0.25, 1], delay: 0.1 }}>
           <Link to="/work/livi-app-revamp" className="see-more">
             See more of my works
             <span className="see-more-arrow">
@@ -220,22 +239,26 @@ function HomePage() {
               </svg>
             </span>
           </Link>
+          </motion.div>
         </div>
       </section>
 
       <section className="connect" id="connect">
         <div className="container">
-          <h3 className="section-title">Let's connect!</h3>
+          <motion.h3 className="section-title" {...fadeUp}>Let's connect!</motion.h3>
           <div className="social-links">
-            {socialLinks.map(({ label, href }) => {
+            {socialLinks.map(({ label, href }, i) => {
               const isExternal = href.startsWith('http');
               return (
                 <motion.a
                   key={label}
                   href={href}
                   className="social-link"
+                  initial={{ opacity: 0, y: 40 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, amount: 0.2 }}
                   whileHover={{ x: 4 }}
-                  transition={{ type: 'spring', stiffness: 300 }}
+                  transition={{ duration: 0.75, ease: [0.25, 0.1, 0.25, 1], delay: i * 0.08 }}
                   target={isExternal ? '_blank' : undefined}
                   rel={isExternal ? 'noreferrer' : undefined}
                 >
@@ -250,7 +273,14 @@ function HomePage() {
       <section className="about" id="about">
         <div className="container">
           <div className="about-content">
-            <Link to="/about" className="about-title" style={{ textDecoration: 'none' }}>
+            <motion.div
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ duration: 0.75, ease: [0.25, 0.1, 0.25, 1] }}
+              style={{ position: 'absolute', top: 'clamp(40px, 6vh, 60px)', left: 24, zIndex: 2 }}
+            >
+            <Link to="/about" className="about-title" style={{ textDecoration: 'none', position: 'static' }}>
               About me
               <span className="about-arrow">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -258,6 +288,7 @@ function HomePage() {
                 </svg>
               </span>
             </Link>
+            </motion.div>
             <div
               className="about-image"
               style={{ backgroundImage: `url(${process.env.PUBLIC_URL}/images/profile.jpg)` }}

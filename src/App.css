@@ -223,8 +223,9 @@ body {
 .hero {
   min-height: 100vh;
   display: flex;
-  align-items: center;
-  padding: 0;
+  align-items: flex-start;
+  padding-top: 22vh;
+  padding-bottom: 80px;
 }
 
 .hero-title {
@@ -247,10 +248,7 @@ body {
 
 /* Selected Works */
 .works {
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  padding: 0;
+  padding: 120px 0;
 }
 
 .section-title {
@@ -443,10 +441,7 @@ body {
 
 /* Connect Section */
 .connect {
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  padding: 0;
+  padding: 80px 0;
 }
 
 .connect .section-title {
@@ -497,9 +492,6 @@ body {
 }
 
 .about-title {
-  position: absolute;
-  top: 60px;
-  left: 24px;
   font-size: var(--ts-h2-size);
   font-weight: var(--ts-h2-weight);
   line-height: var(--ts-h2-line-height);
@@ -570,7 +562,8 @@ body {
   }
 
   .hero {
-    padding: 60px 0;
+    padding-top: 18vh;
+    padding-bottom: 60px;
     min-height: auto;
   }
 
@@ -580,7 +573,6 @@ body {
 
   .works {
     padding: 80px 0;
-    min-height: auto;
   }
 
   .works-grid {
@@ -644,18 +636,11 @@ body {
     animation-play-state: paused;
   }
 
-  .connect {
-    min-height: auto;
-    padding: 80px 0;
-  }
-
   .about-content {
     height: 100svh;
   }
 
   .about-title {
-    top: 40px;
-    left: 40px;
     font-size: var(--ts-h3-size);         /* H2 → H3 step-down */
     font-weight: var(--ts-h3-weight);
     line-height: var(--ts-h3-line-height);
