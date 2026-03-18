@@ -111,7 +111,7 @@ function About() {
           </div>
 
           <motion.a
-            href="https://www.linkedin.com/in/tobyccw/"
+            href="/TobyCheng-CV-2026.pdf"
             target="_blank"
             rel="noreferrer"
             className="btn-connect"
