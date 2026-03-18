@@ -121,10 +121,10 @@ body {
   padding: 0 24px;
   border-radius: 999px;
   border: 1px solid var(--black);
-  font-size: var(--ts-label-size);
-  font-weight: var(--ts-label-weight);
-  line-height: var(--ts-label-line-height);
-  letter-spacing: var(--ts-label-tracking);
+  font-size: var(--ts-body-size);
+  font-weight: var(--ts-body-weight);
+  line-height: var(--ts-body-line-height);
+  letter-spacing: var(--ts-body-tracking);
   cursor: pointer;
   transition: background 0.3s, color 0.3s, border-color 0.3s;
 }
