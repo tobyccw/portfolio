@@ -162,8 +162,9 @@ function Header({ navActive }) {
   }, []);
 
   const navLinks = [
-    { label: 'Home', to: '/#home', key: 'home' },
-    { label: 'Work', to: '/#work', key: 'work' },
+    { label: 'Home',  to: '/#home', key: 'home' },
+    { label: 'Work',  to: '/#work', key: 'work' },
+    { label: 'About', to: '/about', key: 'about' },
   ];
 
   return (
