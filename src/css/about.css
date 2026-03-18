@@ -134,9 +134,9 @@
 /* ── Mobile ≤ 768px ──────────────────────────────────────── */
 @media (max-width: 768px) {
 
-  /* Hero: square (matches case study hero on mobile) */
+  /* Hero: full viewport height on mobile */
   .about-hero {
-    height: 100vw;
+    height: 100svh;
   }
 
   .about-hero-img {
