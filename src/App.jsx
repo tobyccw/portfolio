@@ -14,6 +14,7 @@ import projects from './data/projects';
 import './App.css';
 
 const CaseStudy = lazy(() => import('./pages/CaseStudy'));
+const About     = lazy(() => import('./pages/About'));
 
 const companies = [
   { name: 'Capital.com', logo: '/images/logo-capital.png' },
@@ -297,6 +298,7 @@ function App() {
       <Suspense fallback={<div className="container" style={{ padding: '40px 24px' }}>Loading...</div>}>
         <Routes>
           <Route path="/" element={<HomePage />} />
+          <Route path="/about" element={<About />} />
           <Route path="/work/:slug" element={<CaseStudy />} />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
