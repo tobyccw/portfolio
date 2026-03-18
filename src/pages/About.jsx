@@ -57,7 +57,7 @@ function About() {
         transition={{ duration: 0.8, ease: 'easeOut' }}
       >
         <img
-          src="/images/about_bg.jpg"
+          src="/images/profile.jpg"
           alt="Toby Cheng"
           className="about-hero-img"
           loading="eager"
