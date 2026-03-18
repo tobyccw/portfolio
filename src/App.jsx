@@ -291,7 +291,7 @@ function HomePage() {
             </motion.div>
             <div
               className="about-image"
-              style={{ backgroundImage: `url(${process.env.PUBLIC_URL}/images/profile.jpg)` }}
+              style={{ backgroundImage: `url(${process.env.PUBLIC_URL}/images/about_bg.jpg)` }}
             />
           </div>
         </div>
