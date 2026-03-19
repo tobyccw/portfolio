@@ -414,10 +414,10 @@ body {
 }
 
 .company-name {
-  font-size: var(--ts-label-size);
-  font-weight: var(--ts-label-weight);
-  line-height: var(--ts-label-line-height);
-  letter-spacing: var(--ts-label-tracking);
+  font-size: var(--ts-body-size);
+  font-weight: var(--ts-body-weight);
+  line-height: var(--ts-body-line-height);
+  letter-spacing: var(--ts-body-tracking);
   color: var(--black);
 }
 
@@ -622,10 +622,11 @@ body {
   }
 
   .about-content {
-    height: 56vw;
+    height: 480px;
   }
 
   .about-title {
+    top: 24px;
     font-size: var(--ts-h3-size);         /* H2 → H3 step-down */
     font-weight: var(--ts-h3-weight);
     line-height: var(--ts-h3-line-height);

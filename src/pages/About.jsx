@@ -5,6 +5,7 @@ import { motion } from 'framer-motion';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import projects from '../data/projects';
+import socialLinks from '../data/social-links';
 import { fadeUp } from '../utils/animation';
 
 import '../css/case-study.css';   /* footer + shared cs-* styles */
@@ -77,47 +78,82 @@ function About() {
         </motion.div>
       </motion.section>
 
-      {/* ── Recent Adventure ─────────────────────────── */}
+      {/* ── Recent Adventure + Let's Connect ────────── */}
       <section className="about-adventure">
         <div className="container">
-          <motion.h2 className="about-adventure-heading" {...fadeUp}>
-            Recent adventure
-          </motion.h2>
+          <div className="about-adventure-connect-layout">
 
-          <div className="about-adventure-list">
-            {experience.map((job, i) => (
-              <motion.div
-                key={job.company}
-                className="about-adventure-row"
+            {/* Left — 7 cols: Recent Adventure */}
+            <div className="about-adventure-left">
+              <motion.h2 className="about-adventure-heading" {...fadeUp}>
+                Recent adventure
+              </motion.h2>
+
+              <div className="about-adventure-list">
+                {experience.map((job, i) => (
+                  <motion.div
+                    key={job.company}
+                    className="about-adventure-row"
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, amount: 0.2 }}
+                    transition={{ duration: 0.5, ease: [0.25, 0.1, 0.25, 1], delay: i * 0.07 }}
+                  >
+                    <div className="about-adventure-info">
+                      <span className="about-adventure-title">{job.title}</span>
+                      <span className="about-adventure-company">{job.company}</span>
+                    </div>
+                    <span className="about-adventure-period">{job.period}</span>
+                  </motion.div>
+                ))}
+              </div>
+
+              <motion.a
+                href="/TobyCheng-CV-2026.pdf"
+                target="_blank"
+                rel="noreferrer"
+                className="btn-connect about-cv-btn"
+                style={{ textDecoration: 'none' }}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.2 }}
-                transition={{ duration: 0.5, ease: [0.25, 0.1, 0.25, 1], delay: i * 0.07 }}
+                whileHover={{ scale: 1.05, y: -2, transition: { type: 'spring', stiffness: 400 } }}
+                whileTap={{ scale: 0.95, transition: { type: 'spring', stiffness: 400 } }}
+                transition={{ duration: 0.5, ease: [0.25, 0.1, 0.25, 1], delay: 0.22 }}
               >
-                <div className="about-adventure-info">
-                  <span className="about-adventure-title">{job.title}</span>
-                  <span className="about-adventure-company">{job.company}</span>
-                </div>
-                <span className="about-adventure-period">{job.period}</span>
-              </motion.div>
-            ))}
-          </div>
+                See my full CV
+              </motion.a>
+            </div>
 
-          <motion.a
-            href="/TobyCheng-CV-2026.pdf"
-            target="_blank"
-            rel="noreferrer"
-            className="btn-connect"
-            style={{ textDecoration: 'none', display: 'inline-flex' }}
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.2 }}
-            whileHover={{ scale: 1.05, y: -2, transition: { type: 'spring', stiffness: 400 } }}
-            whileTap={{ scale: 0.95, transition: { type: 'spring', stiffness: 400 } }}
-            transition={{ duration: 0.5, ease: [0.25, 0.1, 0.25, 1], delay: 0.22 }}
-          >
-            See my full CV
-          </motion.a>
+            {/* Spacer — 1 col */}
+            <div className="about-adventure-spacer" aria-hidden="true" />
+
+            {/* Right — 4 cols: Let's Connect */}
+            <motion.div className="about-connect" {...fadeUp}>
+              <h2 className="about-adventure-heading">Let's connect!</h2>
+              <div className="about-connect-links">
+                {socialLinks.map(({ label, href }, i) => {
+                  const isExternal = href.startsWith('http');
+                  return (
+                    <motion.a
+                      key={label}
+                      href={href}
+                      className="social-link"
+                      {...fadeUp}
+                      viewport={{ once: true, amount: 0.2 }}
+                      whileHover={{ x: 4 }}
+                      transition={{ ...fadeUp.transition, delay: i * 0.07 }}
+                      target={isExternal ? '_blank' : undefined}
+                      rel={isExternal ? 'noreferrer' : undefined}
+                    >
+                      {label}
+                    </motion.a>
+                  );
+                })}
+              </div>
+            </motion.div>
+
+          </div>
         </div>
       </section>
 

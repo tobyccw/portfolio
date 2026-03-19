@@ -12,6 +12,7 @@ import { Analytics } from '@vercel/analytics/react';
 
 import Header from './components/Header';
 import projects from './data/projects';
+import socialLinks from './data/social-links';
 import './App.css';
 
 const CaseStudy = lazy(() => import('./pages/CaseStudy'));
@@ -25,12 +26,6 @@ const companies = [
   { name: 'MTR Hong Kong', logo: '/images/logo-mtr.png' },
   { name: 'South China Morning Post', logo: '/images/logo-scmp.png' },
   { name: 'Cathay Pacific', logo: '/images/logo-cathay.png' }
-];
-
-const socialLinks = [
-  { label: 'LinkedIn', href: 'https://www.linkedin.com/in/tobyccw/' },
-  { label: 'Email', href: 'mailto:tobyccw@gmail.com' },
-  { label: 'Are.na', href: 'https://www.are.na/toby-c/channels' }
 ];
 
 function ScrollToHash() {

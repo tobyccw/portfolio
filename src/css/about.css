@@ -51,9 +51,36 @@
   letter-spacing: var(--ts-body-tracking);
 }
 
-/* ── Recent Adventure ──────────────────────────────────── */
+/* ── Recent Adventure + Let's Connect ─────────────────── */
 .about-adventure {
   padding: 120px 0 80px;
+}
+
+/* Desktop 7:1:4 column layout */
+.about-adventure-connect-layout {
+  display: flex;
+  align-items: flex-start;
+}
+
+.about-adventure-left {
+  flex: 7;
+  min-width: 0;
+}
+
+.about-adventure-spacer {
+  flex: 1;
+}
+
+.about-connect {
+  flex: 4;
+  min-width: 0;
+}
+
+/* Vertical social links for the narrower connect column */
+.about-connect-links {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 }
 
 /* H2 token */
@@ -70,7 +97,6 @@
   display: flex;
   flex-direction: column;
   gap: 24px;
-  max-width: 944px;   /* ~992px section width − 48px padding */
   margin-bottom: 24px;
 }
 
@@ -164,6 +190,16 @@
     padding: 60px 0 40px;
   }
 
+  /* Stack adventure + connect vertically on mobile */
+  .about-adventure-connect-layout {
+    flex-direction: column;
+    gap: 60px;
+  }
+
+  .about-adventure-spacer {
+    display: none;
+  }
+
   /* H2 → H3 step-down */
   .about-adventure-heading {
     font-size:      var(--ts-h3-size);
@@ -172,19 +208,22 @@
     letter-spacing: var(--ts-h3-tracking);
   }
 
-  /* Stack job info and period vertically on mobile */
+  /* Stack job info and period vertically; period stays black */
   .about-adventure-row {
     flex-direction: column;
-    gap: 2px;
+    gap: 4px;
   }
 
   .about-adventure-period {
-    color: #717171;
     white-space: normal;
+    /* Keep #000 — no colour override on mobile */
   }
 
-  .about-adventure-list {
-    max-width: 100%;
+  /* Full-width CV button on mobile */
+  .about-cv-btn {
+    display: flex;
+    width: 100%;
+    justify-content: center;
   }
 
   .about-works {
