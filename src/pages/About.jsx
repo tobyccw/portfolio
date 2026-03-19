@@ -5,17 +5,13 @@ import { motion } from 'framer-motion';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import projects from '../data/projects';
+import { fadeUp } from '../utils/animation';
 
 import '../css/case-study.css';   /* footer + shared cs-* styles */
 import '../css/about.css';
 
-/* ── Animation preset ─────────────────────────────────── */
-const fadeUp = {
-  initial:     { opacity: 0, y: 28 },
-  whileInView: { opacity: 1, y: 0 },
-  viewport:    { once: true, amount: 0.12 },
-  transition:  { duration: 0.6, ease: [0.25, 0.1, 0.25, 1] },
-};
+/* Show first 4 curated projects — same as homepage */
+const visibleProjects = projects.slice(0, 4);
 
 /* ── Experience data ──────────────────────────────────── */
 const experience = [
@@ -41,9 +37,6 @@ function About() {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
-
-  /* Show first 4 curated projects — same as homepage */
-  const visibleProjects = projects.slice(0, 4);
 
   return (
     <div className="App">
@@ -116,12 +109,12 @@ function About() {
             rel="noreferrer"
             className="btn-connect"
             style={{ textDecoration: 'none', display: 'inline-flex' }}
-            whileHover={{ scale: 1.05, y: -2 }}
-            whileTap={{ scale: 0.95 }}
-            transition={{ type: 'spring', stiffness: 400 }}
-            {...{ initial: { opacity: 0, y: 20 }, whileInView: { opacity: 1, y: 0 },
-                  viewport: { once: true, amount: 0.2 },
-                  transition: { duration: 0.5, ease: [0.25, 0.1, 0.25, 1], delay: 0.22 } }}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            whileHover={{ scale: 1.05, y: -2, transition: { type: 'spring', stiffness: 400 } }}
+            whileTap={{ scale: 0.95, transition: { type: 'spring', stiffness: 400 } }}
+            transition={{ duration: 0.5, ease: [0.25, 0.1, 0.25, 1], delay: 0.22 }}
           >
             See my full CV
           </motion.a>

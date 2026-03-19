@@ -7,6 +7,7 @@ import {
   useLocation
 } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import { fadeUp } from './utils/animation';
 import { Analytics } from '@vercel/analytics/react';
 
 import Header from './components/Header';
@@ -55,13 +56,7 @@ function ScrollToHash() {
   return null;
 }
 
-/* ── Animation preset ──────────────────────────────────── */
-const fadeUp = {
-  initial:     { opacity: 0, y: 40 },
-  whileInView: { opacity: 1, y: 0 },
-  viewport:    { once: true, amount: 0.12 },
-  transition:  { duration: 0.75, ease: [0.25, 0.1, 0.25, 1] },
-};
+const MotionLink = motion(Link);
 
 function HomePage() {
   const trackRef = useRef(null);
@@ -185,11 +180,10 @@ function HomePage() {
               const card = (
                 <motion.div
                   className="work-card"
-                  initial={{ opacity: 0, y: 40 }}
-                  whileInView={{ opacity: 1, y: 0 }}
+                  {...fadeUp}
                   viewport={{ once: true, amount: 0.1 }}
                   whileHover={{ y: -4 }}
-                  transition={{ duration: 0.75, ease: [0.25, 0.1, 0.25, 1], delay: i * 0.08 }}
+                  transition={{ ...fadeUp.transition, delay: i * 0.08 }}
                 >
                   <div className="work-image">
                     {project.image ? (
@@ -230,16 +224,6 @@ function HomePage() {
             })}
           </div>
 
-          <motion.div {...fadeUp} transition={{ duration: 0.75, ease: [0.25, 0.1, 0.25, 1], delay: 0.1 }}>
-          <Link to="/work/livi-app-revamp" className="see-more">
-            See more of my works
-            <span className="see-more-arrow">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M16.2426 12.9393C16.8284 13.5251 16.8284 14.4748 16.2426 15.0606L9.87868 21.4246C9.2929 22.0104 8.34315 22.0104 7.75736 21.4246C7.17158 20.8388 7.17158 19.889 7.75736 19.3032L13.0607 13.9999L7.75736 8.69665C7.17158 8.11086 7.17158 7.16111 7.75736 6.57533C8.34315 5.98954 9.2929 5.98954 9.87868 6.57533L16.2426 12.9393Z" fill="currentColor" />
-              </svg>
-            </span>
-          </Link>
-          </motion.div>
         </div>
       </section>
 
@@ -254,11 +238,10 @@ function HomePage() {
                   key={label}
                   href={href}
                   className="social-link"
-                  initial={{ opacity: 0, y: 40 }}
-                  whileInView={{ opacity: 1, y: 0 }}
+                  {...fadeUp}
                   viewport={{ once: true, amount: 0.2 }}
                   whileHover={{ x: 4 }}
-                  transition={{ duration: 0.75, ease: [0.25, 0.1, 0.25, 1], delay: i * 0.08 }}
+                  transition={{ ...fadeUp.transition, delay: i * 0.08 }}
                   target={isExternal ? '_blank' : undefined}
                   rel={isExternal ? 'noreferrer' : undefined}
                 >
@@ -273,22 +256,20 @@ function HomePage() {
       <section className="about" id="about">
         <div className="container">
           <div className="about-content">
-            <motion.div
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
+            <MotionLink
+              to="/about"
+              className="about-title"
+              {...fadeUp}
               viewport={{ once: true, amount: 0.2 }}
-              transition={{ duration: 0.75, ease: [0.25, 0.1, 0.25, 1] }}
-              style={{ position: 'absolute', top: 'clamp(40px, 6vh, 60px)', left: 24, zIndex: 2 }}
+              style={{ textDecoration: 'none' }}
             >
-            <Link to="/about" className="about-title" style={{ textDecoration: 'none', position: 'static' }}>
               About me
               <span className="about-arrow">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M16.2426 12.9393C16.8284 13.5251 16.8284 14.4748 16.2426 15.0606L9.87868 21.4246C9.2929 22.0104 8.34315 22.0104 7.75736 21.4246C7.17158 20.8388 7.17158 19.889 7.75736 19.3032L13.0607 13.9999L7.75736 8.69665C7.17158 8.11086 7.17158 7.16111 7.75736 6.57533C8.34315 5.98954 9.2929 5.98954 9.87868 6.57533L16.2426 12.9393Z" fill="currentColor" />
                 </svg>
               </span>
-            </Link>
-            </motion.div>
+            </MotionLink>
             <div
               className="about-image"
               style={{ backgroundImage: `url(${process.env.PUBLIC_URL}/images/about_bg.jpg)` }}

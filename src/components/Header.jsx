@@ -81,11 +81,11 @@ function readWeatherCache() {
   }
 }
 
-function writeWeatherCache(temperature, condition) {
+function writeWeatherCache(temperature, condition, isDay) {
   try {
     window.localStorage.setItem(
       WEATHER_CACHE_KEY,
-      JSON.stringify({ temperature, condition, ts: Date.now() })
+      JSON.stringify({ temperature, condition, isDay, ts: Date.now() })
     );
   } catch {
     // Ignore storage errors in private mode/quota limits.
@@ -130,7 +130,7 @@ function Header({ navActive }) {
         setTemperature(temp);
         setWeather(condition);
         setIsDay(day);
-        writeWeatherCache(temp, condition);
+        writeWeatherCache(temp, condition, day);
       } catch {
         if (!mounted) return;
 
@@ -146,6 +146,7 @@ function Header({ navActive }) {
     if (cached) {
       setTemperature(cached.temperature);
       setWeather(cached.condition);
+      if (typeof cached.isDay === 'boolean') setIsDay(cached.isDay);
     }
 
     if (!cached || Date.now() - cached.ts > WEATHER_TTL_MS) {
