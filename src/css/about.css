@@ -193,7 +193,7 @@
   /* Stack adventure + connect vertically on mobile */
   .about-adventure-connect-layout {
     flex-direction: column;
-    gap: 60px;
+    gap: 160px;
   }
 
   .about-adventure-spacer {
@@ -219,8 +219,8 @@
     /* Keep #000 — no colour override on mobile */
   }
 
-  /* Full-width CV button on mobile */
-  .about-cv-btn {
+  /* Full-width CV button on mobile — double-class specificity overrides .btn-connect */
+  .about-adventure-left .about-cv-btn {
     display: flex;
     width: 100%;
     justify-content: center;
