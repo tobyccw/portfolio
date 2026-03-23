@@ -9,6 +9,7 @@ import {
 import { motion } from 'framer-motion';
 import { fadeUp } from './utils/animation';
 import { Analytics } from '@vercel/analytics/react';
+import { SpeedInsights } from '@vercel/speed-insights/react';
 
 import Header from './components/Header';
 import projects from './data/projects';
@@ -311,6 +312,7 @@ function App() {
         </Routes>
       </Suspense>
       <Analytics />
+      <SpeedInsights />
     </BrowserRouter>
   );
 }
