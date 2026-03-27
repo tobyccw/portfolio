@@ -124,7 +124,7 @@ function HomePage() {
               experiences. Currently designing trading platforms at{' '}
             </span>
             <span className="text-bold">Capital.com</span>
-            <span className="text-light">, serving 6M+ users globally.</span>
+            <span className="text-light">, serving 3M+ users globally.</span>
           </motion.h2>
         </div>
       </section>
