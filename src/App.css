@@ -216,9 +216,7 @@ body {
 .hero {
   min-height: 100vh;
   display: flex;
-  align-items: flex-start;
-  padding-top: 22vh;
-  padding-bottom: 80px;
+  align-items: center;
 }
 
 .hero-title {
@@ -547,9 +545,7 @@ body {
   }
 
   .hero {
-    padding-top: 18vh;
-    padding-bottom: 120px;
-    min-height: auto;
+    min-height: 100svh;
   }
 
   .hero-title {
