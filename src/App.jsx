@@ -268,7 +268,7 @@ function HomePage() {
             </MotionLink>
             <div
               className="about-image"
-              style={{ backgroundImage: `url(${process.env.PUBLIC_URL}/images/about_bg.jpg)` }}
+              style={{ backgroundImage: `url(${process.env.PUBLIC_URL}/images/about-bg.jpg)` }}
             />
           </div>
         </div>

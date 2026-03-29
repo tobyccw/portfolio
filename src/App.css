@@ -217,6 +217,8 @@ body {
   min-height: 100vh;
   display: flex;
   align-items: center;
+  /* padding-bottom offsets the sticky header so text sits at true 50vh */
+  padding-bottom: 176px;
 }
 
 .hero-title {
@@ -379,7 +381,7 @@ body {
   font-weight: var(--ts-h2-weight);
   line-height: var(--ts-h2-line-height);
   letter-spacing: var(--ts-h2-tracking);
-  margin-bottom: 24px;
+  margin-bottom: 48px;
   max-width: calc(58.333% - 10px);
 }
 
@@ -546,6 +548,8 @@ body {
 
   .hero {
     min-height: 100svh;
+    /* Mobile header ~48px, so 2× = 96px */
+    padding-bottom: 96px;
   }
 
   .hero-title {
