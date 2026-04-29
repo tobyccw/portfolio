@@ -1,5 +1,5 @@
-import React from 'react';
-import { motion } from 'framer-motion';
+import React, { useRef } from 'react';
+import { motion, useInView } from 'framer-motion';
 
 /* ── Animation constants (tweak here) ────────────────────── */
 const STAGGER  = 0.06;   // seconds between each word
@@ -39,26 +39,38 @@ function extractWords(child) {
 
 /**
  * WordBlurReveal — splits children text into words and animates each one
- * with opacity, translateY, rotate, and blur on mount.
+ * with opacity, translateY, rotate, and blur.
  *
  * Preserves className from wrapper spans (e.g. text-light / text-bold),
- * so mixed-colour hero text keeps its styling word-by-word.
+ * so mixed-colour text keeps its styling word-by-word.
  *
  * Props
  *   children   ReactNode  — styled spans or plain text
- *   className  string     — applied to the rendered <h2>
+ *   className  string     — applied to the rendered heading element
+ *   as         string     — HTML tag to render: 'h2' (default) or 'h3', etc.
+ *   inView     boolean    — false (default): animate on mount (hero)
+ *                           true: animate when scrolled into view
  */
-export function WordBlurReveal({ children, className }) {
-  const wordList = React.Children.toArray(children).flatMap(extractWords);
+export function WordBlurReveal({ children, className, as: Tag = 'h2', inView = false }) {
+  const ref      = useRef(null);
+  // amount: 0.12 mirrors the fadeUp viewport setting used elsewhere
+  const visible  = useInView(ref, { once: true, amount: 0.12 });
+
+  // If inView mode, wait until element enters viewport; otherwise fire immediately
+  const shouldAnimate = inView ? visible : true;
+
+  const wordList  = React.Children.toArray(children).flatMap(extractWords);
+  const targetAnim = { opacity: 1, y: 0,  rotate: 0, filter: 'blur(0px)' };
+  const hiddenAnim = { opacity: 0, y: 24, rotate: 6, filter: 'blur(8px)' };
 
   return (
-    <h2 className={className}>
+    <Tag className={className} ref={ref}>
       {wordList.map(({ word, spanClass }, i) => {
         const animated = (
           <motion.span
             style={{ display: 'inline-block' }}
-            initial={{ opacity: 0, y: 24, rotate: 6, filter: 'blur(8px)' }}
-            animate={{ opacity: 1, y: 0,  rotate: 0, filter: 'blur(0px)' }}
+            initial={hiddenAnim}
+            animate={shouldAnimate ? targetAnim : hiddenAnim}
             transition={{
               duration: DURATION,
               delay:    i * STAGGER,
@@ -80,6 +92,6 @@ export function WordBlurReveal({ children, className }) {
           </React.Fragment>
         );
       })}
-    </h2>
+    </Tag>
   );
 }

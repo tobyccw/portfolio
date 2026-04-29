@@ -127,7 +127,7 @@ function HomePage() {
 
       <section className="companies">
         <div className="container">
-          <motion.h3 className="companies-intro" {...fadeUp}>
+          <WordBlurReveal className="companies-intro" as="h3" inView>
             <span className="text-light">
               Since 2011, I've designed digital products across finance, media,
               transport and more, crafting experiences that feel both{' '}
@@ -136,7 +136,7 @@ function HomePage() {
             <span className="text-light"> and </span>
             <span className="text-bold">true to the brand</span>
             <span className="text-light">.</span>
-          </motion.h3>
+          </WordBlurReveal>
 
           <motion.div className="companies-logos" {...fadeUp}
             transition={{ duration: 0.75, ease: [0.25, 0.1, 0.25, 1], delay: 0.15 }}
