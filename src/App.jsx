@@ -12,6 +12,7 @@ import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/react';
 
 import Header from './components/Header';
+import { WordBlurReveal } from './components/WordBlurReveal';
 import projects from './data/projects';
 import socialLinks from './data/social-links';
 import './App.css';
@@ -113,19 +114,14 @@ function HomePage() {
 
       <section className="hero" id="home">
         <div className="container">
-          <motion.h2
-            className="hero-title"
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.75, ease: [0.25, 0.1, 0.25, 1] }}
-          >
+          <WordBlurReveal className="hero-title">
             <span className="text-light">
               Product Designer. Connecting polished interfaces with meaningful
               experiences. Currently designing trading platforms at{' '}
             </span>
             <span className="text-bold">Capital.com</span>
             <span className="text-light">, serving 3M+ users globally.</span>
-          </motion.h2>
+          </WordBlurReveal>
         </div>
       </section>
 
