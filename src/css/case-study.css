@@ -811,8 +811,9 @@
   display: none;
 }
 
-/* On mobile, hide the in-flow anchor nav (replaced by fixed one above) */
+/* On mobile, hide the in-flow sidebar heading and anchor nav (replaced by fixed nav above) */
 @media (max-width: 768px) {
+  .cs-sticky-sidebar .cs-sidebar-heading,
   .cs-sticky-sidebar .cs-anchor-nav {
     display: none;
   }
