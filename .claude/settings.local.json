@@ -14,7 +14,10 @@
       "Bash(git pull --rebase origin main)",
       "Bash(git stash)",
       "Bash(git stash pop)",
-      "Bash(xargs ls)"
+      "Bash(xargs ls)",
+      "mcp__18377c7e-1a99-4ee7-9ab8-0d51053b6985__list_teams",
+      "mcp__18377c7e-1a99-4ee7-9ab8-0d51053b6985__list_projects",
+      "mcp__18377c7e-1a99-4ee7-9ab8-0d51053b6985__list_deployments"
     ]
   }
 }
