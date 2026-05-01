@@ -169,7 +169,7 @@ function Header({ navActive }) {
   ];
 
   return (
-    <header className={`header${mobileMenuOpen ? ' header-open' : ''}`}>
+    <header className="header">
       <div className="container">
         <div className="header-content">
           <div className="header-left">

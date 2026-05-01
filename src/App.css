@@ -38,14 +38,6 @@ body {
   background: rgba(255, 255, 255, 0.6);
   backdrop-filter: blur(20px) saturate(180%);
   -webkit-backdrop-filter: blur(20px) saturate(180%);
-  overflow: hidden;
-  border-radius: 0 0 0 0;
-  transition: border-radius 0.28s cubic-bezier(0.23, 1, 0.32, 1);
-}
-
-/* When menu is open: round the bottom of the unified glass body */
-.header-open {
-  border-radius: 0 0 24px 24px;
 }
 
 .header-content {
@@ -178,11 +170,19 @@ body {
 
 /* Mobile nav — transparent, lives inside the header's glass body */
 .nav-mobile {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 100%;
   display: flex;
   flex-direction: column;
   gap: 48px;
   padding: 32px 8px 16px;
-  /* No background, blur, or radius here — the header owns all of that */
+  /* Own glass panel — floats over page content, doesn't push it */
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border-radius: 0 0 24px 24px;
 }
 
 /* Links group: Home / Work / About */
