@@ -50,8 +50,9 @@ function extractWords(child) {
  *   as         string     — HTML tag to render: 'h2' (default) or 'h3', etc.
  *   inView     boolean    — false (default): animate on mount (hero)
  *                           true: animate when scrolled into view
+ *   delay      number     — base delay in seconds before the first word starts (default 0)
  */
-export function WordBlurReveal({ children, className, as: Tag = 'h2', inView = false }) {
+export function WordBlurReveal({ children, className, as: Tag = 'h2', inView = false, delay = 0 }) {
   const ref      = useRef(null);
   // amount: 0.12 mirrors the fadeUp viewport setting used elsewhere
   const visible  = useInView(ref, { once: true, amount: 0.12 });
@@ -73,7 +74,7 @@ export function WordBlurReveal({ children, className, as: Tag = 'h2', inView = f
             animate={shouldAnimate ? targetAnim : hiddenAnim}
             transition={{
               duration: DURATION,
-              delay:    i * STAGGER,
+              delay:    delay + i * STAGGER,
               ease:     [0.25, 0.1, 0.25, 1],
             }}
           >

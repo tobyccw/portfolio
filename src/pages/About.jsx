@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 
 import Header from '../components/Header';
+import { WordBlurReveal } from '../components/WordBlurReveal';
 import Footer from '../components/Footer';
 import projects from '../data/projects';
 import socialLinks from '../data/social-links';
@@ -58,24 +59,24 @@ function About() {
         />
 
         {/* Statement overlay */}
-        <motion.div
-          className="about-statement"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, ease: [0.25, 0.1, 0.25, 1], delay: 0.2 }}
-        >
-          <h1 className="about-statement-title">
+        <div className="about-statement">
+          <WordBlurReveal as="h1" className="about-statement-title" delay={0.2}>
             Elevating the user experience from accessible to remarkable
-          </h1>
-          <p className="about-statement-body">
+          </WordBlurReveal>
+          <motion.p
+            className="about-statement-body"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.7, ease: 'easeOut', delay: 0.9 }}
+          >
             Good UX is expected. Products that feel frictionless are everywhere.
             But when every app follows the same best practices, they start to look
             and feel the same. I believe the best digital products go further. They
             carry the brand's identity into every interaction, so the experience
             doesn't just work well, it feels like it belongs to that company and no
             one else. That's what I design for.
-          </p>
-        </motion.div>
+          </motion.p>
+        </div>
       </motion.section>
 
       {/* ── Recent Adventure + Let's Connect ────────── */}
