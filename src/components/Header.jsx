@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 
@@ -98,6 +98,23 @@ function Header({ navActive }) {
   const [isDay, setIsDay] = useState(true);
   const [temperature, setTemperature] = useState('');
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const headerRef = useRef(null);
+
+  // Keep --header-h CSS variable in sync so the floating nav panel
+  // knows exactly where to anchor itself below the sticky bar.
+  useEffect(() => {
+    const update = () => {
+      if (headerRef.current) {
+        document.documentElement.style.setProperty(
+          '--header-h',
+          `${headerRef.current.offsetHeight}px`
+        );
+      }
+    };
+    update();
+    window.addEventListener('resize', update);
+    return () => window.removeEventListener('resize', update);
+  }, []);
 
   useEffect(() => {
     const updateTime = () => {
@@ -169,7 +186,8 @@ function Header({ navActive }) {
   ];
 
   return (
-    <header className="header">
+    <>
+    <header ref={headerRef} className="header">
       <div className="container">
         <div className="header-content">
           <div className="header-left">
@@ -222,40 +240,41 @@ function Header({ navActive }) {
           </button>
         </div>
       </div>
-
-      <AnimatePresence>
-        {mobileMenuOpen && (
-          <motion.nav
-            className="nav-mobile"
-            initial={{ opacity: 0, y: -12 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -12 }}
-            transition={{ duration: 0.28, ease: [0.23, 1, 0.32, 1] }}
-          >
-            <div className="nav-mobile-links">
-              {navLinks.map((link) => (
-                <Link
-                  key={link.key}
-                  to={link.to}
-                  onClick={() => setMobileMenuOpen(false)}
-                  style={navActive === link.key ? { color: '#000000' } : {}}
-                >
-                  {link.label}
-                </Link>
-              ))}
-            </div>
-            <Link
-              to="/#connect"
-              className="btn-connect btn-connect-full"
-              onClick={() => setMobileMenuOpen(false)}
-              style={{ textDecoration: 'none', textAlign: 'center' }}
-            >
-              Connect!
-            </Link>
-          </motion.nav>
-        )}
-      </AnimatePresence>
     </header>
+
+    <AnimatePresence>
+      {mobileMenuOpen && (
+        <motion.nav
+          className="nav-mobile"
+          initial={{ opacity: 0, y: -12 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -12 }}
+          transition={{ duration: 0.28, ease: [0.23, 1, 0.32, 1] }}
+        >
+          <div className="nav-mobile-links">
+            {navLinks.map((link) => (
+              <Link
+                key={link.key}
+                to={link.to}
+                onClick={() => setMobileMenuOpen(false)}
+                style={navActive === link.key ? { color: '#000000' } : {}}
+              >
+                {link.label}
+              </Link>
+            ))}
+          </div>
+          <Link
+            to="/#connect"
+            className="btn-connect btn-connect-full"
+            onClick={() => setMobileMenuOpen(false)}
+            style={{ textDecoration: 'none', textAlign: 'center' }}
+          >
+            Connect!
+          </Link>
+        </motion.nav>
+      )}
+    </AnimatePresence>
+    </>
   );
 }
 
