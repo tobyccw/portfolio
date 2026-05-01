@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 
@@ -98,23 +98,34 @@ function Header({ navActive }) {
   const [isDay, setIsDay] = useState(true);
   const [temperature, setTemperature] = useState('');
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const headerRef = useRef(null);
 
-  // Keep --header-h CSS variable in sync so the floating nav panel
-  // knows exactly where to anchor itself below the sticky bar.
-  useEffect(() => {
+  // Heights for the single shared glass backdrop
+  const headerRef = useRef(null);
+  const navRef    = useRef(null);
+  const [headerH, setHeaderH] = useState(56);   // fallback ≈ mobile header
+  const [navH,    setNavH]    = useState(0);
+
+  // Measure header height before first paint and on resize
+  useLayoutEffect(() => {
     const update = () => {
-      if (headerRef.current) {
-        document.documentElement.style.setProperty(
-          '--header-h',
-          `${headerRef.current.offsetHeight}px`
-        );
-      }
+      if (!headerRef.current) return;
+      const h = headerRef.current.offsetHeight;
+      setHeaderH(h);
+      document.documentElement.style.setProperty('--header-h', `${h}px`);
     };
     update();
     window.addEventListener('resize', update);
     return () => window.removeEventListener('resize', update);
   }, []);
+
+  // Measure nav height synchronously after it mounts / unmounts
+  useLayoutEffect(() => {
+    if (mobileMenuOpen && navRef.current) {
+      setNavH(navRef.current.offsetHeight);
+    } else {
+      setNavH(0);
+    }
+  }, [mobileMenuOpen]);
 
   useEffect(() => {
     const updateTime = () => {
@@ -187,93 +198,112 @@ function Header({ navActive }) {
 
   return (
     <>
-    <header ref={headerRef} className="header">
-      <div className="container">
-        <div className="header-content">
-          <div className="header-left">
-            <Link to="/" className="logo" style={{ textDecoration: 'none', color: 'inherit' }}>
-              Toby Cheng
-            </Link>
-            <p className="location">
-              London (GMT+0) {time}
-              {temperature !== '' && (
-                <>, {temperature}°C <span className="header-weather-condition">
-                  {weather}
-                  <WeatherIcon condition={weather} isDay={isDay} />
-                </span></>
-              )}
-            </p>
-          </div>
+      {/* ── Single shared glass backdrop ─────────────────────────
+          One backdrop-filter covers both the header bar and the
+          mobile nav — no seam, no separate blur regions.          */}
+      <motion.div
+        className="glass-backdrop"
+        animate={{
+          height:       mobileMenuOpen ? headerH + navH : headerH,
+          borderRadius: mobileMenuOpen ? '0 0 24px 24px' : '0 0 0 0',
+        }}
+        transition={{ duration: 0.28, ease: [0.23, 1, 0.32, 1] }}
+      >
+        {/* Spacer: pushes nav content below the header bar area */}
+        <div style={{ height: headerH, flexShrink: 0 }} aria-hidden="true" />
 
-          <nav className="nav-desktop">
-            {navLinks.map((link) => (
-              <MotionLink
-                key={link.key}
-                to={link.to}
-                whileHover={{ y: -2 }}
-                transition={{ type: 'spring', stiffness: 300 }}
-                style={navActive === link.key ? { color: '#000000' } : {}}
-              >
-                {link.label}
-              </MotionLink>
-            ))}
-            <MotionLink
-              to="/#connect"
-              className="btn-connect"
-              whileHover={{ scale: 1.05, y: -2 }}
-              whileTap={{ scale: 0.95 }}
-              transition={{ type: 'spring', stiffness: 400 }}
-              style={{ textDecoration: 'none' }}
+        <AnimatePresence>
+          {mobileMenuOpen && (
+            <motion.nav
+              ref={navRef}
+              className="nav-mobile"
+              initial={{ opacity: 0, y: -12 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -12 }}
+              transition={{ duration: 0.28, ease: [0.23, 1, 0.32, 1] }}
             >
-              Connect!
-            </MotionLink>
-          </nav>
-
-          <button
-            className={`mobile-menu-btn${mobileMenuOpen ? ' open' : ''}`}
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            aria-label={mobileMenuOpen ? 'Close menu' : 'Open menu'}
-          >
-            <div className="icn-bar icn-bar-top" />
-            <div className="icn-bar icn-bar-middle" />
-            <div className="icn-bar icn-bar-bottom" />
-          </button>
-        </div>
-      </div>
-    </header>
-
-    <AnimatePresence>
-      {mobileMenuOpen && (
-        <motion.nav
-          className="nav-mobile"
-          initial={{ opacity: 0, y: -12 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -12 }}
-          transition={{ duration: 0.28, ease: [0.23, 1, 0.32, 1] }}
-        >
-          <div className="nav-mobile-links">
-            {navLinks.map((link) => (
+              <div className="nav-mobile-links">
+                {navLinks.map((link) => (
+                  <Link
+                    key={link.key}
+                    to={link.to}
+                    onClick={() => setMobileMenuOpen(false)}
+                    style={navActive === link.key ? { color: '#000000' } : {}}
+                  >
+                    {link.label}
+                  </Link>
+                ))}
+              </div>
               <Link
-                key={link.key}
-                to={link.to}
+                to="/#connect"
+                className="btn-connect btn-connect-full"
                 onClick={() => setMobileMenuOpen(false)}
-                style={navActive === link.key ? { color: '#000000' } : {}}
+                style={{ textDecoration: 'none', textAlign: 'center' }}
               >
-                {link.label}
+                Connect!
               </Link>
-            ))}
+            </motion.nav>
+          )}
+        </AnimatePresence>
+      </motion.div>
+
+      {/* ── Sticky header bar ────────────────────────────────────
+          Transparent — sits above the glass backdrop (z-index 100)
+          so the backdrop's blur shows through underneath.         */}
+      <header ref={headerRef} className="header">
+        <div className="container">
+          <div className="header-content">
+            <div className="header-left">
+              <Link to="/" className="logo" style={{ textDecoration: 'none', color: 'inherit' }}>
+                Toby Cheng
+              </Link>
+              <p className="location">
+                London (GMT+0) {time}
+                {temperature !== '' && (
+                  <>, {temperature}°C <span className="header-weather-condition">
+                    {weather}
+                    <WeatherIcon condition={weather} isDay={isDay} />
+                  </span></>
+                )}
+              </p>
+            </div>
+
+            <nav className="nav-desktop">
+              {navLinks.map((link) => (
+                <MotionLink
+                  key={link.key}
+                  to={link.to}
+                  whileHover={{ y: -2 }}
+                  transition={{ type: 'spring', stiffness: 300 }}
+                  style={navActive === link.key ? { color: '#000000' } : {}}
+                >
+                  {link.label}
+                </MotionLink>
+              ))}
+              <MotionLink
+                to="/#connect"
+                className="btn-connect"
+                whileHover={{ scale: 1.05, y: -2 }}
+                whileTap={{ scale: 0.95 }}
+                transition={{ type: 'spring', stiffness: 400 }}
+                style={{ textDecoration: 'none' }}
+              >
+                Connect!
+              </MotionLink>
+            </nav>
+
+            <button
+              className={`mobile-menu-btn${mobileMenuOpen ? ' open' : ''}`}
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              aria-label={mobileMenuOpen ? 'Close menu' : 'Open menu'}
+            >
+              <div className="icn-bar icn-bar-top" />
+              <div className="icn-bar icn-bar-middle" />
+              <div className="icn-bar icn-bar-bottom" />
+            </button>
           </div>
-          <Link
-            to="/#connect"
-            className="btn-connect btn-connect-full"
-            onClick={() => setMobileMenuOpen(false)}
-            style={{ textDecoration: 'none', textAlign: 'center' }}
-          >
-            Connect!
-          </Link>
-        </motion.nav>
-      )}
-    </AnimatePresence>
+        </div>
+      </header>
     </>
   );
 }
