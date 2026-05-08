@@ -568,10 +568,6 @@ function CaseStudy() {
           style={{ top: headerHeight }}
           aria-label="Section navigation"
         >
-          {/* Section heading row — "How I Built It" */}
-          <div className="cs-mob-nav-heading">
-            {data.transformations_heading || 'Key Transformations'}
-          </div>
           {/* Anchor links row — horizontal scroll */}
           <div className="cs-mob-nav-links">
             {data.transformations.map(t => (
