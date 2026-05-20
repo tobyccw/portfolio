@@ -9,6 +9,7 @@ import caseStudies from '../data/case-studies/index';
 import projects from '../data/projects';
 import useActiveSection from '../hooks/useActiveSection';
 
+import { ScrollRevealText } from '../components/ScrollRevealText';
 import '../css/case-study.css';
 
 /* ── Animation preset ─────────────────────────────────── */
@@ -127,11 +128,7 @@ function TransformationBlock({ data, onImageClick }) {
     <motion.div id={data.id} className="cs-block" {...fadeUp}>
       <div className="cs-block-text">
         <h3 className="cs-block-title">{renderInlineMarkdown(data.title)}</h3>
-        <div className="cs-block-body">
-          {data.content.map((para, i) => (
-            <p key={i}>{renderInlineMarkdown(para)}</p>
-          ))}
-        </div>
+        <ScrollRevealText className="cs-block-body" paragraphs={data.content} />
       </div>
       <ImageBlock images={data.images} onImageClick={onImageClick} />
     </motion.div>
@@ -543,17 +540,10 @@ function CaseStudy() {
               </motion.div>
 
               {/* Right: body text */}
-              <motion.div
+              <ScrollRevealText
                 className="cs-col-right cs-body-text"
-                initial={{ opacity: 0, y: 28 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.1 }}
-                transition={{ duration: 0.6, ease: [0.25, 0.1, 0.25, 1], delay: 0.1 }}
-              >
-                {data.problem_statement.map((para, i) => (
-                  <p key={i}>{renderInlineMarkdown(para)}</p>
-                ))}
-              </motion.div>
+                paragraphs={data.problem_statement}
+              />
             </div>
           </div>
         </section>
@@ -651,15 +641,10 @@ function CaseStudy() {
               <motion.div className="cs-col-left" {...fadeUp}>
                 <h2 className="cs-section-heading">Reflection</h2>
               </motion.div>
-              <motion.div
+              <ScrollRevealText
                 className="cs-col-right cs-body-text"
-                initial={{ opacity: 0, y: 28 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.1 }}
-                transition={{ duration: 0.6, ease: [0.25, 0.1, 0.25, 1], delay: 0.1 }}
-              >
-                <p>{renderInlineMarkdown(data.reflection)}</p>
-              </motion.div>
+                paragraphs={[data.reflection]}
+              />
             </div>
           </div>
         </section>
