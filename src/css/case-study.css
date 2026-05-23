@@ -9,6 +9,12 @@
   margin: 0 auto;
 }
 
+.cs-page .header .container,
+.cs-page .footer .container {
+  max-width: none;
+  margin: 0;
+}
+
 /* ── Hero ───────────────────────────────────────────────── */
 .cs-hero {
   width: 100%;
