@@ -3,6 +3,12 @@
    Typography values sourced directly from Figma node 58-889
    ============================================================ */
 
+/* ── Max-width constraint for case study pages ─────────── */
+.cs-page .container {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
 /* ── Hero ───────────────────────────────────────────────── */
 .cs-hero {
   width: 100%;

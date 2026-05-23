@@ -445,7 +445,7 @@ function CaseStudy() {
   }
 
   return (
-    <div className="App">
+    <div className="App cs-page">
       <Header navActive="work" />
 
       {/* Password gate — renders on top of everything (z-95, below header z-100) */}
