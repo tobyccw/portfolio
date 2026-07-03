@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { AnimatePresence, m } from 'framer-motion';
 import { Link } from 'react-router-dom';
 
@@ -9,6 +9,89 @@ const navLinks = [
   { label: 'Work',  to: '/#work', key: 'work' },
   { label: 'About', to: '/about', key: 'about' },
 ];
+
+/* ── Liquid glass displacement map ────────────────────────────
+   Canvas-generated PNG encoding per-pixel refraction offsets:
+   R channel = x displacement, G = y, 128 = neutral. Uses the
+   signed-distance field of the pill's rounded rect — inside the
+   splay band, pixels sample inward along the edge normal with a
+   t² falloff, giving the convex-lens bend that hugs the edge and
+   bends radially around the capsule ends. Single feImage: multi-
+   feImage composition inside backdrop-filter is unreliable in
+   Chromium (the later images never composite).                  */
+function buildLensMap(w, h, radius) {
+  const canvas = document.createElement('canvas');
+  canvas.width = w;
+  canvas.height = h;
+  const ctx = canvas.getContext('2d');
+  const img = ctx.createImageData(w, h);
+  const r = Math.min(radius, h / 2);
+  const band = Math.min(16, h * 0.24);   // splay: how far the bend reaches inward
+
+  // Signed distance to the rounded-rect edge (negative inside)
+  const sd = (x, y) => {
+    const qx = Math.abs(x - w / 2) - (w / 2 - r);
+    const qy = Math.abs(y - h / 2) - (h / 2 - r);
+    return Math.min(Math.max(qx, qy), 0) + Math.hypot(Math.max(qx, 0), Math.max(qy, 0)) - r;
+  };
+
+  // Chromium converts the map to linearRGB before feDisplacementMap, so
+  // encode with the sRGB transfer: the decoded LINEAR value carries the
+  // intended displacement (0.5 = neutral). Plain 128 would decode to
+  // ~0.22 and shift the whole backdrop.
+  const srgb = (u) => (u <= 0.0031308 ? 12.92 * u : 1.055 * Math.pow(u, 1 / 2.4) - 0.055);
+  const encode = (f) => Math.round(255 * srgb(Math.min(1, Math.max(0, f))));
+
+  for (let y = 0; y < h; y++) {
+    for (let x = 0; x < w; x++) {
+      const i = (y * w + x) * 4;
+      const d = -sd(x + 0.5, y + 0.5);   // distance from edge, inward positive
+      let fx = 0.5, fy = 0.5;            // linear-space displacement fractions
+      if (d < band) {
+        const t = 1 - Math.max(d, 0) / band;
+        const nx = sd(x + 1.5, y + 0.5) - sd(x - 0.5, y + 0.5);   // edge normal (outward)
+        const ny = sd(x + 0.5, y + 1.5) - sd(x + 0.5, y - 0.5);
+        const len = Math.hypot(nx, ny) || 1;
+        const k = t * t * 0.5;           // quadratic falloff toward the edge
+        fx = 0.5 - (nx / len) * k;
+        fy = 0.5 - (ny / len) * k;
+      }
+      img.data[i] = encode(fx);
+      img.data[i + 1] = encode(fy);
+      img.data[i + 2] = 0;
+      img.data[i + 3] = 255;
+    }
+  }
+  ctx.putImageData(img, 0, 0);
+  return canvas.toDataURL();
+}
+
+/* Chromium-only lens filter (Safari ignores backdrop-filter: url()
+   on the refraction layer and falls back to plain frosted glass).
+   The map is sized to the pill's measured pixels — feImage doesn't
+   stretch percentage-sized images inside backdrop-filter contexts. */
+function GlassLensFilter({ width, height, radius }) {
+  const map = React.useMemo(
+    () => (width && height ? buildLensMap(width, height, radius) : null),
+    [width, height, radius]
+  );
+  if (!map) return null;
+  return (
+    <svg className="glass-filter-defs" aria-hidden="true" focusable="false">
+      <defs>
+        <filter
+          id="glass-lens"
+          filterUnits="userSpaceOnUse"
+          primitiveUnits="userSpaceOnUse"
+          x="0" y="0" width={width} height={height}
+        >
+          <feImage href={map} x="0" y="0" width={width} height={height} result="map" />
+          <feDisplacementMap in="SourceGraphic" in2="map" scale="64" xChannelSelector="R" yChannelSelector="G" />
+        </filter>
+      </defs>
+    </svg>
+  );
+}
 
 const WEATHER_CACHE_KEY = 'header-weather-v2';
 const WEATHER_TTL_MS = 10 * 60 * 1000;
@@ -105,6 +188,27 @@ function Header({ navActive }) {
   const [temperature, setTemperature] = useState('');
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
+  // Pill size drives the lens displacement map (must match exact pixels)
+  const pillRef = useRef(null);
+  const [pillSize, setPillSize] = useState({ w: 0, h: 0 });
+
+  useLayoutEffect(() => {
+    const pill = pillRef.current;
+    if (!pill) return;
+    const measure = () => {
+      const r = pill.getBoundingClientRect();
+      setPillSize(prev =>
+        (Math.round(r.width) !== prev.w || Math.round(r.height) !== prev.h)
+          ? { w: Math.round(r.width), h: Math.round(r.height) }
+          : prev
+      );
+    };
+    measure();
+    const ro = new ResizeObserver(measure);
+    ro.observe(pill);
+    return () => ro.disconnect();
+  }, []);
+
   useEffect(() => {
     const updateTime = () => {
       const now = new Date();
@@ -175,14 +279,17 @@ function Header({ navActive }) {
           expanding menu. Radius relaxes from capsule to rounded
           rect as the menu opens; height animates via the menu's
           height: 0 ↔ auto wrapper.                                */}
+      <GlassLensFilter width={pillSize.w} height={pillSize.h} radius={mobileMenuOpen ? 28 : 48} />
       <header className="header">
         <div className="container">
           <m.div
+            ref={pillRef}
             className="glass-pill"
             animate={{ borderRadius: mobileMenuOpen ? 28 : 48 }}
             transition={{ duration: 0.32, ease: [0.23, 1, 0.32, 1] }}
           >
           <div className="glass-pill-blur" aria-hidden="true" />
+          <div className="glass-pill-refract" aria-hidden="true" />
           <div className="header-content">
             <div className="header-left">
               <Link to="/" className="logo" style={{ textDecoration: 'none', color: 'inherit' }}>

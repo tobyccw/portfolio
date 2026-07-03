@@ -45,23 +45,45 @@ body {
   overflow: hidden;
   isolation: isolate;    /* contain z-index:-1 layers inside the pill */
   border-radius: 48px;   /* initial value — animated by Framer Motion */
-  background: rgba(255, 255, 255, 0.52);
+  background: rgba(255, 255, 255, 0.14);   /* faint tint — glass takes on the backdrop */
   box-shadow:
     0 12px 32px rgba(0, 0, 0, 0.10),   /* float */
     0 2px 6px rgba(0, 0, 0, 0.05),
-    inset 0 1px 1px rgba(255, 255, 255, 0.85),   /* inner top catch-light */
-    inset 0 -1px 1px rgba(255, 255, 255, 0.30);
+    inset 0 1px 1px rgba(255, 255, 255, 0.75),   /* inner top catch-light */
+    inset 0 -1px 1px rgba(255, 255, 255, 0.25);
+}
+
+/* SVG filter defs holder — zero-size, display:none would disable filters */
+.glass-filter-defs {
+  position: absolute;
+  width: 0;
+  height: 0;
 }
 
 /* Blur lives on a dedicated inner layer, clipped by the pill's rounded
    overflow. backdrop-filter directly on the animated container makes
-   Chromium expand the blur bounds past the clip. */
+   Chromium expand the blur bounds past the clip. Light frost only —
+   brightness lift keeps dark text readable over dark backdrops. */
 .glass-pill-blur {
   position: absolute;
   inset: 0;
+  z-index: -3;
+  backdrop-filter: blur(12px) saturate(170%) brightness(1.12);
+  -webkit-backdrop-filter: blur(12px) saturate(170%) brightness(1.12);
+  pointer-events: none;
+}
+
+/* Edge refraction — displaces the backdrop through the lens map, then
+   frosts it (displace first, blur second: the bend stays smooth). This
+   layer paints over the plain frost below, so it carries the same
+   blur/saturate chain. Chromium only; Safari rejects the url() chain,
+   paints nothing here, and keeps the frosted fallback underneath. */
+.glass-pill-refract {
+  position: absolute;
+  inset: 0;
   z-index: -2;
-  backdrop-filter: blur(24px) saturate(190%);
-  -webkit-backdrop-filter: blur(24px) saturate(190%);
+  backdrop-filter: url(#glass-lens) blur(12px) saturate(170%) brightness(1.12);
+  -webkit-backdrop-filter: url(#glass-lens) blur(12px) saturate(170%) brightness(1.12);
   pointer-events: none;
 }
 
@@ -88,14 +110,14 @@ body {
   pointer-events: none;
 }
 
-/* Soft lens sheen across the top of the glass (behind content) */
+/* Soft lens sheen — directional, from the top-left light source */
 .glass-pill::after {
   content: '';
   position: absolute;
   inset: 0;
   z-index: -1;
   border-radius: inherit;
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.40), rgba(255, 255, 255, 0) 55%);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.22), rgba(255, 255, 255, 0) 40%);
   pointer-events: none;
 }
 
