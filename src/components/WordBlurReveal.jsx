@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import { motion, useInView } from 'framer-motion';
+import { m, useInView } from 'framer-motion';
 
 /* ── Animation constants (tweak here) ────────────────────── */
 const STAGGER  = 0.06;   // seconds between each word
@@ -68,7 +68,7 @@ export function WordBlurReveal({ children, className, as: Tag = 'h2', inView = f
     <Tag className={className} ref={ref}>
       {wordList.map(({ word, spanClass }, i) => {
         const animated = (
-          <motion.span
+          <m.span
             style={{ display: 'inline-block' }}
             initial={hiddenAnim}
             animate={shouldAnimate ? targetAnim : hiddenAnim}
@@ -79,7 +79,7 @@ export function WordBlurReveal({ children, className, as: Tag = 'h2', inView = f
             }}
           >
             {word}
-          </motion.span>
+          </m.span>
         );
 
         return (

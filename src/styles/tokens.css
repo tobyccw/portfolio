@@ -1,4 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+/* Inter is loaded via <link> in public/index.html (preconnect + stylesheet)
+   so the browser discovers it before the JS bundle parses. */
 
 :root {
   /* ─── Font Family ──────────────────────────────────────── */
@@ -111,60 +112,3 @@
    Body     →  Body      (no change)
    ─────────────────────────────────────────────────────────── */
 
-/* ─── Text Style Utility Classes ───────────────────────── */
-
-.t-display {
-  font-size:      var(--ts-display-size);
-  font-weight:    var(--ts-display-weight);
-  line-height:    var(--ts-display-line-height);
-  letter-spacing: var(--ts-display-tracking);
-}
-
-.t-h1 {
-  font-size:      var(--ts-h1-size);
-  font-weight:    var(--ts-h1-weight);
-  line-height:    var(--ts-h1-line-height);
-  letter-spacing: var(--ts-h1-tracking);
-}
-
-.t-h2 {
-  font-size:      var(--ts-h2-size);
-  font-weight:    var(--ts-h2-weight);
-  line-height:    var(--ts-h2-line-height);
-  letter-spacing: var(--ts-h2-tracking);
-}
-
-.t-h3 {
-  font-size:      var(--ts-h3-size);
-  font-weight:    var(--ts-h3-weight);
-  line-height:    var(--ts-h3-line-height);
-  letter-spacing: var(--ts-h3-tracking);
-}
-
-.t-h4 {
-  font-size:      var(--ts-h4-size);
-  font-weight:    var(--ts-h4-weight);
-  line-height:    var(--ts-h4-line-height);
-  letter-spacing: var(--ts-h4-tracking);
-}
-
-.t-subtitle {
-  font-size:      var(--ts-subtitle-size);
-  font-weight:    var(--ts-subtitle-weight);
-  line-height:    var(--ts-subtitle-line-height);
-  letter-spacing: var(--ts-subtitle-tracking);
-}
-
-.t-label {
-  font-size:      var(--ts-label-size);
-  font-weight:    var(--ts-label-weight);
-  line-height:    var(--ts-label-line-height);
-  letter-spacing: var(--ts-label-tracking);
-}
-
-.t-body {
-  font-size:      var(--ts-body-size);
-  font-weight:    var(--ts-body-weight);
-  line-height:    var(--ts-body-line-height);
-  letter-spacing: var(--ts-body-tracking);
-}

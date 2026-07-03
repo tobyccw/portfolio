@@ -639,13 +639,8 @@
   padding: 240px 0 160px;
 }
 
-/* H2 token */
+/* Base .section-title (App.css) provides the H2 token — only layout differs */
 .cs-other-works .section-title {
-  font-size: var(--ts-h2-size);
-  font-weight: var(--ts-h2-weight);
-  line-height: var(--ts-h2-line-height);
-  letter-spacing: var(--ts-h2-tracking);
-  color: #000000;
   text-align: center;
   margin-bottom: 48px;
 }
@@ -1244,10 +1239,7 @@
   }
 
   .cs-other-works .section-title {
-    font-size: var(--ts-h3-size);         /* H2 → H3 step-down */
-    font-weight: var(--ts-h3-weight);
-    line-height: var(--ts-h3-line-height);
-    letter-spacing: var(--ts-h3-tracking);
+    /* H2 → H3 step-down comes from base .section-title mobile rule (App.css) */
     text-align: left;
     margin-bottom: 24px;                  /* gap between title and gallery */
     padding-right: 16px;                  /* compensate for removed container right padding */
@@ -1324,10 +1316,5 @@
     padding-left: 8px;
     padding-right: 8px;
     color: #c6c6c6;
-  }
-
-  /* Mobile sticky anchor nav — hidden on desktop */
-  .cs-mobile-transformations-nav {
-    display: flex;
   }
 }

@@ -2,7 +2,7 @@
   "slug": "scmp-cooking",
   "title": "SCMP Cooking",
   "subtitle": "Bringing recipe discovery and cooking confidence together",
-  "hero_image": "/images/case-studies/scmp-cooking/hero.jpg",
+  "hero_image": "/images/case-studies/scmp-cooking/hero.webp",
   "disciplines": ["Product Design", "Information Architecture", "UX Research"],
   "role": "Senior Product Designer",
   "year": "2018",
@@ -21,7 +21,7 @@
       ],
       "images": {
         "type": "full",
-        "src": "/images/scmp-cooking.jpg",
+        "src": "/images/scmp-cooking.webp",
         "border": false
       }
     },
@@ -34,7 +34,7 @@
       ],
       "images": {
         "type": "full",
-        "src": "/images/inkstone.jpg",
+        "src": "/images/inkstone.webp",
         "border": false
       }
     }

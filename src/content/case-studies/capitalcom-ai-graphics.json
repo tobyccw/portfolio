@@ -2,7 +2,7 @@
   "slug": "capitalcom-ai-graphics",
   "title": "Customising GPT to Scale Design Ops",
   "subtitle": "Small AI, Big Impact: Cutting Banner Production by 88%",
-  "hero_image": "/images/case-studies/capitalcom-ai-graphics/hero.jpg",
+  "hero_image": "/images/case-studies/capitalcom-ai-graphics/hero.webp",
   "disciplines": [
     "Product Strategy",
     "Design Operations",
@@ -28,8 +28,8 @@
       "images": {
         "type": "dual",
         "src": [
-          "/images/case-studies/capitalcom-ai-graphics/guardrails.jpg",
-          "/images/case-studies/capitalcom-ai-graphics/workflows.jpg"
+          "/images/case-studies/capitalcom-ai-graphics/guardrails.webp",
+          "/images/case-studies/capitalcom-ai-graphics/workflows.webp"
         ]
       }
     },
@@ -45,8 +45,8 @@
       "images": {
         "type": "dual",
         "src": [
-          "/images/case-studies/capitalcom-ai-graphics/layers.jpg",
-          "/images/case-studies/capitalcom-ai-graphics/flag.jpg"
+          "/images/case-studies/capitalcom-ai-graphics/layers.webp",
+          "/images/case-studies/capitalcom-ai-graphics/flag.webp"
         ]
       }
     },
@@ -61,7 +61,7 @@
       ],
       "images": {
         "type": "full",
-        "src": "/images/case-studies/capitalcom-ai-graphics/banners.jpg"
+        "src": "/images/case-studies/capitalcom-ai-graphics/banners.webp"
       }
     }
   ],

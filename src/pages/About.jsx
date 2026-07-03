@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 
 import Header from '../components/Header';
 import { WordBlurReveal } from '../components/WordBlurReveal';
 import Footer from '../components/Footer';
+import { WorkCard } from '../components/WorkCard';
 import projects from '../data/projects';
 import socialLinks from '../data/social-links';
 import { fadeUp } from '../utils/animation';
@@ -45,14 +45,14 @@ function About() {
       <Header navActive="about" />
 
       {/* ── Hero / Profile ──────────────────────────── */}
-      <motion.section
+      <m.section
         className="about-hero"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.8, ease: 'easeOut' }}
       >
         <img
-          src="/images/profile.jpg"
+          src="/images/profile.webp"
           alt="Toby Cheng"
           className="about-hero-img"
           loading="eager"
@@ -63,7 +63,7 @@ function About() {
           <WordBlurReveal as="h1" className="about-statement-title" delay={0.2}>
             Elevating the user experience from accessible to remarkable
           </WordBlurReveal>
-          <motion.p
+          <m.p
             className="about-statement-body"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -75,9 +75,9 @@ function About() {
             carry the brand's identity into every interaction, so the experience
             doesn't just work well, it feels like it belongs to that company and no
             one else. That's what I design for.
-          </motion.p>
+          </m.p>
         </div>
-      </motion.section>
+      </m.section>
 
       {/* ── Recent Adventure + Let's Connect ────────── */}
       <section className="about-adventure">
@@ -86,13 +86,13 @@ function About() {
 
             {/* Left — 7 cols: Recent Adventure */}
             <div className="about-adventure-left">
-              <motion.h2 className="about-adventure-heading" {...fadeUp}>
+              <m.h2 className="about-adventure-heading" {...fadeUp}>
                 Recent adventure
-              </motion.h2>
+              </m.h2>
 
               <div className="about-adventure-list">
                 {experience.map((job, i) => (
-                  <motion.div
+                  <m.div
                     key={job.company}
                     className="about-adventure-row"
                     initial={{ opacity: 0, y: 20 }}
@@ -105,11 +105,11 @@ function About() {
                       <span className="about-adventure-company">{job.company}</span>
                     </div>
                     <span className="about-adventure-period">{job.period}</span>
-                  </motion.div>
+                  </m.div>
                 ))}
               </div>
 
-              <motion.a
+              <m.a
                 href="/TobyCheng-CV-2026.pdf"
                 target="_blank"
                 rel="noreferrer"
@@ -123,20 +123,20 @@ function About() {
                 transition={{ duration: 0.5, ease: [0.25, 0.1, 0.25, 1], delay: 0.22 }}
               >
                 See my full CV
-              </motion.a>
+              </m.a>
             </div>
 
             {/* Spacer — 1 col */}
             <div className="about-adventure-spacer" aria-hidden="true" />
 
             {/* Right — 4 cols: Let's Connect */}
-            <motion.div className="about-connect" {...fadeUp}>
+            <m.div className="about-connect" {...fadeUp}>
               <h2 className="about-adventure-heading">Let's connect!</h2>
               <div className="about-connect-links">
                 {socialLinks.map(({ label, href }, i) => {
                   const isExternal = href.startsWith('http');
                   return (
-                    <motion.a
+                    <m.a
                       key={label}
                       href={href}
                       className="social-link"
@@ -148,11 +148,11 @@ function About() {
                       rel={isExternal ? 'noreferrer' : undefined}
                     >
                       {label}
-                    </motion.a>
+                    </m.a>
                   );
                 })}
               </div>
-            </motion.div>
+            </m.div>
 
           </div>
         </div>
@@ -161,46 +161,14 @@ function About() {
       {/* ── Selected Works ────────────────────────────── */}
       <section className="about-works">
         <div className="container">
-          <motion.h2 className="about-works-heading" {...fadeUp}>
+          <m.h2 className="about-works-heading" {...fadeUp}>
             Selected Works
-          </motion.h2>
+          </m.h2>
 
           <div className="works-grid">
-            {visibleProjects.map((project, i) => {
-              const card = (
-                <motion.div
-                  className="work-card"
-                  whileHover={{ y: -4 }}
-                  transition={{ type: 'spring', stiffness: 200 }}
-                >
-                  <div className="work-image">
-                    {project.image
-                      ? <img src={project.image} alt={project.title} loading="lazy" />
-                      : <div className="work-image-placeholder"><span>{project.title}</span></div>
-                    }
-                    {!project.available && (
-                      <div className="work-coming-soon">
-                        <span>Coming Soon</span>
-                      </div>
-                    )}
-                  </div>
-                  <h4 className="work-title">{project.title}</h4>
-                  <p className="work-subtitle">{project.subtitle}</p>
-                </motion.div>
-              );
-
-              return project.available
-                ? (
-                  <Link
-                    key={project.slug}
-                    to={`/work/${project.slug}`}
-                    style={{ flex: 1, alignSelf: 'stretch', display: 'flex', textDecoration: 'none', color: 'inherit' }}
-                  >
-                    {card}
-                  </Link>
-                )
-                : <React.Fragment key={project.slug}>{card}</React.Fragment>;
-            })}
+            {visibleProjects.map(project => (
+              <WorkCard key={project.slug} project={project} />
+            ))}
           </div>
         </div>
       </section>

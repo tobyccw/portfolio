@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect, useCallback } from 'react';
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 
 const GAP_FALLBACK = 16; // default gap — CSS may override on mobile (e.g. 8px)
 
@@ -174,7 +174,7 @@ function ShowcaseCarousel({ screens, onImageClick }) {
       </div>
 
       {/* ── Text — re-keyed per slide to retrigger fade+drop animation ── */}
-      <motion.div
+      <m.div
         key={realIndex}
         className="cs-showcase-text"
         initial={{ opacity: 0, y: -8 }}
@@ -186,7 +186,7 @@ function ShowcaseCarousel({ screens, onImageClick }) {
           <span className="cs-showcase-counter">{realIndex + 1} of {total}</span>
         </div>
         <p className="cs-showcase-caption">{screen.caption}</p>
-      </motion.div>
+      </m.div>
 
     </div>
   );

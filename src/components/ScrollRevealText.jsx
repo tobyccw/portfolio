@@ -1,40 +1,14 @@
-import React, { useRef } from 'react';
-import { motion, useScroll, useTransform, useReducedMotion } from 'framer-motion';
+import React, { useMemo, useRef } from 'react';
+import { m, useScroll, useTransform, useReducedMotion } from 'framer-motion';
 
-/* ── Inline markdown tokenizer (mirrors renderInlineMarkdown in CaseStudy.jsx) ── */
-const TOKEN_REGEX = /(\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)|\*\*([^*]+)\*\*|\*([^*]+)\*)/g;
-
-function tokenizeParagraph(str) {
-  const tokens = [];
-  let lastIndex = 0;
-  TOKEN_REGEX.lastIndex = 0;
-  let m;
-
-  while ((m = TOKEN_REGEX.exec(str)) !== null) {
-    if (m.index > lastIndex) addWords(str.slice(lastIndex, m.index), 'plain', null, tokens);
-    const [, , linkLabel, linkHref, boldText, italicText] = m;
-    if (linkLabel)    addWords(linkLabel,   'link',   linkHref, tokens);
-    else if (boldText)   addWords(boldText,   'bold',   null,     tokens);
-    else if (italicText) addWords(italicText, 'italic', null,     tokens);
-    lastIndex = TOKEN_REGEX.lastIndex;
-  }
-  if (lastIndex < str.length) addWords(str.slice(lastIndex), 'plain', null, tokens);
-  return tokens;
-}
-
-function addWords(text, type, href, out) {
-  text.split(/(\s+)/).forEach(part => {
-    if (/\S/.test(part)) out.push({ text: part, type, href });
-    else if (part.length) out.push({ text: part, type: 'space' });
-  });
-}
+import { tokenizeParagraph } from '../utils/markdown';
 
 /* ── AnimatedWord — must be its own component so useTransform (hook) can be called ── */
 function AnimatedWord({ scrollYProgress, wordIndex, totalWords, scrollStart, scrollWindow, colorMuted, colorActive, children }) {
   const t0 = scrollStart + (wordIndex / totalWords) * scrollWindow;
   const t1 = scrollStart + ((wordIndex + 1) / totalWords) * scrollWindow;
   const color = useTransform(scrollYProgress, [t0, t1], [colorMuted, colorActive]);
-  return <motion.span style={{ color }}>{children}</motion.span>;
+  return <m.span style={{ color }}>{children}</m.span>;
 }
 
 /* ── ScrollRevealText ─────────────────────────────────────────────────────────── */
@@ -45,7 +19,7 @@ function AnimatedWord({ scrollYProgress, wordIndex, totalWords, scrollStart, scr
  *
  * Supports inline markdown: **bold**, *italic*, [label](url)
  */
-export function ScrollRevealText({
+export const ScrollRevealText = React.memo(function ScrollRevealText({
   paragraphs,
   className,
   colorMuted  = '#aaa',
@@ -57,8 +31,13 @@ export function ScrollRevealText({
   const prefersReducedMotion = useReducedMotion();
   const { scrollYProgress } = useScroll({ target: containerRef, offset: ['start end', 'end start'] });
 
-  const paragraphTokens = paragraphs.map(p => tokenizeParagraph(p));
-  const totalWords      = paragraphTokens.flat().filter(t => t.type !== 'space').length;
+  const { paragraphTokens, totalWords } = useMemo(() => {
+    const tokens = paragraphs.map(p => tokenizeParagraph(p));
+    return {
+      paragraphTokens: tokens,
+      totalWords: tokens.flat().filter(t => t.type !== 'space').length,
+    };
+  }, [paragraphs]);
 
   // Reduced-motion: render static text with markdown preserved, no animation
   if (prefersReducedMotion) {
@@ -112,4 +91,4 @@ export function ScrollRevealText({
       ))}
     </div>
   );
-}
+});

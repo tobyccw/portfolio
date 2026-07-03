@@ -1,69 +1,19 @@
 import React, { useEffect, useCallback, useMemo, useRef, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import ShowcaseCarousel from '../components/ShowcaseCarousel';
+import { ScrollRevealText } from '../components/ScrollRevealText';
+import { WorkCard } from '../components/WorkCard';
 import caseStudies from '../data/case-studies/index';
 import projects from '../data/projects';
 import useActiveSection from '../hooks/useActiveSection';
+import { fadeUpSmall } from '../utils/animation';
+import { renderInlineMarkdown } from '../utils/markdown';
 
-import { ScrollRevealText } from '../components/ScrollRevealText';
 import '../css/case-study.css';
-
-/* ── Animation preset ─────────────────────────────────── */
-const fadeUp = {
-  initial: { opacity: 0, y: 28 },
-  whileInView: { opacity: 1, y: 0 },
-  viewport: { once: true, amount: 0.12 },
-  transition: { duration: 0.6, ease: [0.25, 0.1, 0.25, 1] }
-};
-
-function renderInlineMarkdown(text) {
-  if (typeof text !== 'string' || !text.length) return text;
-
-  const tokenRegex = /(\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)|\*\*([^*]+)\*\*|\*([^*]+)\*)/g;
-  const nodes = [];
-  let lastIndex = 0;
-  let tokenMatch;
-
-  while ((tokenMatch = tokenRegex.exec(text)) !== null) {
-    const [matched, , linkLabel, linkHref, boldText, italicText] = tokenMatch;
-    const { index } = tokenMatch;
-
-    if (index > lastIndex) {
-      nodes.push(text.slice(lastIndex, index));
-    }
-
-    if (linkLabel && linkHref) {
-      nodes.push(
-        <a
-          key={`link-${index}`}
-          href={linkHref}
-          target="_blank"
-          rel="noreferrer"
-        >
-          {linkLabel}
-        </a>
-      );
-    } else if (boldText) {
-      nodes.push(<strong key={`bold-${index}`}>{boldText}</strong>);
-    } else if (italicText) {
-      nodes.push(<em key={`italic-${index}`}>{italicText}</em>);
-    } else {
-      nodes.push(matched);
-    }
-
-    lastIndex = tokenRegex.lastIndex;
-  }
-
-  if (lastIndex < text.length) {
-    nodes.push(text.slice(lastIndex));
-  }
-
-  return nodes;
-}
 
 /* ── Sub-components ──────────────────────────────────────*/
 
@@ -122,34 +72,34 @@ function ImageBlock({ images, onImageClick }) {
   );
 }
 
-/** One transformation block (text + image) */
-function TransformationBlock({ data, onImageClick }) {
+/** One transformation block (text + image) — memoized: props are stable
+    per slug, so re-renders from scroll-driven page state are skipped */
+const TransformationBlock = React.memo(function TransformationBlock({ data, onImageClick }) {
   return (
-    <motion.div id={data.id} className="cs-block" {...fadeUp}>
+    <m.div id={data.id} className="cs-block" {...fadeUpSmall}>
       <div className="cs-block-text">
         <h3 className="cs-block-title">{renderInlineMarkdown(data.title)}</h3>
         <ScrollRevealText className="cs-block-body" paragraphs={data.content} />
       </div>
       <ImageBlock images={data.images} onImageClick={onImageClick} />
-    </motion.div>
+    </m.div>
   );
-}
+});
 
 /** Individual metric card */
-function MetricCard({ data, index }) {
+const MetricCard = React.memo(function MetricCard({ data, index }) {
   return (
-    <motion.div
+    <m.div
       className="cs-metric-card"
-      initial={{ opacity: 0, y: 28 }}
-      whileInView={{ opacity: 1, y: 0 }}
+      {...fadeUpSmall}
       viewport={{ once: true, amount: 0.2 }}
-      transition={{ duration: 0.5, ease: [0.25, 0.1, 0.25, 1], delay: index * 0.08 }}
+      transition={{ ...fadeUpSmall.transition, duration: 0.5, delay: index * 0.08 }}
     >
       <span className="cs-metric-number">{data.number}</span>
       <span className="cs-metric-label">{data.label}</span>
-    </motion.div>
+    </m.div>
   );
-}
+});
 
 // Fixed curated set — defines which 5 projects appear in the Other Works module
 // and in what order. Excluding the current slug always leaves exactly 4.
@@ -161,54 +111,30 @@ const CURATED_SLUGS = [
   'livi-paylater',
 ];
 
+// Static data — resolved once at module load, not per render
+const CURATED_PROJECTS = CURATED_SLUGS
+  .map(slug => projects.find(p => p.slug === slug))
+  .filter(Boolean);
+
+// Other Works grid is CSS grid (not flex) — the link only needs text reset
+const GRID_LINK_STYLE = { textDecoration: 'none' };
+
 /** Reusable selected-works grid */
 function OtherWorksSection({ excludeSlug }) {
-  const curatedProjects = CURATED_SLUGS
-    .map(slug => projects.find(p => p.slug === slug))
-    .filter(Boolean);
-
   // Current page is one of the curated 5 → show the other 4 in order
   // Otherwise (non-curated page, or no excludeSlug) → show first 4 of curated list
   const visible = (excludeSlug && CURATED_SLUGS.includes(excludeSlug))
-    ? curatedProjects.filter(p => p.slug !== excludeSlug)
-    : curatedProjects.slice(0, 4);
+    ? CURATED_PROJECTS.filter(p => p.slug !== excludeSlug)
+    : CURATED_PROJECTS.slice(0, 4);
 
   return (
     <section className="cs-other-works">
       <div className="container">
         <h2 className="section-title">Other Selected Works</h2>
         <div className="works-grid">
-          {visible.map((project) => {
-            const card = (
-              <motion.div
-                className="work-card"
-                whileHover={{ y: -4 }}
-                transition={{ type: 'spring', stiffness: 200 }}
-              >
-                <div className="work-image">
-                  {project.image
-                    ? <img src={project.image} alt={project.title} loading="lazy" />
-                    : <div className="work-image-placeholder"><span>{project.title}</span></div>
-                  }
-                  {!project.available && (
-                    <div className="work-coming-soon">
-                      <span>Coming Soon</span>
-                    </div>
-                  )}
-                </div>
-                <h4 className="work-title">{project.title}</h4>
-                <p className="work-subtitle">{project.subtitle}</p>
-              </motion.div>
-            );
-
-            return project.available
-              ? (
-                <Link key={project.slug} to={`/work/${project.slug}`} style={{ textDecoration: 'none' }}>
-                  {card}
-                </Link>
-              )
-              : <React.Fragment key={project.slug}>{card}</React.Fragment>;
-          })}
+          {visible.map(project => (
+            <WorkCard key={project.slug} project={project} linkStyle={GRID_LINK_STYLE} />
+          ))}
         </div>
       </div>
     </section>
@@ -357,10 +283,13 @@ function CaseStudy() {
     const section = transformationsSectionRef.current;
     if (!section) return;
 
+    // Element lookups are stable per slug — resolve once, not per scroll event
+    const headingEl = section.querySelector('.cs-sidebar-heading');
+    const lastId = data?.transformations?.[data.transformations.length - 1]?.id;
+    const lastBlock = lastId ? document.getElementById(lastId) : null;
+
     const update = () => {
       const sectionRect = section.getBoundingClientRect();
-      // Find the section heading ("How I Built It") inside the section
-      const headingEl = section.querySelector('.cs-sidebar-heading');
       const triggerRect = headingEl
         ? headingEl.getBoundingClientRect()
         : sectionRect;
@@ -368,17 +297,27 @@ function CaseStudy() {
       // Show: heading has scrolled above the header bottom AND the last
       // transformation block is still on screen (not scrolled past yet).
       const headingPast = triggerRect.bottom <= headerHeight;
-      const lastId = data?.transformations?.[data.transformations.length - 1]?.id;
-      const lastBlock = lastId ? document.getElementById(lastId) : null;
       const lastBlockVisible = lastBlock
         ? lastBlock.getBoundingClientRect().bottom > headerHeight
         : sectionRect.bottom > headerHeight;
       setShowMobileNav(headingPast && lastBlockVisible);
     };
 
-    window.addEventListener('scroll', update, { passive: true });
+    // rAF-throttle: coalesce bursts of scroll events into one layout read
+    // per frame (same pattern as useActiveSection)
+    let ticking = false;
+    const onScroll = () => {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(() => {
+        ticking = false;
+        update();
+      });
+    };
+
+    window.addEventListener('scroll', onScroll, { passive: true });
     update(); // set correct initial state on mount / slug change
-    return () => window.removeEventListener('scroll', update);
+    return () => window.removeEventListener('scroll', onScroll);
   }, [data, headerHeight]);
 
   // IDs for the transformation blocks (used by anchor nav + IntersectionObserver)
@@ -459,7 +398,7 @@ function CaseStudy() {
 
       {/* ── Hero ─────────────────────────────────────── */}
       {/* Desktop: full hero_image. Mobile: project thumbnail (square full-bleed). */}
-      <motion.section
+      <m.section
         className="cs-hero"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -482,7 +421,7 @@ function CaseStudy() {
             </>
           : <div className="cs-hero-placeholder"><span>{data.title}</span></div>
         }
-      </motion.section>
+      </m.section>
 
       {/* ── Intro: Title & Meta ───────────────────────── */}
       {/* Figma "Led in": justify-between, left = title, right = Disciplines|MyRole|Year */}
@@ -490,18 +429,16 @@ function CaseStudy() {
         <div className="container">
           <div className="cs-intro-layout">
             {/* Left: title + subtitle */}
-            <motion.div className="cs-title-block" {...fadeUp}>
+            <m.div className="cs-title-block" {...fadeUpSmall}>
               <h1 className="cs-title">{renderInlineMarkdown(data.title)}</h1>
               <p className="cs-subtitle">{renderInlineMarkdown(data.subtitle)}</p>
-            </motion.div>
+            </m.div>
 
             {/* Right: Disciplines | My Role | Year — horizontal flex row, gap 48px */}
-            <motion.div
+            <m.div
               className="cs-meta-block"
-              initial={{ opacity: 0, y: 28 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.12 }}
-              transition={{ duration: 0.6, ease: [0.25, 0.1, 0.25, 1], delay: 0.1 }}
+              {...fadeUpSmall}
+              transition={{ ...fadeUpSmall.transition, delay: 0.1 }}
             >
               {/* Disciplines: label + tag pills */}
               <div className="cs-meta-group">
@@ -524,7 +461,7 @@ function CaseStudy() {
                 <span className="cs-meta-label">Year</span>
                 <span className="cs-meta-value">{renderInlineMarkdown(data.year)}</span>
               </div>
-            </motion.div>
+            </m.div>
           </div>
         </div>
       </section>
@@ -535,9 +472,9 @@ function CaseStudy() {
           <div className="container">
             <div className="cs-layout">
               {/* Left: section heading */}
-              <motion.div className="cs-col-left" {...fadeUp}>
+              <m.div className="cs-col-left" {...fadeUpSmall}>
                 <h2 className="cs-section-heading">What's wrong?</h2>
-              </motion.div>
+              </m.div>
 
               {/* Right: body text */}
               <ScrollRevealText
@@ -616,9 +553,9 @@ function CaseStudy() {
           <div className="container">
             <div className="cs-layout">
               {/* Left: section heading */}
-              <motion.div className="cs-col-left" {...fadeUp}>
+              <m.div className="cs-col-left" {...fadeUpSmall}>
                 <h2 className="cs-section-heading">{data.results_heading}</h2>
-              </motion.div>
+              </m.div>
 
               {/* Right: metric cards */}
               <div className="cs-col-right">
@@ -638,9 +575,9 @@ function CaseStudy() {
         <section className="cs-problem">
           <div className="container">
             <div className="cs-layout">
-              <motion.div className="cs-col-left" {...fadeUp}>
+              <m.div className="cs-col-left" {...fadeUpSmall}>
                 <h2 className="cs-section-heading">Reflection</h2>
-              </motion.div>
+              </m.div>
               <ScrollRevealText
                 className="cs-col-right cs-body-text"
                 paragraphs={[data.reflection]}
@@ -656,22 +593,20 @@ function CaseStudy() {
           <div className="container">
             <div className="cs-layout">
               {/* Left: section heading */}
-              <motion.div className="cs-col-left" {...fadeUp}>
+              <m.div className="cs-col-left" {...fadeUpSmall}>
                 <h2 className="cs-section-heading">
                   {data.showcase_heading || 'Showcase'}
                 </h2>
-              </motion.div>
+              </m.div>
 
               {/* Right: carousel */}
-              <motion.div
+              <m.div
                 className="cs-col-right"
-                initial={{ opacity: 0, y: 28 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.12 }}
-                transition={{ duration: 0.6, ease: [0.25, 0.1, 0.25, 1], delay: 0.1 }}
+                {...fadeUpSmall}
+                transition={{ ...fadeUpSmall.transition, delay: 0.1 }}
               >
                 <ShowcaseCarousel screens={data.showcase_screens} onImageClick={setLightboxSrc} />
-              </motion.div>
+              </m.div>
             </div>
           </div>
         </section>

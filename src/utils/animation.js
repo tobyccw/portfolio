@@ -8,3 +8,11 @@ export const fadeUp = {
   viewport:    { once: true, amount: 0.12 },
   transition:  { duration: 0.75, ease: [0.25, 0.1, 0.25, 1] },
 };
+
+/* Subtler variant used on case study pages (smaller travel, quicker) */
+export const fadeUpSmall = {
+  initial:     { opacity: 0, y: 28 },
+  whileInView: { opacity: 1, y: 0 },
+  viewport:    { once: true, amount: 0.12 },
+  transition:  { duration: 0.6, ease: [0.25, 0.1, 0.25, 1] },
+};

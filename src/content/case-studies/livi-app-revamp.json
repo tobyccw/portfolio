@@ -2,7 +2,7 @@
   "slug": "livi-app-revamp",
   "title": "livi App Revamp",
   "subtitle": "Transforming livi Bank's design operations",
-  "hero_image": "/images/case-studies/livi-app-revamp/hero.jpg",
+  "hero_image": "/images/case-studies/livi-app-revamp/hero.webp",
   "disciplines": [
     "UXUI Design",
     "Interaction Design",
@@ -29,7 +29,7 @@
       ],
       "images": {
         "type": "full",
-        "src": "/images/case-studies/livi-app-revamp/design-system.jpg",
+        "src": "/images/case-studies/livi-app-revamp/design-system.webp",
         "border": true
       }
     },
@@ -43,7 +43,7 @@
       ],
       "images": {
         "type": "full",
-        "src": "/images/case-studies/livi-app-revamp/lokalise.jpg",
+        "src": "/images/case-studies/livi-app-revamp/lokalise.webp",
         "border": false
       }
     },
@@ -58,8 +58,8 @@
       "images": {
         "type": "dual",
         "src": [
-          "/images/case-studies/livi-app-revamp/ia-mobile.jpg",
-          "/images/case-studies/livi-app-revamp/ia-comparison.jpg"
+          "/images/case-studies/livi-app-revamp/ia-mobile.webp",
+          "/images/case-studies/livi-app-revamp/ia-comparison.webp"
         ]
       }
     }

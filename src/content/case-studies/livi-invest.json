@@ -2,7 +2,7 @@
   "slug": "livi-invest",
   "title": "livi Invest",
   "subtitle": "Fund investing, designed for beginners",
-  "hero_image": "/images/case-studies/livi-invest/hero.jpg",
+  "hero_image": "/images/case-studies/livi-invest/hero.webp",
   "disciplines": [
     "UXUI Design",
     "Interaction Design",
@@ -31,8 +31,8 @@
       "images": {
         "type": "dual",
         "src": [
-          "/images/case-studies/livi-invest/workshop.jpg",
-          "/images/case-studies/livi-invest/mapping.jpg"
+          "/images/case-studies/livi-invest/workshop.webp",
+          "/images/case-studies/livi-invest/mapping.webp"
         ]
       }
     },
@@ -45,7 +45,7 @@
       ],
       "images": {
         "type": "full",
-        "src": "/images/case-studies/livi-invest/conversational-flow.jpg",
+        "src": "/images/case-studies/livi-invest/conversational-flow.webp",
         "border": true
       }
     },
@@ -58,7 +58,7 @@
       ],
       "images": {
         "type": "full",
-        "src": "/images/case-studies/livi-invest/education.jpg",
+        "src": "/images/case-studies/livi-invest/education.webp",
         "border": false
       }
     }

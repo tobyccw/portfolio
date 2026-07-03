@@ -1,8 +1,14 @@
 import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
-import { AnimatePresence, motion } from 'framer-motion';
+import { AnimatePresence, m } from 'framer-motion';
 import { Link } from 'react-router-dom';
 
-const MotionLink = motion(Link);
+const MotionLink = m(Link);
+
+const navLinks = [
+  { label: 'Home',  to: '/#home', key: 'home' },
+  { label: 'Work',  to: '/#work', key: 'work' },
+  { label: 'About', to: '/about', key: 'about' },
+];
 
 const WEATHER_CACHE_KEY = 'header-weather-v2';
 const WEATHER_TTL_MS = 10 * 60 * 1000;
@@ -190,18 +196,12 @@ function Header({ navActive }) {
     };
   }, []);
 
-  const navLinks = [
-    { label: 'Home',  to: '/#home', key: 'home' },
-    { label: 'Work',  to: '/#work', key: 'work' },
-    { label: 'About', to: '/about', key: 'about' },
-  ];
-
   return (
     <>
       {/* ── Single shared glass backdrop ─────────────────────────
           One backdrop-filter covers both the header bar and the
           mobile nav — no seam, no separate blur regions.          */}
-      <motion.div
+      <m.div
         className="glass-backdrop"
         animate={{
           height:       mobileMenuOpen ? headerH + navH : headerH,
@@ -214,7 +214,7 @@ function Header({ navActive }) {
 
         <AnimatePresence>
           {mobileMenuOpen && (
-            <motion.nav
+            <m.nav
               ref={navRef}
               className="nav-mobile"
               initial={{ opacity: 0, y: -12 }}
@@ -242,10 +242,10 @@ function Header({ navActive }) {
               >
                 Connect!
               </Link>
-            </motion.nav>
+            </m.nav>
           )}
         </AnimatePresence>
-      </motion.div>
+      </m.div>
 
       {/* ── Sticky header bar ────────────────────────────────────
           Transparent — sits above the glass backdrop (z-index 100)

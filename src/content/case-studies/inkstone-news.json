@@ -2,7 +2,7 @@
   "slug": "inkstone-news",
   "title": "Inkstone News",
   "subtitle": "Improving editorial storytelling for mobile-first readers",
-  "hero_image": "/images/inkstone.jpg",
+  "hero_image": "/images/inkstone.webp",
   "disciplines": ["Product Design", "UX", "Content Strategy"],
   "role": "Product Designer",
   "year": "2019",
@@ -21,7 +21,7 @@
       ],
       "images": {
         "type": "full",
-        "src": "/images/inkstone.jpg",
+        "src": "/images/inkstone.webp",
         "border": false
       }
     },
@@ -34,7 +34,7 @@
       ],
       "images": {
         "type": "full",
-        "src": "/images/scmp-cooking.jpg",
+        "src": "/images/scmp-cooking.webp",
         "border": false
       }
     }

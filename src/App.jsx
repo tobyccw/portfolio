@@ -6,13 +6,14 @@ import {
   Routes,
   useLocation
 } from 'react-router-dom';
-import { motion } from 'framer-motion';
+import { LazyMotion, domAnimation, m } from 'framer-motion';
 import { fadeUp } from './utils/animation';
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/react';
 
 import Header from './components/Header';
 import { WordBlurReveal } from './components/WordBlurReveal';
+import { WorkCard } from './components/WorkCard';
 import projects from './data/projects';
 import socialLinks from './data/social-links';
 import './App.css';
@@ -53,7 +54,7 @@ function ScrollToHash() {
   return null;
 }
 
-const MotionLink = motion(Link);
+const MotionLink = m(Link);
 
 function HomePage() {
   const trackRef = useRef(null);
@@ -138,8 +139,8 @@ function HomePage() {
             <span className="text-light">.</span>
           </WordBlurReveal>
 
-          <motion.div className="companies-logos" {...fadeUp}
-            transition={{ duration: 0.75, ease: [0.25, 0.1, 0.25, 1], delay: 0.15 }}
+          <m.div className="companies-logos" {...fadeUp}
+            transition={{ ...fadeUp.transition, delay: 0.15 }}
           >
             <div className="companies-logos-track" ref={trackRef}>
               {companies.map((company, index) => (
@@ -159,61 +160,27 @@ function HomePage() {
                 </div>
               ))}
             </div>
-          </motion.div>
+          </m.div>
         </div>
       </section>
 
       <section className="works" id="work">
         <div className="container">
-          <motion.h3 className="section-title" {...fadeUp}>Selected Works</motion.h3>
+          <m.h3 className="section-title" {...fadeUp}>Selected Works</m.h3>
 
           <div className="works-grid">
-            {projects.slice(0, 4).map((project, i) => {
-              const card = (
-                <motion.div
-                  className="work-card"
-                  {...fadeUp}
-                  viewport={{ once: true, amount: 0.1 }}
-                  whileHover={{ y: -4 }}
-                  transition={{ ...fadeUp.transition, delay: i * 0.08 }}
-                >
-                  <div className="work-image">
-                    {project.image ? (
-                      <img src={project.image} alt={project.title} loading="lazy" />
-                    ) : (
-                      <div className="work-image-placeholder">
-                        <span>{project.title}</span>
-                      </div>
-                    )}
-                    {!project.available && (
-                      <div className="work-coming-soon">
-                        <span>Coming Soon</span>
-                      </div>
-                    )}
-                  </div>
-                  <h4 className="work-title">{project.title}</h4>
-                  <p className="work-subtitle">{project.subtitle}</p>
-                </motion.div>
-              );
-
-              return project.available ? (
-                <Link
-                  key={project.slug}
-                  to={`/work/${project.slug}`}
-                  style={{
-                    flex: 1,
-                    alignSelf: 'stretch',
-                    display: 'flex',
-                    textDecoration: 'none',
-                    color: 'inherit'
-                  }}
-                >
-                  {card}
-                </Link>
-              ) : (
-                <React.Fragment key={project.slug}>{card}</React.Fragment>
-              );
-            })}
+            {projects.slice(0, 4).map((project, i) => (
+              <WorkCard
+                key={project.slug}
+                project={project}
+                entrance={{
+                  ...fadeUp,
+                  viewport: { once: true, amount: 0.1 },
+                  whileHover: { y: -4 },
+                  transition: { ...fadeUp.transition, delay: i * 0.08 },
+                }}
+              />
+            ))}
           </div>
 
         </div>
@@ -221,12 +188,12 @@ function HomePage() {
 
       <section className="connect" id="connect">
         <div className="container">
-          <motion.h3 className="section-title" {...fadeUp}>Let's connect!</motion.h3>
+          <m.h3 className="section-title" {...fadeUp}>Let's connect!</m.h3>
           <div className="social-links">
             {socialLinks.map(({ label, href }, i) => {
               const isExternal = href.startsWith('http');
               return (
-                <motion.a
+                <m.a
                   key={label}
                   href={href}
                   className="social-link"
@@ -238,7 +205,7 @@ function HomePage() {
                   rel={isExternal ? 'noreferrer' : undefined}
                 >
                   {label}
-                </motion.a>
+                </m.a>
               );
             })}
           </div>
@@ -264,7 +231,7 @@ function HomePage() {
             </MotionLink>
             <div
               className="about-image"
-              style={{ backgroundImage: `url(${process.env.PUBLIC_URL}/images/about-bg.jpg)` }}
+              style={{ backgroundImage: `url(${process.env.PUBLIC_URL}/images/about-bg.webp)` }}
             />
           </div>
         </div>
@@ -297,19 +264,21 @@ function App() {
   }, []);
 
   return (
-    <BrowserRouter>
-      <ScrollToHash />
-      <Suspense fallback={<div className="container" style={{ padding: '40px 24px' }}>Loading...</div>}>
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/work/:slug" element={<CaseStudy />} />
-          <Route path="*" element={<NotFoundPage />} />
-        </Routes>
-      </Suspense>
-      <Analytics />
-      <SpeedInsights />
-    </BrowserRouter>
+    <LazyMotion features={domAnimation} strict>
+      <BrowserRouter>
+        <ScrollToHash />
+        <Suspense fallback={<div className="container" style={{ padding: '40px 24px' }}>Loading...</div>}>
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/work/:slug" element={<CaseStudy />} />
+            <Route path="*" element={<NotFoundPage />} />
+          </Routes>
+        </Suspense>
+        <Analytics />
+        <SpeedInsights />
+      </BrowserRouter>
+    </LazyMotion>
   );
 }
 

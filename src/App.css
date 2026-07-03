@@ -345,33 +345,6 @@ body {
   padding: 0 12px;
 }
 
-.see-more {
-  display: none; /* hidden for now */
-  align-items: center;
-  gap: 8px;
-  font-size: var(--ts-h3-size);
-  font-weight: var(--ts-h3-weight);
-  line-height: var(--ts-h3-line-height);
-  letter-spacing: var(--ts-h3-tracking);
-  color: var(--black);
-  text-decoration: none;
-}
-
-.see-more-arrow {
-  display: inline-flex;
-  align-items: center;
-  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-}
-
-.see-more-arrow svg {
-  width: 24px;
-  height: 24px;
-}
-
-.see-more:hover .see-more-arrow {
-  transform: translateX(4px);
-}
-
 /* Companies Section */
 .companies {
   min-height: 100vh;
@@ -431,12 +404,8 @@ body {
   padding: 80px 0;
 }
 
+/* Base .section-title already provides the H2 token — only the margin differs */
 .connect .section-title {
-  font-size: var(--ts-h2-size);
-  font-weight: var(--ts-h2-weight);
-  line-height: var(--ts-h2-line-height);
-  letter-spacing: var(--ts-h2-tracking);
-  color: var(--black);
   margin-bottom: 24px;
 }
 
@@ -660,13 +629,6 @@ body {
 
   .location {
     line-height: 20px;                     /* compact line-height per Figma */
-  }
-
-  .see-more {
-    font-size: var(--ts-h4-size);         /* H3 → H4 step-down */
-    font-weight: var(--ts-h4-weight);
-    line-height: var(--ts-h4-line-height);
-    letter-spacing: var(--ts-h4-tracking);
   }
 
   .social-link {

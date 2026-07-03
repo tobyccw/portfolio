@@ -2,7 +2,7 @@
   "slug": "livi-paylater",
   "title": "livi PayLater",
   "subtitle": "Hong Kong's first automated instalment product for a virtual bank",
-  "hero_image": "/images/case-studies/livi-paylater/hero.jpg",
+  "hero_image": "/images/case-studies/livi-paylater/hero.webp",
   "disciplines": [
     "UXUI Design",
     "Interaction Design",
@@ -28,7 +28,7 @@
       ],
       "images": {
         "type": "full",
-        "src": "/images/case-studies/livi-paylater/calculator.jpg",
+        "src": "/images/case-studies/livi-paylater/calculator.webp",
         "border": true
       }
     },
@@ -42,7 +42,7 @@
       ],
       "images": {
         "type": "full",
-        "src": "/images/case-studies/livi-paylater/presets.jpg",
+        "src": "/images/case-studies/livi-paylater/presets.webp",
         "border": false
       }
     },
@@ -56,7 +56,7 @@
       ],
       "images": {
         "type": "full",
-        "src": "/images/case-studies/livi-paylater/meter.jpg",
+        "src": "/images/case-studies/livi-paylater/meter.webp",
         "border": false
       }
     }

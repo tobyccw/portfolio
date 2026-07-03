@@ -2,7 +2,7 @@
   "slug": "capitalcom-app-evolution",
   "title": "Capital.com App: Visual Design Evolution",
   "subtitle": "Iterating toward modern fintech UX across changing organizational priorities",
-  "hero_image": "/images/case-studies/capitalcom-app-evolution/hero.jpg",
+  "hero_image": "/images/case-studies/capitalcom-app-evolution/hero.webp",
   "disciplines": [
     "Visual Design",
     "Stakeholder Management",
@@ -29,7 +29,7 @@
       ],
       "images": {
         "type": "full",
-        "src": "/images/case-studies/capitalcom-app-evolution/original.jpg"
+        "src": "/images/case-studies/capitalcom-app-evolution/original.webp"
       }
     },
     {
@@ -42,7 +42,7 @@
 ],
       "images": {
         "type": "full",
-        "src": "/images/case-studies/capitalcom-app-evolution/2024.jpg"
+        "src": "/images/case-studies/capitalcom-app-evolution/2024.webp"
       }
     },
     {
@@ -55,7 +55,7 @@
 ],
       "images": {
         "type": "full",
-        "src": "/images/case-studies/capitalcom-app-evolution/2025.jpg"
+        "src": "/images/case-studies/capitalcom-app-evolution/2025.webp"
       }
     }
   ],
@@ -65,31 +65,31 @@
     {
       "id": "home-screen",
       "title": "Home Screen Reimagined",
-      "image": "/images/case-studies/capitalcom-app-evolution/home-screen.jpg",
+      "image": "/images/case-studies/capitalcom-app-evolution/home-screen.webp",
       "caption": "Users consistently reported difficulty understanding how the app worked. The redesigned home screen addresses this directly with a simplified information hierarchy that prioritises account performance and quick actions. Card-based layout provides scalability across different user types and account states. Typography hierarchy guides the eye through balance, performance, and available actions without overwhelming."
     },
     {
       "id": "portfolio",
       "title": "Portfolio Overview",
-      "image": "/images/case-studies/capitalcom-app-evolution/portfolio.jpg",
+      "image": "/images/case-studies/capitalcom-app-evolution/portfolio.webp",
       "caption": "The home screen widget expands to reveal margin status, available balance, and equity without leaving the page. Users no longer need to navigate into their portfolio to check position health. The margin level gauge provides an immediate visual read on account safety, directly addressing the top VOC pain point where users were caught off guard by margin calls. Collapsed, the same widget keeps the interface clean with just account balance and quick actions."
     },
     {
       "id": "search",
       "title": "AI-Powered Search",
-      "image": "/images/case-studies/capitalcom-app-evolution/search.jpg",
+      "image": "/images/case-studies/capitalcom-app-evolution/search.webp",
       "caption": "AI-powered search introduces intent-based discovery alongside existing category navigation. Users can find instruments, account actions, and educational content through a single entry point using natural language. The system surfaces contextual results across all account types, reducing the friction that VOC data consistently flagged around instrument discovery."
     },
     {
       "id": "watchlist",
       "title": "Watchlist & Market Data",
-      "image": "/images/case-studies/capitalcom-app-evolution/watchlist.jpg",
+      "image": "/images/case-studies/capitalcom-app-evolution/watchlist.webp",
       "caption": "Custom sorting and filtering was one of the most requested features in VOC feedback. The redesigned watchlist introduces compact and detailed view options to accommodate different trading styles, with refined data visualisation that makes price movements scannable at a glance. The color system differentiates instrument types while maintaining accessibility standards."
     },
     {
       "id": "trade-ticket",
       "title": "Trade Execution",
-      "image": "/images/case-studies/capitalcom-app-evolution/trade-ticket.jpg",
+      "image": "/images/case-studies/capitalcom-app-evolution/trade-ticket.webp",
       "caption": "Streamlined trade ticket reduces cognitive load during high-pressure moments. Clear buy/sell distinction, prominent margin requirements, and accessible price information support confident decision-making. Interactive elements sized for precision on mobile devices."
     }
 
