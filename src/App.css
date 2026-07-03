@@ -68,8 +68,8 @@ body {
   position: absolute;
   inset: 0;
   z-index: -3;
-  backdrop-filter: blur(12px) saturate(170%) brightness(1.12);
-  -webkit-backdrop-filter: blur(12px) saturate(170%) brightness(1.12);
+  backdrop-filter: blur(12px) saturate(115%) brightness(1.06);
+  -webkit-backdrop-filter: blur(12px) saturate(115%) brightness(1.06);
   pointer-events: none;
 }
 
@@ -82,8 +82,8 @@ body {
   position: absolute;
   inset: 0;
   z-index: -2;
-  backdrop-filter: url(#glass-lens) blur(12px) saturate(170%) brightness(1.12);
-  -webkit-backdrop-filter: url(#glass-lens) blur(12px) saturate(170%) brightness(1.12);
+  backdrop-filter: url(#glass-lens) blur(12px) saturate(115%) brightness(1.06);
+  -webkit-backdrop-filter: url(#glass-lens) blur(12px) saturate(115%) brightness(1.06);
   pointer-events: none;
 }
 
