@@ -7,6 +7,9 @@
   position: relative;
   width: 100%;
   height: 771px;
+  /* Clear the floating header pill (overlaps flow by its 12px top offset)
+     plus a matching 12px gap between pill and image */
+  margin-top: 24px;
   overflow: hidden;
   background: #1a1a1a;
 }
@@ -163,6 +166,7 @@
   /* Hero: full viewport height on mobile */
   .about-hero {
     height: 100svh;
+    margin-top: 16px;         /* mobile pill offset is 8px → 8px clear + 8px gap */
   }
 
   .about-hero-img {
