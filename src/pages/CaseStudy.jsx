@@ -275,8 +275,10 @@ function CaseStudy() {
   const transformationsSectionRef = useRef(null);
 
   useEffect(() => {
+    // Floating pill: fixed elements must clear its bottom edge
+    // (sticky top offset + pill height), not just its height
     const header = document.querySelector('.header');
-    if (header) setHeaderHeight(header.offsetHeight);
+    if (header) setHeaderHeight(Math.round(header.getBoundingClientRect().bottom));
   }, []);
 
   useEffect(() => {

@@ -1,4 +1,4 @@
-import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { AnimatePresence, m } from 'framer-motion';
 import { Link } from 'react-router-dom';
 
@@ -105,34 +105,6 @@ function Header({ navActive }) {
   const [temperature, setTemperature] = useState('');
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-  // Heights for the single shared glass backdrop
-  const headerRef = useRef(null);
-  const navRef    = useRef(null);
-  const [headerH, setHeaderH] = useState(56);   // fallback ≈ mobile header
-  const [navH,    setNavH]    = useState(0);
-
-  // Measure header height before first paint and on resize
-  useLayoutEffect(() => {
-    const update = () => {
-      if (!headerRef.current) return;
-      const h = headerRef.current.offsetHeight;
-      setHeaderH(h);
-      document.documentElement.style.setProperty('--header-h', `${h}px`);
-    };
-    update();
-    window.addEventListener('resize', update);
-    return () => window.removeEventListener('resize', update);
-  }, []);
-
-  // Measure nav height synchronously after it mounts / unmounts
-  useLayoutEffect(() => {
-    if (mobileMenuOpen && navRef.current) {
-      setNavH(navRef.current.offsetHeight);
-    } else {
-      setNavH(0);
-    }
-  }, [mobileMenuOpen]);
-
   useEffect(() => {
     const updateTime = () => {
       const now = new Date();
@@ -198,60 +170,19 @@ function Header({ navActive }) {
 
   return (
     <>
-      {/* ── Single shared glass backdrop ─────────────────────────
-          One backdrop-filter covers both the header bar and the
-          mobile nav — no seam, no separate blur regions.          */}
-      <m.div
-        className="glass-backdrop"
-        animate={{
-          height:       mobileMenuOpen ? headerH + navH : headerH,
-          borderRadius: mobileMenuOpen ? '0 0 24px 24px' : '0 0 0 0',
-        }}
-        transition={{ duration: 0.28, ease: [0.23, 1, 0.32, 1] }}
-      >
-        {/* Spacer: pushes nav content below the header bar area */}
-        <div style={{ height: headerH, flexShrink: 0 }} aria-hidden="true" />
-
-        <AnimatePresence>
-          {mobileMenuOpen && (
-            <m.nav
-              ref={navRef}
-              className="nav-mobile"
-              initial={{ opacity: 0, y: -12 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -12 }}
-              transition={{ duration: 0.28, ease: [0.23, 1, 0.32, 1] }}
-            >
-              <div className="nav-mobile-links">
-                {navLinks.map((link) => (
-                  <Link
-                    key={link.key}
-                    to={link.to}
-                    onClick={() => setMobileMenuOpen(false)}
-                    style={navActive === link.key ? { color: '#000000' } : {}}
-                  >
-                    {link.label}
-                  </Link>
-                ))}
-              </div>
-              <Link
-                to="/#connect"
-                className="btn-connect btn-connect-full"
-                onClick={() => setMobileMenuOpen(false)}
-                style={{ textDecoration: 'none', textAlign: 'center' }}
-              >
-                Connect!
-              </Link>
-            </m.nav>
-          )}
-        </AnimatePresence>
-      </m.div>
-
-      {/* ── Sticky header bar ────────────────────────────────────
-          Transparent — sits above the glass backdrop (z-index 100)
-          so the backdrop's blur shows through underneath.         */}
-      <header ref={headerRef} className="header">
+      {/* ── Floating liquid-glass pill ───────────────────────────
+          One rounded lens holds the header bar and (on mobile) the
+          expanding menu. Radius relaxes from capsule to rounded
+          rect as the menu opens; height animates via the menu's
+          height: 0 ↔ auto wrapper.                                */}
+      <header className="header">
         <div className="container">
+          <m.div
+            className="glass-pill"
+            animate={{ borderRadius: mobileMenuOpen ? 28 : 48 }}
+            transition={{ duration: 0.32, ease: [0.23, 1, 0.32, 1] }}
+          >
+          <div className="glass-pill-blur" aria-hidden="true" />
           <div className="header-content">
             <div className="header-left">
               <Link to="/" className="logo" style={{ textDecoration: 'none', color: 'inherit' }}>
@@ -302,6 +233,43 @@ function Header({ navActive }) {
               <div className="icn-bar icn-bar-bottom" />
             </button>
           </div>
+
+          {/* Mobile menu — expands the pill downward */}
+          <AnimatePresence initial={false}>
+            {mobileMenuOpen && (
+              <m.div
+                className="nav-mobile-wrap"
+                initial={{ height: 0, opacity: 0 }}
+                animate={{ height: 'auto', opacity: 1 }}
+                exit={{ height: 0, opacity: 0 }}
+                transition={{ duration: 0.32, ease: [0.23, 1, 0.32, 1] }}
+              >
+                <nav className="nav-mobile">
+                  <div className="nav-mobile-links">
+                    {navLinks.map((link) => (
+                      <Link
+                        key={link.key}
+                        to={link.to}
+                        onClick={() => setMobileMenuOpen(false)}
+                        style={navActive === link.key ? { color: '#000000' } : {}}
+                      >
+                        {link.label}
+                      </Link>
+                    ))}
+                  </div>
+                  <Link
+                    to="/#connect"
+                    className="btn-connect btn-connect-full"
+                    onClick={() => setMobileMenuOpen(false)}
+                    style={{ textDecoration: 'none', textAlign: 'center' }}
+                  >
+                    Connect!
+                  </Link>
+                </nav>
+              </m.div>
+            )}
+          </AnimatePresence>
+          </m.div>
         </div>
       </header>
     </>
